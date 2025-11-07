@@ -1,0 +1,115 @@
+@use "sass:color";
+/* ======================================
+   🎨 Tokens de Design (tema genérico)
+   ====================================== */
+
+/* Paleta base (default/EDL) */
+
+:root {
+  /* ... outros tokens já existentes ... */
+
+  --text-color: #222222;
+  --text-color-secondary: #666666;
+}
+
+
+
+$primary:   #1f6fa7 !default; // Azul EDL
+$secondary: #d89a00 !default; // Mostarda
+$accent:    #e4571e !default; // Laranja
+
+$blue-900: #0b2a4a !default;
+$blue-800: #123a66 !default;
+$blue-700: #184a80 !default;
+$beige-050: #f6f2ea !default;
+$gray-100: #eef1f4 !default;
+
+$azul-escuro-avalara: #025979 !default;
+$azul-claro-avalara: #007aff !default;
+
+
+/* Neutros */
+$gray-100: #f5f5f5 !default;
+$gray-300: #d9d9d9 !default;
+$gray-500: #999999 !default;
+$gray-700: #555555 !default;
+$gray-900: #333333 !default;
+
+/* Tipografia */
+$font-family: 'Roboto', sans-serif !default;
+
+/* Radius */
+$radius-sm: 4px !default;
+$radius-md: 8px !default;
+$radius-lg: 16px !default;
+
+/* Sombras */
+$shadow-sm: 0 1px 2px rgba(0,0,0,.06) !default;
+$shadow-md: 0 4px 10px rgba(0,0,0,.10) !default;
+$shadow-lg: 0 12px 24px rgba(0,0,0,.16) !default;
+
+$color-body:        #0f172a !default; // cinza-azulado escuro (texto principal)
+$color-strong:      #111827 !default; // forte (títulos)
+$color-muted:       #6b7280 !default; // legendas/ajuda
+$color-placeholder: color.scale($color-body, $lightness: 35%) !default;
+
+$text-body:         $color-body !default;
+$text-strong:       $color-strong !default;
+$text-muted:        $color-muted !default;
+$text-placeholder:  $color-placeholder !default;
+
+
+// Topbar
+$topbar-bg: #02426B !default;
+$shadow-md: 0 2px 6px rgba(0,0,0,.08) !default;
+$radius-md: .5rem !default;
+
+// Sidebar
+$sidebar-bg: #FA6400 !default;
+$sidebar-color: #fff !default;
+$sidebar-hover-bg: #025979 !default;
+
+// Footer
+$footer-bg: #ef6c00 !default;
+$footer-color: #fff !default;
+
+// login
+
+$surface:   #ffffff !default;
+$surface-2: #f8fafc !default;
+
+// Texto / estado
+$text-900:  #111827 !default;  // títulos
+$text-700:  #334155 !default;  // subtítulos/labels
+$text-800: #1f2937 !default;
+$text-600: #4b5563 !default;
+$danger-600: #dc2626 !default;
+
+$success:   #16a34a !default;
+$danger:    #dc2626 !default;
+
+/* gradientes para KPIs */
+$grad-purple: linear-gradient(135deg, #6D28D9, #5B21B6) !default;
+$grad-blue:   linear-gradient(135deg, #0EA5E9, #1D4ED8) !default;
+$grad-cyan:   linear-gradient(135deg, #22D3EE, #0284C7) !default;
+
+/* raios/sombras genéricos */
+$radius-lg:  1rem !default;
+$shadow-sm:  0 1px 3px rgba(0,0,0,.06) !default;
+$radius-md: .5rem !default;
+$radius-xl: 1rem !default;
+$shadow-lg: 0 12px 28px rgba(16, 24, 40, .14) !default;
+
+/* aliases úteis (mantém padrão que você já usa com t.$...) */
+$panel-title:  $text-900 !default;
+$panel-amount: $text-900 !default;
+
+
+$page-login-bg: #FA6400 !default;
+$page-login-right-bg: $azul-claro-avalara !default;
+
+
+$brand: #E1742E;
+
+$brand-600: color.adjust($brand, $lightness: -6%) !default;
+$brand-700: color.adjust($brand, $lightness: -12%) !default;

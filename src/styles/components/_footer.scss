@@ -1,0 +1,12 @@
+@use "../core/tokens" as t;
+
+.footer {
+  background: t.$footer-bg;
+  color: t.$footer-color;
+  text-align: center;
+  padding: .75rem 1rem;
+  font-size: .875rem;
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+}

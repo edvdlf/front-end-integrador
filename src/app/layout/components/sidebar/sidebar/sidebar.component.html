@@ -1,0 +1,84 @@
+<aside class="sidebar" [class.collapsed]="collapsed">
+ <ul class="nav" role="menu">
+  @for (it of items; track it.label ?? it.route ?? it.externalUrl) {
+    <li class="nav-item" [class.has-children]="it.children?.length">
+      @if (!(it.separator ?? false)) {
+
+        <!-- link interno -->
+        @if (it.route && !it.children?.length) {
+          <a class="nav-link"
+             role="menuitem"
+             [routerLink]="it.route"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }">
+            @if (it.icon) { <ng-icon class="nav-icon" [name]="it.icon" size="20"></ng-icon> }
+            @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
+            @if (it.badge && !collapsed) { <span class="nav-badge">{{ it.badge }}</span> }
+          </a>
+        }
+
+        <!-- link externo -->
+        @if (!it.route && it.externalUrl && !it.children?.length) {
+          <a class="nav-link"
+             role="menuitem"
+             [href]="it.externalUrl"
+             target="_blank" rel="noopener">
+            @if (it.icon) { <ng-icon class="nav-icon" [name]="it.icon" size="20"></ng-icon> }
+            @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
+          </a>
+        }
+
+        <!-- cabeçalho de grupo (tem filhos) -->
+        @if (it.children?.length) {
+          <div class="nav-link has-children" role="menuitem" aria-haspopup="true" aria-expanded="false">
+            @if (it.icon) { <ng-icon class="nav-icon" [name]="it.icon" size="20"></ng-icon> }
+            @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
+          </div>
+
+          <!-- submenu (expandido) -->
+          @if (!collapsed) {
+            <ul class="submenu" role="menu">
+              @for (ch of it.children; track ch.label ?? ch.route ?? ch.externalUrl) {
+                <li class="submenu-item">
+                  @if (ch.route) {
+                    <a class="submenu-link" role="menuitem" [routerLink]="ch.route" routerLinkActive="active">
+                      @if (ch.icon) { <ng-icon class="nav-icon" [name]="ch.icon" size="18"></ng-icon> }
+                      <span>{{ ch.label }}</span>
+                      @if (ch.badge) { <span class="nav-badge">{{ ch.badge }}</span> }
+                    </a>
+                  } @else if (!ch.route && ch.externalUrl) {
+                    <a class="submenu-link" role="menuitem" [href]="ch.externalUrl" target="_blank" rel="noopener">
+                      @if (ch.icon) { <ng-icon class="nav-icon" [name]="ch.icon" size="18"></ng-icon> }
+                      <span>{{ ch.label }}</span>
+                    </a>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        }
+
+      } @else {
+        <!-- separador -->
+        @if (!collapsed) { <div class="nav-sep" role="separator"></div> }
+      }
+    </li>
+  }
+</ul>
+
+
+<!-- Miolo reutilizável (ícone, label, badge) -->
+<ng-template #linkInner let-item="item" let-isChild="isChild">
+  @if (item?.icon) {
+    <ng-icon class="nav-icon" [name]="item.icon" [size]="isChild ? childIconSize : parentIconSize"></ng-icon>
+  }
+  @if (!collapsed || isChild) {
+    <span class="nav-label">{{ item.label }}</span>
+  }
+  @if (item?.badge && (!collapsed || isChild)) {
+    <span class="nav-badge">{{ item.badge }}</span>
+  }
+</ng-template>
+
+
+</aside>

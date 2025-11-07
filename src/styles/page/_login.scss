@@ -1,0 +1,336 @@
+@use "sass:color";
+@use "../core/tokens" as t;
+
+/* ===== Grid 2 colunas controlado por variável ===== */
+.layout-2cols {
+  --left-width: 44%;     /* controle manual da largura */
+  --form-max: 540px;     /* limite de largura do formulário */
+
+  display: grid;
+  grid-template-columns: minmax(280px, var(--left-width)) 1fr;
+  min-height: 100vh;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Página ===== */
+.login-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: stretch;
+  background: t.$page-login-bg;
+}
+
+/* ===== Coluna Esquerda ===== */
+.left {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: clamp(12px, 2vw, 20px);
+  overflow: auto;
+
+  /* seleciona automaticamente o container do PrimeBlock */
+  > .bg-surface-50,
+  > .dark\:bg-surface-950 {
+    width: min(100%, var(--form-max));
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 48px);
+    padding-block: clamp(24px, 6vw, 64px);
+
+    /* card interno */
+    > .bg-surface-0,
+    > .dark\:bg-surface-900 {
+      box-shadow: t.$shadow-lg;
+      border-radius: t.$radius-xl;
+      padding: clamp(20px, 3vw, 32px);
+    }
+  }
+
+  /* estiliza links e botões dentro do PrimeBlock */
+  a {
+    color: t.$blue-700;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: color.scale(t.$blue-700, $lightness: -10%);
+    }
+  }
+
+  button[pbutton] {
+    background: t.$blue-700;
+    border: 0;
+    font-weight: 700;
+    color: #fff;
+    transition: background 0.25s ease;
+
+    &:hover {
+      background: color.scale(t.$blue-700, $lightness: -10%);
+    }
+  }
+  .login-card {
+  background: #fff;
+  border-radius: t.$radius-xl;
+  box-shadow: t.$shadow-lg;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  width: min(100%, 440px);   /* ↑ um pouco maior que antes */
+}
+
+/* Empilhamento e espaçamentos internos */
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-head { margin-bottom: .25rem; }
+.login-title { margin: 0; font-weight: 800; font-size: 1.4rem; }
+.login-subtitle { margin: .25rem 0 0; font-size: .9rem; opacity: .75; }
+
+.form-group { display: grid; gap: .5rem; }
+
+/* Inputs 100% (p-inputtext do Prime e o input dentro do p-password) */
+.p-inputtext,
+.p-password,
+.p-password input {
+  width: 100%;
+}
+
+.p-inputtext, .p-password input {
+  border-radius: t.$radius-md;
+  border: 1px solid color.scale(t.$blue-900, $lightness: 65%);
+  padding: .65rem .75rem;
+  transition: box-shadow .2s, border-color .2s;
+}
+
+.p-inputtext:focus, .p-password input:focus {
+  outline: none;
+  border-color: t.$blue-700;
+  box-shadow: 0 0 0 3px color.change(t.$blue-700, $alpha: .15);
+}
+
+/* Centraliza o "olho" e reserva espaço à direita do input */
+.p-password { position: relative; }
+
+/* Mantém seu padding, mas adiciona espaço pro botão do olho */
+.p-password > input.p-inputtext {
+  /* .75rem (seu padding direito) + ~1.5–1.75rem (largura do ícone + gap) */
+  padding-right: calc(.75rem + 1.75rem);
+}
+
+/* Posiciona o botão/ícone do toggle no centro vertical */
+.p-password .p-password-toggle-mask,
+.p-password .p-password-icon,
+.p-password .p-icon {
+  position: absolute;
+  right: .75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+
+
+/* Linha de ações: lembrar à esquerda, link à direita */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-top: .25rem;
+}
+
+.remember-wrap { display: inline-flex; align-items: center; gap: .5rem; }
+.remember { cursor: pointer; font-size: .9rem; }
+
+/* Botão principal */
+button[pbutton].btn-primary {
+  width: 100%;
+  font-weight: 700;
+  border-radius: t.$radius-md;
+  background: t.$blue-700;
+  border: 0;
+  padding: .75rem 1rem;
+
+  &:hover { background: color.scale(t.$blue-700, $lightness: -8%); }
+  &:disabled { opacity: .6; cursor: not-allowed; }
+}
+
+/* Links */
+.login-card a {
+  color: t.$blue-700; text-decoration: none; font-weight: 600;
+  &:hover { color: color.scale(t.$blue-700, $lightness: -10%); }
+}
+.forgot { font-weight: 500; }
+.signup { text-align: center; font-size: .9rem; opacity: .85; margin: .25rem 0 0; }
+
+.login-card { color: t.$text-body; }   // texto padrão do card
+.login-title { color: t.$text-strong; }
+.login-subtitle { color: t.$text-muted; }
+.form-group label { color: t.$text-strong; }
+
+.p-inputtext, .p-password input {
+  color: t.$text-body;
+
+  &::placeholder {
+    color: t.$text-placeholder;
+  }
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+
+
+
+
+
+.toggle-password:hover {
+  color: #E1742E; 
+}
+
+
+
+}
+
+/* ===== Coluna Direita ===== */
+
+/*
+.right {
+  background: linear-gradient(
+    135deg,
+    t.$page-login-right-bg 0%,
+    color.scale(t.$page-login-right-bg, $lightness: 5%) 100%
+  );
+  color: #fff;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 4vw, 32px);
+  text-align: center;
+
+  .brand {
+    .logo {
+      width: clamp(72px, 10vw, 96px);
+      height: auto;
+      display: block;
+      margin: 0 auto 1rem;
+    }
+
+    .brand-title {
+      font: 800 clamp(1.25rem, 2.5vw, 1.75rem)/1.1 t.$font-family;
+      margin: 0 0 0.35rem;
+      span {
+        font-weight: 600;
+        opacity: 0.92;
+      }
+    }
+
+    .brand-sub {
+      opacity: 0.85;
+    }
+  }
+}
+*/
+
+/* ===== Coluna Direita (refinada) ===== */
+.right {
+  /* fundo e layout base */
+  background: linear-gradient(
+    135deg,
+    t.$page-login-right-bg 0%,
+    color.scale(t.$page-login-right-bg, $lightness: 5%) 100%
+  );
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 48px);
+  text-align: center;
+
+  /* limita largura do conteúdo e aplica respiro lateral */
+  .brand {
+    max-width: min(680px, 90vw);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(10px, 2.2vh, 16px);
+
+    /* LOGO maior e fluido */
+    .logo {
+      width: clamp(120px, 18vw, 260px); /* ⬅ tamanho do logo */
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      image-rendering: -webkit-optimize-contrast;
+      transition: transform .28s ease;
+      will-change: transform;
+
+      &:hover { transform: scale(1.045); }
+    }
+
+    /* Título forte e responsivo */
+    .brand-title {
+      /* 800 peso, altura de linha 1.12, família vinda do token */
+      font: 800 clamp(1.4rem, 2.4vw, 2rem)/1.12 t.$font-family;
+      margin: 0;
+      letter-spacing: .2px;
+      text-wrap: balance;
+
+      /* opcional: leve brilho para contraste em azul vivo */
+      text-shadow: 0 1px 0 rgba(0,0,0,.06);
+
+      span {
+        font-weight: 700;
+        opacity: .95;
+      }
+    }
+
+    /* Subtítulo com legibilidade melhorada */
+    .brand-sub {
+      margin: 0;
+      font: 500 clamp(.9rem, 1.2vw, 1.05rem)/1.35 t.$font-family;
+      opacity: .9;
+      text-wrap: pretty;
+      max-width: 56ch;
+    }
+  }
+
+  /* responsividade extra: em telas menores dá um pouco mais de foco ao logo */
+  @media (max-width: 900px) {
+    padding: clamp(16px, 5vw, 28px);
+
+    .brand {
+      gap: clamp(8px, 1.8vh, 12px);
+
+      .logo { width: clamp(110px, 28vw, 200px); }
+
+      .brand-title {
+        font-size: clamp(1.25rem, 5.2vw, 1.6rem);
+      }
+      .brand-sub {
+        font-size: clamp(.9rem, 3.6vw, 1rem);
+      }
+    }
+  }
+
+  /* telas muito largas: segura o exagero do texto, mantém logo grande */
+  @media (min-width: 1600px) {
+    .brand {
+      .brand-title { font-size: 2rem; }
+      .brand-sub   { font-size: 1.05rem; }
+    }
+  }
+}
+

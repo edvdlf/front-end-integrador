@@ -1,0 +1,62 @@
+@use "sass:color";
+@use "../core/tokens" as t;
+
+.custom-card {
+  background-color: #ffffff; // fundo padrão
+  border: 1px solid #830909; // borda neutra
+  border-radius: 0.75rem;    // cantos arredondados
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333333; // texto principal
+  }
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  &.highlight {
+    border-color: #e1742e; // cor laranja VetorIT
+    box-shadow: 0 4px 14px rgba(225, 116, 46, 0.25);
+  }
+}
+
+/* “Faixa” do cabeçalho, visual leve e arredondado */
+.custom-card.header-band {
+  background: var(--surface-card, #ffffff);
+  border: 1px solid var(--surface-border, #e5e7eb);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+/* Tipografia do título/subtítulo */
+.header-band .title {
+  margin: 0;
+  font-size: 1.375rem; /* ~22px */
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.header-band .subtitle {
+  margin: .25rem 0 0;
+  color: var(--text-color-secondary);
+  font-size: .95rem;
+}
+
+
+/* Responsivo: empilha em telas pequenas */
+@media (max-width: 768px) {
+  .custom-card.header-band {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+  }
+}

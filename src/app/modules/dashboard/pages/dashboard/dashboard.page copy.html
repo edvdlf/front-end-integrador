@@ -1,0 +1,110 @@
+
+<div class="grid">
+  <div class="col-12 md:col-6">
+
+    <div class="grid gap-3">
+  <p-card class="card-test card-orange" header="Card Laranja" subheader="Exemplo">
+    <p>Conteúdo do card laranja para testes.</p>
+  </p-card>
+
+  
+
+  </div>
+  <div class="col-12 md:col-6" >
+
+    <p-card class="card-test card-blue" header="Card Azul" subheader="Exemplo">
+    <p>Conteúdo do card azul para testes.</p>
+  </p-card>
+</div>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div class="dashboard grid">
+  <!-- KPIs -->
+  <div class="col-12 md:col-6">
+    <p-card class="kpi-card">
+      <ng-template pTemplate="header">
+        <div class="kpi-title">
+          <i class="pi pi-file"></i>
+          <span>Total processados</span>
+        </div>
+      </ng-template>
+
+      <div class="kpi-value" *ngIf="!loading(); else skel1">
+        {{ totalProcessados | number }}
+      </div>
+      <ng-template #skel1>
+        <p-skeleton width="9rem" height="2.2rem"></p-skeleton>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6">
+    <p-card class="kpi-card warn">
+      <ng-template pTemplate="header">
+        <div class="kpi-title">
+          <i class="pi pi-exclamation-triangle"></i>
+          <span>Total com divergências</span>
+        </div>
+      </ng-template>
+
+      <div class="kpi-value" *ngIf="!loading(); else skel2">
+        {{ totalDivergencias | number }}
+      </div>
+      <ng-template #skel2>
+        <p-skeleton width="9rem" height="2.2rem"></p-skeleton>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="col-12">
+    <p-divider align="left">
+      <span class="section-title">Gráficos</span>
+    </p-divider>
+  </div>
+
+  <!-- Bar: Processados por dia -->
+  <div class="col-12 lg:col-8">
+    <p-card>
+      <div class="chart-wrap" *ngIf="!loading(); else skelBar1">
+        <p-chart type="bar" [data]="barProcessadosData" [options]="barProcessadosOptions"></p-chart>
+      </div>
+      <ng-template #skelBar1>
+        <p-skeleton width="100%" height="260px"></p-skeleton>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <!-- Pie: Distribuição por tipo -->
+  <div class="col-12 lg:col-4">
+    <p-card>
+      <div class="chart-wrap" *ngIf="!loading(); else skelPie">
+        <p-chart type="pie" [data]="pieTiposData" [options]="pieTiposOptions"></p-chart>
+      </div>
+      <ng-template #skelPie>
+        <p-skeleton width="100%" height="260px"></p-skeleton>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <!-- Bar: Divergências por tributo -->
+  <div class="col-12">
+    <p-card>
+      <div class="chart-wrap" *ngIf="!loading(); else skelBar2">
+        <p-chart type="bar" [data]="barTributosData" [options]="barTributosOptions"></p-chart>
+      </div>
+      <ng-template #skelBar2>
+        <p-skeleton width="100%" height="280px"></p-skeleton>
+      </ng-template>
+      <div class="generatedAt" *ngIf="generatedAt">
+        Atualizado em: {{ generatedAt | date:'short' }}
+      </div>
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+/* ==============================
+   LAYOUT PRINCIPAL - VetorIT Theme
+   ============================== */
+
+/* Define layout geral */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--surface-ground, #f9fafb);
+  color: var(--text-color, #1f2937);
+}
+
+/* =========================
+   TOPO (Topbar)
+   ========================= */
+app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 2px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+   CORPO (Sidebar + Content)
+   ========================= */
+.layout-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar (menu lateral) */
+app-sidebar {
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+
+  &.collapsed {
+    width: 4rem !important;
+  }
+
+  ::ng-deep .p-menuitem-link:hover {
+    background: rgba(225, 116, 46, 0.08);
+    color: #E1742E !important;
+  }
+
+  ::ng-deep .p-menuitem-link-active {
+    background: rgba(225, 116, 46, 0.15);
+    border-left: 4px solid #E1742E;
+    color: #E1742E !important;
+  }
+}
+
+/* =========================
+   CONTEÚDO PRINCIPAL
+   ========================= */
+.layout-content {
+  flex: 1;
+  background: #f4f6f8;
+  padding: 1.5rem;
+  overflow-y: auto;
+  transition: background 0.3s ease;
+
+  /* Corrige o fundo dos componentes PrimeNG */
+  :host ::ng-deep .p-card,
+  :host ::ng-deep .p-datatable {
+    background: var(--surface-card, #ffffff) !important;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Opcional: melhora visual da tabela */
+  :host ::ng-deep .p-datatable-thead > tr > th {
+    background: #ffffff;
+    color: #374151;
+    font-weight: 600;
+    border-bottom: 2px solid #E1742E;
+  }
+
+  :host ::ng-deep .p-datatable-tbody > tr:hover {
+    background: rgba(225, 116, 46, 0.08);
+  }
+}
+
+/* =========================
+   RODAPÉ
+   ========================= */
+app-footer {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* =========================
+   SCROLLBAR (personalizada)
+   ========================= */
+.layout-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.layout-content::-webkit-scrollbar-thumb {
+  background-color: #E1742E;
+  border-radius: 4px;
+}
+
+.layout-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}

@@ -1,0 +1,18 @@
+<section class="icons-catalog">
+  <header>
+    <h2>Catálogo de Ícones</h2>
+    <input
+      type="text"
+      placeholder="🔍 Pesquisar ícone..."
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+    />
+  </header>
+
+  <div class="grid">
+    <div class="icon-card" *ngFor="let icon of filteredIcons()">
+      <ng-icon [name]="icon" size="32"></ng-icon>
+      <span>{{ icon }}</span>
+    </div>
+  </div>
+</section>

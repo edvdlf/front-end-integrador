@@ -1,0 +1,64 @@
+<div class="login-page">
+  <div class="layout-2cols">
+    <!-- Coluna esquerda: formulário -->
+    <section class="left">
+      <div class="login-card">
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
+          <header class="login-head">
+            <h1 class="login-title">Acessar conta</h1>
+            <p class="login-subtitle">Use seu e-mail e senha para entrar</p>
+          </header>
+
+          <div class="input-wrapper">
+            <label for="email">E-mail</label>
+            <input
+              id="email"
+              type="email"
+              pInputText
+              class="p-inputtext"
+              formControlName="email"
+              placeholder="Digite seu email"
+            />
+          </div>
+         
+          <div class="input-wrapper">
+            <label for="senha">Senha</label>
+            <div class="password-field">
+             <p-password
+                [toggleMask]="true"
+                [feedback]="false"
+                class="w-full"
+                inputClass="p-inputtext w-full"
+                placeholder="Digite seu email"
+                formControlName="senha"
+                >
+                
+            </p-password>
+            </div>
+          </div>
+
+          <div class="actions">
+            <div class="remember-wrap">
+              <p-checkbox inputId="lembrar" formControlName="lembrar" binary="true"></p-checkbox>
+              <label for="lembrar" class="remember">Lembrar</label>
+            </div>
+            <a routerLink="/recuperar-senha" class="forgot">Esqueci minha senha</a>
+          </div>
+
+          <button pButton type="submit" label="Entrar" class="btn-primary"></button>
+
+          <!--p class="signup">Não tem conta? <a routerLink="/signup">Criar agora</a></!--p-->
+        </form>
+      </div>
+    </section>
+
+    <!-- Coluna direita: painel visual EDL -->
+    <aside class="right">
+      <div class="brand">
+        <img src="img/Logo_Integrador_Taxdocs_Avatax.png" alt="Integrador " class="logo" />
+        <h2 class="brand-title">Plataforma de  <span>Integraçõ dos Sistemas</span></h2>
+        <!--p class="brand-sub">Plataforma de Integração dos Sistemas </!--p-->
+      </div>
+    </aside>
+  </div>
+</div>

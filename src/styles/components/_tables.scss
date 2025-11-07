@@ -1,0 +1,132 @@
+@use "sass:color";
+@use '../core/tokens' as t;
+
+.vetorit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem; // 14px
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+  .p-datatable-thead > tr > th {
+    background-color: t.$brand;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 12px;
+    border-bottom: 2px solid t.$brand-700;
+  }
+
+  .p-datatable-tbody > tr {
+    &:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    &:hover {
+      background-color: rgba(t.$brand, 0.1);
+    }
+  }
+
+  .p-datatable-tbody > tr > td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    .p-datatable-thead > tr > th,
+    .p-datatable-tbody > tr > td {
+      padding: 8px;
+    }
+  }
+}
+
+/* ========== 📋 TABELA COMPACTA (para diálogos e listas densas) ========== */
+.vetorit-table-sm {
+  font-size: 0.78rem; // ≈ 12.5px
+
+  .p-datatable-thead > tr > th {
+    padding: 8px;
+    font-weight: 600;
+  }
+
+  .p-datatable-tbody > tr > td {
+    padding: 8px;
+  }
+}
+
+/* Ajuste opcional de alinhamento geral */
+th,
+td {
+  text-align: center;
+}
+
+
+/* ====== CARD DA TABELA (mesmo estilo do TREE) ====== */
+.table-card {
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(#fff, #fff) padding-box, /* fundo branco */
+    linear-gradient(135deg, #4a5568, #2d3748) border-box; /* gradiente azul-cinza escuro */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    border-image: linear-gradient(135deg, t.$brand, color.change(t.$brand, $alpha: 0.7)) 1;
+    box-shadow: 0 4px 12px color.change(t.$brand, $alpha: 0.15);
+  }
+
+  /* Cabeçalho superior (título + botão) */
+  .table-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2f2f2f;
+    }
+  }
+
+  /* Tabela em si */
+  ::ng-deep .p-table {
+    font-size: 0.875rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+
+    thead th {
+      background-color: #f8f9fa;
+      color: #4a4a4a;
+      font-weight: 600;
+      padding: 0.75rem;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    tbody tr {
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: rgba(t.$brand, 0.04);
+      }
+    }
+
+    td {
+      padding: 0.65rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+  }
+
+  /* Paginador e botões */
+  ::ng-deep .p-paginator {
+    border-top: 1px solid #eaeaea;
+    background: #fff;
+    padding: 0.5rem 0.75rem;
+  }
+}

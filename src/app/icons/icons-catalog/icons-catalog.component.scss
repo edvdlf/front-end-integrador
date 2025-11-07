@@ -1,0 +1,139 @@
+/*
+.icons-catalog {
+  padding: 1rem;
+  color: #fff;
+  background: #111827;
+  min-height: 100vh;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #f59e0b;
+    }
+
+    input {
+      width: 260px;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 0.9rem;
+      background: #1f2937;
+      color: #fff;
+
+      &::placeholder { color: #9ca3af; }
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+
+  .icon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: #1f2937;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+
+    ng-icon {
+      margin-bottom: 0.5rem;
+      color: #f59e0b;
+    }
+
+    span {
+      font-size: 0.8rem;
+      text-align: center;
+      color: #d1d5db;
+      word-break: break-word;
+    }
+
+    &:hover {
+      background: #374151;
+    }
+  }
+}
+*/
+.icons-catalog {
+  padding: 1rem;
+  color: #fff;
+  background: #111827;
+  min-height: 100vh;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    h2 { margin: 0; font-size: 1.5rem; color: #f59e0b; }
+
+    input {
+      width: 260px;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 0.9rem;
+      background: #1f2937;
+      color: #fff;
+      &::placeholder { color: #9ca3af; }
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .icon-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    padding: 1rem;
+    background: #1f2937;
+    border-radius: 8px;
+    transition: background .2s ease;
+
+    ng-icon { color: #f59e0b; }
+    .icon-name { font-size: .8rem; color: #d1d5db; text-align: center; }
+
+    .copy-btn {
+      padding: .35rem .6rem;
+      border: 0;
+      border-radius: 6px;
+      background: #374151;
+      color: #e5e7eb;
+      font-size: .8rem;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: #4b5563; }
+
+    .copied {
+      position: absolute;
+      bottom: .5rem;
+      right: .5rem;
+      font-size: .75rem;
+      background: #10b981; /* verde */
+      color: #062b22;
+      padding: .15rem .4rem;
+      border-radius: 999px;
+    }
+
+    &:hover { background: #2b3443; }
+  }
+}
