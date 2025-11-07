@@ -9,7 +9,7 @@ import { heroHome, heroCog6Tooth } from '@ng-icons/heroicons/outline';
 import { lucideMenu, lucideChevronDown } from '@ng-icons/lucide';
 import { tablerReportAnalytics, tablerFileDollar } from '@ng-icons/tabler-icons';
 import { APP_ICONS } from './icons/icons.registry';
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 import { tokenInterceptor } from './core/interceptors/token-interceptor';
@@ -18,6 +18,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     //provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(
+      withFetch(),
       withInterceptors([tokenInterceptor])
     ),
     provideBrowserGlobalErrorListeners(),

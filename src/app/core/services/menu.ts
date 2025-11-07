@@ -38,15 +38,15 @@ const DEFAULT_MENU: MenuItem[] = [
     ]
   },
 
-  {
-    label: 'Notas Fiscais', icon: 'tablerDatabase',
-    children: [
-      
-      { label: 'NFe', icon: 'heroUsers', route: '/nfe', badge: 3 },
-      { label: 'NFSe', icon: 'heroUsers', route: '/nfse', badge: 3 },
-      { label: 'CTe', icon: 'heroUsers', route: '/cte', badge: 3 },
-    ]
-  },
+ {
+  label: 'Notas Fiscais',
+  icon: 'tablerFileInvoice', // ícone principal sugerido
+  children: [
+    { label: 'NFe', icon: 'heroDocumentText', route: '/nfe', badge: 3 },
+    { label: 'NFSe', icon: 'heroReceiptPercent', route: '/nfse', badge: 3 },
+    { label: 'CTe', icon: 'heroTruck', route: '/cte', badge: 3 },
+  ]
+},
   {
 
        label: 'Relatorios', icon: 'tablerChartBar', route: '/relatorios/vendas' 
