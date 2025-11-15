@@ -2,10 +2,10 @@ export const environment = {
   production: false,
   useMock: false,
   api: {
-    baseUrlAuth: 'http://192.168.0.106:8098',
-    baseUrl: 'http://192.168.0.106:8098',
-     //baseUrlAuth: 'http://edval4162.c44.integrator.host:3480',
-     //baseUrl: 'http://edval4162.c44.integrator.host:3480',
+    //baseUrlAuth: 'http://192.168.0.106:8098',
+    //baseUrl: 'http://192.168.0.106:8098',
+     baseUrlAuth: 'http://edval4162.c44.integrator.host:3480',
+     baseUrl: 'http://edval4162.c44.integrator.host:3480',
     // baseUrlAuth: 'http://localhost:8098',
     //baseUrl: 'http://localhost:8098',
     endpoints: {
