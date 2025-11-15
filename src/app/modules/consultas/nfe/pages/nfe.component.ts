@@ -30,7 +30,7 @@ export class NfeComponent {
   
    
   
-    private loadNFe(): void {
+    private loadNFeOld(): void {
     this.nfeService.getAllNfe()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -44,6 +44,18 @@ export class NfeComponent {
         },
         error: (err) => console.error('Erro ao buscar NFSe:', err)
       });
+  }
+
+   private loadNFe(): void {
+    this.nfeService.getAllNfe().subscribe({
+      next: data => {
+        this.nfe = data ?? [];
+      },
+      error: err => {
+        console.error('[NFE] Erro ao carregar NF-es', err);
+        this.nfe = [];
+      }
+    });
   }
   
     ngOnDestroy(): void {

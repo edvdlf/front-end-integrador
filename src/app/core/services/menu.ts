@@ -29,46 +29,42 @@ export interface MenuItem {
 }
 
 const DEFAULT_MENU: MenuItem[] = [
-  { label: 'Dashboard', icon: 'heroHome', route: '/dashboard' },
+  { label: 'Dashboard', icon: 'pi pi-home', route: '/dashboard' },
+
   {
-    label: 'Cadastros', icon: 'tablerDatabase',
+    label: 'Cadastros',
+    icon: 'pi pi-database',
     children: [
-      
-      { label: 'Usuários', icon: 'heroUsers', route: '/usuario', badge: 3 },
+      { label: 'Usuários', icon: 'pi pi-users', route: '/usuario', badge: 3 },
     ]
   },
 
- {
-  label: 'Notas Fiscais',
-  icon: 'tablerFileInvoice', // ícone principal sugerido
-  children: [
-    { label: 'NFe', icon: 'heroDocumentText', route: '/nfe', badge: 3 },
-    { label: 'NFSe', icon: 'heroReceiptPercent', route: '/nfse', badge: 3 },
-    { label: 'CTe', icon: 'heroTruck', route: '/cte', badge: 3 },
-  ]
-},
   {
+    label: 'Notas Fiscais',
+    icon: 'pi pi-file',
+    children: [
+      { label: 'NFe',  icon: 'pi pi-file-edit', route: '/nfe',  badge: 3 },
+      { label: 'NFSe', icon: 'pi pi-file-pdf',  route: '/nfse', badge: 3 },
+      { label: 'CTe',  icon: 'pi pi-truck',     route: '/cte',  badge: 3 },
+    ]
+  },
 
-       label: 'Relatorios', icon: 'tablerChartBar', route: '/relatorios/vendas' 
-    },
-  //{
-   // label: 'Relatórios', icon: 'tablerReportAnalytics',
-  //  children: [
-  //    { label: 'Vendas', icon: 'tablerChartBar', route: '/relatorios/vendas' },
-  //    { label: 'Fiscal', icon: 'tablerReceiptTax', route: '/relatorios/fiscal' },
-  //  ]
- // },
-  { separator: true, label: '—', type: 'separator' },
+  {
+    label: 'Relatórios',
+    icon: 'pi pi-chart-bar',
+    route: '/relatorios-confrontos'
+  },
 
-  //{
+  
 
-     // label: 'Ajuda',
-     // icon: 'tablerBook',
-      //externalUrl: '/help/html/index.htm',
-      //target: '_blank'
-    //},
+  // Ajuda (opcional)
+  // {
+  //   label: 'Ajuda',
+  //   icon: 'pi pi-book',
+  //   externalUrl: '/help/html/index.htm',
+  //   target: '_blank'
+  // },
 ];
-
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {

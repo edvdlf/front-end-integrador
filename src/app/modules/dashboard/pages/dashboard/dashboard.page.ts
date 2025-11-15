@@ -24,7 +24,7 @@ import { SkeletonModule } from 'primeng/skeleton';
   styleUrl: './dashboard.page.scss',
 })
 export class DashboardPage implements OnInit {
-  private svc = inject(DashboardService);
+  private dashboardService = inject(DashboardService);
 
   loading = signal<boolean>(true);
   data = signal<DashboardVisaoGeralDTO | null>(null);
@@ -40,16 +40,16 @@ export class DashboardPage implements OnInit {
   barTributosOptions: any;
 
   ngOnInit(): void {
-    this.load();
+    //this.load();
   }
 
   private load(): void {
   this.loading.set(true);
-  this.svc.getVisaoGeral(14).subscribe({
+  this.dashboardService.getVisaoGeral(14).subscribe({
     next: (res) => {
       console.log('✅ Dados recebidos do serviço:', res);
       this.data.set(res);
-      this.prepareCharts(res);
+      //this.prepareCharts(res);
       this.loading.set(false);
     },
     error: (err) => {
@@ -59,6 +59,10 @@ export class DashboardPage implements OnInit {
   });
 }
 
+
+
+
+/*
   private prepareCharts(d: DashboardVisaoGeralDTO) {
     const brand =
       getComputedStyle(document.documentElement).getPropertyValue('--vt-orange')?.trim() ||
@@ -160,4 +164,5 @@ export class DashboardPage implements OnInit {
   get generatedAt(): string {
     return this.data()?.generatedAt ?? '';
   }
+    */
 }

@@ -16,8 +16,7 @@ export class DashboardService {
 
   private readonly baseUrl = environment.api.baseUrl + environment.api.endpoints.dashboardUrl;
 
-
-    
+   
 
   getResumo() { 
     const url = `${this.baseUrl}/resumo`;
@@ -38,10 +37,20 @@ export class DashboardService {
     return this.http.get<DivergenciasPorTributoDTO[]>(url);
   }
 
-  getVisaoGeral(dias = 14) {
-    const url = `${this.baseUrl}/api/dashboard/visao-geral`;
+  getVisaoGeralOld(dias = 14) {
+    const url = `${this.baseUrl}/visao-geral`;
   return this.http.get<DashboardVisaoGeralDTO>(url, { params: { dias }});
 }
+
+ getVisaoGeral(dias = 14) {
+  const url = `${this.baseUrl}/visao-geral`;
+  return this.http.get(url, { 
+    params: { dias },
+    responseType: 'text' as 'json'
+  });
+}
+
+
 
 }
 

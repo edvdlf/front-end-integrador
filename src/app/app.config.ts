@@ -13,10 +13,15 @@ import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 import { tokenInterceptor } from './core/interceptors/token-interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
+//import Aura from 'primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    //provideHttpClient(withInterceptorsFromDi()),
+    provideAnimations(),
+    providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } }),
     provideHttpClient(
       withFetch(),
       withInterceptors([tokenInterceptor])
@@ -24,15 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideIcons({
-      heroHome,
-      heroCog6Tooth,
-      lucideMenu,
-      lucideChevronDown,
-      tablerReportAnalytics,
-      tablerFileDollar
-    }),
-    provideIcons(APP_ICONS),
     ConfirmationService,
     MessageService,
     CookieService,

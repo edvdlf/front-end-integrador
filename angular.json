@@ -32,9 +32,10 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
+             "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.min.css"
+              
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
