@@ -38,6 +38,7 @@ export class DashboardPage implements OnInit {
 
   barTributosData: any;
   barTributosOptions: any;
+totalProcessados: 123 | undefined;
 
   ngOnInit(): void {
     //this.load();

@@ -35,6 +35,15 @@ $gray-500: #999999 !default;
 $gray-700: #555555 !default;
 $gray-900: #333333 !default;
 
+/* Quadros */
+$kpi-blue-dark:   #1e40af !default;
+$kpi-blue-light:  #17a2b8 !default;
+$kpi-green-dark:  #166534 !default;
+$kpi-yellow:      #eab308 !default;
+$kpi-red:         #dc2626 !default;
+$kpi-gray:        #6c757d !default;
+
+$kpi-lightness-adjust: 20% !default;
 /* Tipografia */
 $font-family: 'Roboto', sans-serif !default;
 
@@ -113,3 +122,4 @@ $brand: #E1742E;
 
 $brand-600: color.adjust($brand, $lightness: -6%) !default;
 $brand-700: color.adjust($brand, $lightness: -12%) !default;
+

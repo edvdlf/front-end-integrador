@@ -15,7 +15,7 @@ export class ConfrontosService {
 
   listarTodosAgrupados(): Observable<ConfrontoDocumentoListaDTO[]> {
     return this.http.get<ConfrontoDocumentoListaDTO[]>(
-      `${this.baseUrl}/confronto-json/agrupado`
+      `${this.baseUrl}/confronto-json/agrupado/divergencias`
     );
   }
   
