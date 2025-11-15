@@ -5,6 +5,9 @@
     "ng": "ng",
     "start": "ng s --o --port 4230",
     "build": "ng build",
+    "build:dev": "ng build -c development",
+    "build:qa": "ng build -c qa",
+    "build:prod": "ng build -c production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:template-padrao-menu-retratil": "node dist/template-padrao-menu-retratil/server/server.mjs"
