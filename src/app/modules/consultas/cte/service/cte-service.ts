@@ -14,7 +14,7 @@ export class CteService {
 
    private http = inject(HttpClient);
 
-   getAllCte(): Observable<CTeResponse[]> {
+   getAllCte(): Observable<Array<CTeResponse>> {
     return this.http.get<CTeResponse[]>(this.baseUrl).pipe(
       catchError(error => {
         console.error('[NFeService] Erro ao buscar NFSe:', error);
@@ -23,6 +23,7 @@ export class CteService {
     );
 }
 
+ 
 
   
 }

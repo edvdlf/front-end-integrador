@@ -12,6 +12,7 @@ import { Select } from "primeng/select";
     CommonModule,
     TableModule,
     TooltipModule,
+    TooltipModule,
     
     
 ],
@@ -21,7 +22,7 @@ import { Select } from "primeng/select";
 export class NsfeTableComponent {
 
    @Input() data: NFSeResponse[] =[];
-   loading: false = false;
+   @Input() loading = false;
 
 
 

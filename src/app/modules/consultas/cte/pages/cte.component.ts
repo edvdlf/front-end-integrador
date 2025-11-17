@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, finalize, Observable, of, Subject, takeUntil } from 'rxjs';
 import { CteTableComponent } from '../components/cte-table/cte-table.component';
 import { CteHeadrComponent } from '../components/cte-header/cte-header.component';
 import { CTeResponse } from '../models/cte.model';
 import { CteService } from '../service/cte-service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-cte',
-  imports: [CteHeadrComponent, CteTableComponent],
+  imports: [
+    CommonModule,
+    CteHeadrComponent, CteTableComponent],
   templateUrl: './cte.component.html',
   styleUrl: './cte.component.scss'
 })
@@ -17,18 +20,31 @@ export class CteComponent {
 
    private destroy$ = new Subject<void>();
     
-      cte: CTeResponse[] = [];
+     
+
+       loading = true;
+        cte$!: Observable<CTeResponse[]>;
     
        constructor(private cteService: CteService) {}
       
      
       ngOnInit(): void {
-        this.loadNFSe();
-        
+        this.loadCTe();
+      }
+
+      private loadCTe(): void{
+        this.cte$ = this.cteService.getAllCte().pipe(
+        catchError(err => {
+          console.error('[NFE] Erro ao carregar NF-es', err);
+          return of<CTeResponse[]>([]);
+        }),
+        finalize(() => this.loading = false)
+      );
+
       }
     
      
-    
+    /*
       private loadNFSe(): void {
       this.cteService.getAllCte()
         .pipe(takeUntil(this.destroy$))
@@ -44,6 +60,7 @@ export class CteComponent {
           error: (err) => console.error('Erro ao buscar NFSe:', err)
         });
     }
+        */
     
       ngOnDestroy(): void {
       this.destroy$.next();

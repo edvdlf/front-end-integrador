@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { Accordion, AccordionModule } from 'primeng/accordion';
@@ -8,7 +8,9 @@ import { ConfrontoDocumentoListaDTO, ConfrontoGrupoDTO, DocumentoFiscalConfronto
 import { ConfrontosService } from '../../service/confrontos-service';
 import { Card } from "primeng/card";
 import { Button } from "primeng/button";
-
+import { TabsModule, Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 interface DocumentoFiscalConfronto {
   id: string;
@@ -34,16 +36,26 @@ interface DocumentoFiscalConfronto {
     TableModule,
     TagModule,
     ProgressSpinnerModule,
-    
+    TableModule,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
+    Button
 ],
   templateUrl: './confrontos-table.component.html',
   styleUrl: './confrontos-table.component.scss'
 })
 export class ConfrontosTableComponent implements OnInit {
 
+
   documentos: ConfrontoDocumentoListaDTO[] = [];
   loading = false;
   errorMsg: string | null = null;
+
+   @Input() data: DocumentoFiscalConfrontoDTO[] =[];
+   @Input() loadingConfrontos = false;
 
 
   constructor(private confrontosService: ConfrontosService) { }
@@ -94,104 +106,35 @@ export class ConfrontosTableComponent implements OnInit {
     return item.id;
   }
 
- /* 
-grupos = [
-    { nome: 'Header', label: 'Cabeçalho (Header)' },
-    { nome: 'Lines', label: 'Itens da Nota (Lines)' },
-    { nome: 'Lines.TaxDetails', label: 'Impostos por Item (Lines.TaxDetails)' },
-    { nome: 'Summary', label: 'Totais (Summary)' }
-  ];
-
-  confrontos: DocumentoFiscalConfronto[] = [
-    {
-      id: '1',
-      documentoFiscalId: 'DOC-1',
-      grupoInformacao: 'Header',
-      lineCode: null,
-      cfop: null,
-      campo: 'Informações Complementares',
-      valorOriginal: '',
-      valorCalculado: 'ICMS/SP_Decreto nº 45.490/2000, Artigo 52, Inciso II',
-      falha: true,
-      descricaoDiferenca: 'Sim',
-      criadoEm: '2025-11-14T18:34:56.254007'
-    },
-    {
-      id: '2',
-      documentoFiscalId: 'DOC-1',
-      grupoInformacao: 'Lines',
-      lineCode: 1,
-      cfop: 6202,
-      campo: 'Valor Unitário',
-      valorOriginal: '176.4658196721',
-      valorCalculado: '197.4995081967',
-      falha: true,
-      descricaoDiferenca: 'Sim',
-      criadoEm: '2025-11-14T18:34:56.254007'
-    },
-    {
-      id: '3',
-      documentoFiscalId: 'DOC-1',
-      grupoInformacao: 'Lines',
-      lineCode: 1,
-      cfop: 6202,
-      campo: 'Total do Item',
-      valorOriginal: '21528.83',
-      valorCalculado: '24094.94',
-      falha: true,
-      descricaoDiferenca: 'Sim',
-      criadoEm: '2025-11-14T18:34:56.254007'
-    },
-    {
-      id: '4',
-      documentoFiscalId: 'DOC-1',
-      grupoInformacao: 'Lines.TaxDetails',
-      lineCode: 1,
-      cfop: 6202,
-      campo: 'CST (ICMS)',
-      valorOriginal: '00',
-      valorCalculado: '90',
-      falha: true,
-      descricaoDiferenca: 'Sim',
-      criadoEm: '2025-11-14T18:34:56.254007'
-    },
-    {
-      id: '5',
-      documentoFiscalId: 'DOC-1',
-      grupoInformacao: 'Lines.TaxDetails',
-      lineCode: 1,
-      cfop: 6202,
-      campo: 'Base de Cálculo (ICMS)',
-      valorOriginal: '20452.39',
-      valorCalculado: '24094.94',
-      falha: true,
-      descricaoDiferenca: 'Sim',
-      criadoEm: '2025-11-14T18:34:56.254007'
-    },
-    {
-      id: '6',
-      documentoFiscalId: 'DOC-1',
-      grupoInformacao: 'Summary',
-      lineCode: null,
-      cfop: null,
-      campo: 'Valor Total dos Itens',
-      valorOriginal: '21528.83',
-      valorCalculado: '24094.94',
-      falha: true,
-      descricaoDiferenca: 'Sim',
-      criadoEm: '2025-11-14T18:34:56.254007'
+  exportarExcel() {
+    if (!this.data || this.data.length === 0) {
+      console.warn("Nenhum dado para exportar.");
+      return;
     }
-  ];
 
-  getConfrontosByGrupo(grupo: string): DocumentoFiscalConfronto[] {
-    return this.confrontos.filter(c => c.grupoInformacao === grupo);
+    // 1) Converte para worksheet
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.data);
+
+    // 2) Cria a estrutura do Excel
+    const workbook: XLSX.WorkBook = {
+      Sheets: { 'Confrontos': worksheet },
+      SheetNames: ['Confrontos']
+    };
+
+    // 3) Gera arquivo binário
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array'
+    });
+
+    // 4) Salva arquivo
+    const blob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    });
+
+    saveAs(blob, `confrontos_${new Date().toISOString().slice(0,10)}.xlsx`);
   }
 
-  buildItemTitle(c: DocumentoFiscalConfronto): string {
-    const partes: string[] = [];
-    if (c.lineCode != null) partes.push(`Item ${c.lineCode}`);
-    if (c.cfop != null) partes.push(`CFOP ${c.cfop}`);
-    return partes.length ? partes.join(' • ') : 'Sem linha/CFOP';
-  }
-    */
+
+
 }

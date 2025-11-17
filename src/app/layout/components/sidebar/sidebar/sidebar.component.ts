@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common'; // NgIf, NgFor, NgClass
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIcon } from '@ng-icons/core';
+
 import { MenuItem } from '../../../../core/services/menu';
 
 
@@ -9,7 +9,7 @@ import { MenuItem } from '../../../../core/services/menu';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, NgIcon],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })

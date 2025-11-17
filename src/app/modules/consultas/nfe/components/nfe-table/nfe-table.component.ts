@@ -7,6 +7,7 @@ import { NFeResponse } from '../../models/nfe.model';
 
 @Component({
   selector: 'app-nfe-table',
+  standalone:true,
   imports: [
     CommonModule,
     TableModule,
@@ -17,6 +18,10 @@ import { NFeResponse } from '../../models/nfe.model';
 })
 export class NfeTableComponent {
 
-  @Input() data: NFeResponse[] =[];
+  @Input() data: NFeResponse[] = [];
+  @Input() loading = false;
+
+  
+
 
 }

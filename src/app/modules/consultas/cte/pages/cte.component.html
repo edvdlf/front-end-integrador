@@ -2,7 +2,23 @@
   <div class="col-12">
     <app-cte-header/>
   </div>
-  <div class="col-12">
+  <!--div class="col-12">
     <app-cte-table [data]="cte"/>
+  </!--div-->
+  <div class="col-12">
+    <!-- Enquanto não chegou nada: loading -->
+    <ng-container *ngIf="cte$ | async as data; else loadingTpl">
+      <app-cte-table
+        [data]="data"
+        [loading]="false">
+      </app-cte-table>
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <app-cte-table
+        [data]="[]"
+        [loading]="true">
+      </app-cte-table>
+    </ng-template>
   </div>
 </div>

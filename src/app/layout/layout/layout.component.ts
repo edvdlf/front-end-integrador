@@ -9,7 +9,7 @@ import { MenuService } from '../../core/services/menu';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, TopbarComponent, SidebarComponent, FooterComponent],
+  imports: [RouterOutlet, TopbarComponent, SidebarComponent],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })

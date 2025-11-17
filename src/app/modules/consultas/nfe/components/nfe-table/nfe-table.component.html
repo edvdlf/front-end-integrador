@@ -1,6 +1,14 @@
 <div class="vetorit-card">
 
+  <!-- nfe.component.html, algo assim -->
+<div *ngIf="loading">Carregando...</div>
+
+<div *ngIf="!loading && data.length === 0">
+  Nenhum documento encontrado.
+</div>
+
   <p-table class="vetorit-table"
+      *ngIf="!loading && data.length"
       [value]="data"
       [rows]="20"
       [paginator]="true"
@@ -10,7 +18,8 @@
       [tableStyle]="{ 'min-width': '1000px' }"
       
       
-      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} templates"
+
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} Nfe"
 >
      
     <ng-template pTemplate="header">

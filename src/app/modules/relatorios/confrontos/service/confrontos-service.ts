@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConfrontoDocumentoListaDTO } from '../models/confronto-models';
+import { ConfrontoDocumentoListaDTO, DocumentoFiscalConfrontoDTO } from '../models/confronto-models';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 
@@ -18,5 +18,13 @@ export class ConfrontosService {
       `${this.baseUrl}/confronto-json/agrupado/divergencias`
     );
   }
+
+  getAllConfrontos(): Observable<DocumentoFiscalConfrontoDTO[]> {
+    return this.http.get<DocumentoFiscalConfrontoDTO[]>(
+      `${this.baseUrl}/confronto-json/divergencias`
+    );
+  }
+
+  
   
 }

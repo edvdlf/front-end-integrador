@@ -18,5 +18,7 @@ import { CTeResponse } from '../../models/cte.model';
 export class CteTableComponent {
 
    @Input() data: CTeResponse[] =[];
+   @Input() loading = false;
+   
 
 }

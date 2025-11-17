@@ -123,3 +123,22 @@ $brand: #E1742E;
 $brand-600: color.adjust($brand, $lightness: -6%) !default;
 $brand-700: color.adjust($brand, $lightness: -12%) !default;
 
+
+$btn-bg-default: #E1742E !default;
+$btn-bg-default-hover: color.adjust($btn-bg-default, $lightness: -5%)!default;
+
+$btn-text-default: #ffffff !default;
+
+$btn-border-default: $btn-bg-default;
+$btn-border-radius: 0.5rem;
+
+$btn-padding-y: 0.65rem;
+$btn-padding-x: 1.25rem;
+$btn-font-weight: 500;
+
+// Suporte para variantes
+$btn-success-bg: #28a745 !default;
+$btn-danger-bg: #dc3545 !default;
+$btn-warning-bg: #ffc107 !default;
+$btn-info-bg: #0dcaf0 !default;
+

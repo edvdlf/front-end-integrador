@@ -1,0 +1,96 @@
+@use "sass:color";
+@use "../core/tokens" as t;
+
+
+// ==============================
+//  PRIME BUTTON BASE
+// ==============================
+.p-button,
+button.p-button,
+.p-button-label,
+.p-button.p-button-text,
+.p-button.p-button-outlined {
+  font-weight: t.$btn-font-weight;
+  padding: t.$btn-padding-y t.$btn-padding-x;
+  border-radius: t.$btn-border-radius;
+}
+
+// ==============================
+//  BUTTON – DEFAULT
+// ==============================
+.p-button {
+  background: t.$btn-bg-default;
+  border: 1px solid t.$btn-border-default;
+  color: t.$btn-text-default;
+
+  &:hover {
+    background: t.$btn-bg-default-hover;
+    border-color: t.$btn-bg-default-hover;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.15rem rgba(t.$btn-bg-default, 0.32);
+  }
+}
+
+// ==============================
+//  BUTTON – OUTLINED
+// ==============================
+.p-button.p-button-outlined {
+  background: transparent;
+  color: t.$btn-bg-default;
+  border: 1px solid t.$btn-bg-default;
+
+  &:hover {
+    background: rgba(t.$btn-bg-default, 0.12);
+  }
+}
+
+// ==============================
+//  BUTTON – TEXT
+// ==============================
+.p-button.p-button-text {
+  background: transparent;
+  color: t.$btn-bg-default;
+  border: none;
+
+  &:hover {
+    background: rgba(t.$btn-bg-default, 0.12);
+  }
+}
+
+// ==============================
+//  VARIANTES CUSTOMIZADAS
+//  (adicionar classe <p-button class="btn-success">)
+// ==============================
+.p-button.btn-success {
+  background: t.$btn-success-bg;
+  border-color: t.$btn-success-bg;
+  color: #fff;
+
+  &:hover {
+    background: color.adjust(t.$btn-success-bg, $lightness: -5%);
+  }
+}
+
+.p-button.btn-danger {
+  background: t.$btn-danger-bg;
+  border-color: t.$btn-danger-bg;
+  color: #fff;
+
+  &:hover {
+    background: color.adjust(t.$btn-danger-bg, $lightness: -5%);
+  }
+}
+
+.p-button.btn-warning {
+  background: t.$btn-warning-bg;
+  border-color: t.$btn-warning-bg;
+  color: #000;
+}
+
+.p-button.btn-info {
+  background: t.$btn-info-bg;
+  border-color: t.$btn-info-bg;
+  color: #000;
+}

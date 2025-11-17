@@ -2,7 +2,23 @@
   <div class="col-12">
     <app-confrontos-header/>
   </div>
-  <div class="col-12">
+  <!--div class="col-12">
     <app-confrontos-table/>
+  </!--div-->
+  <div class="col-12">
+    <!-- Enquanto não chegou nada: loading -->
+    <ng-container *ngIf="confrontos$ | async as data; else loadingTpl">
+      <app-confrontos-table
+        [data]="data"
+        [loadingConfrontos]="false">
+      </app-confrontos-table>
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <app-confrontos-table
+        [data]="[]"
+        [loadingConfrontos]="true">
+      </app-confrontos-table>
+    </ng-template>
   </div>
 </div>
