@@ -2,8 +2,10 @@ export const environment = {
   production: true,
   useMock: false,
   api: {
-    baseUrlAuth: 'http://localhost:8099',
-    baseUrl: 'http://localhost:8099',
+    //baseUrlAuth: 'http://localhost:8099',
+    //baseUrl: 'http://localhost:8099',
+     baseUrlAuth: 'https://integrador.vps6439.panel.icontainer.run',
+     baseUrl: 'https://integrador.vps6439.panel.icontainer.run',
     endpoints: {
       dashboardUrl: '/api/dashboard',
       taxdocsNfeUrl: "/api/integrations/taxdocs/v1/nfe",
