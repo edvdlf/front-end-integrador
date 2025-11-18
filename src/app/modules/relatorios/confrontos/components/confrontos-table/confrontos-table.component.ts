@@ -11,6 +11,8 @@ import { Button } from "primeng/button";
 import { TabsModule, Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { ToolbarModule } from 'primeng/toolbar';
+
 
 interface DocumentoFiscalConfronto {
   id: string;
@@ -42,8 +44,9 @@ interface DocumentoFiscalConfronto {
     Tab,
     TabPanels,
     TabPanel,
-    Button
-],
+    Button,
+    ToolbarModule
+  ],  
   templateUrl: './confrontos-table.component.html',
   styleUrl: './confrontos-table.component.scss'
 })
