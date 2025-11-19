@@ -1,179 +1,13 @@
-
-<!--div class="custom-card">
-  <div class="card">
-    <p-table class="vetorit-table"
-      [rows]="20"
-      [paginator]="true"
-      dataKey="id"
-      [tableStyle]="{ 'min-width': '800px' }"
-      styleClass="p-datatable-sm"
-      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} tipos de documentos"
-
-
-    >
-    <ng-template pTemplate="caption">
-        <div class="flex justify-between items-center">
-          <div>
-            <div class="font-semibold text-lg">
-              Tipos de documentos configurados
-            </div>
-            <div class="text-color-secondary text-sm">
-              Gerencie os tipos de documentos fiscais eletrônicos e seus schemas
-              XSD.
-            </div>
-          </div>
-
-          <p-button
-            label="Recarregar"
-            styleClass="btn-av btn-vt-primary btn-vt-sm"
-            icon="pi pi-refresh icon-av-blue"
-            pTooltip="Clique aqui, para atualizar a lista de tipos de documentos"
-            tooltipPosition="top"
-            
-          />
-        </div>
-      </ng-template>
-
-      <ng-template pTemplate="header">
-        <tr>
-          <th class="w-24 text-center">Id</th>
-
-          <th class="w-72"  pSortableColumn="titulo">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Nome / versão
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="titulo"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="titulo"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-          </th>
-
-          <th class="w-72">Descrição</th>
-         
-          <th class="w-72"  pSortableColumn="nomeArquivo">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Arquivo
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="nomeArquivo"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="nomeArquivo"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-
-          <th class="w-24 text-center">Campos</th>
-          
-          <th class="w-24"  pSortableColumn="statusValue">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Status
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="statusValue"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="statusValue"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-          <th class="w-24 text-center">Atualizado</th>
-          <th class="w-24 text-center">Ações</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-row>
-        <tr>
-          <td>
-            <div class="font-medium">{{ row.id }}</div>
-          </td>
-          <td>
-            <div class="font-medium">{{ row.titulo }}</div>
-          </td>
-
-          <td>{{ row.descricao }}</td>
-          <td>{{ row.nomeArquivo }}</td>
-          <td>
-            <div class="font-medium">{{ row.quantidadeCampos }}</div>
-            <div class="text-sm text-color-secondary">Campos</div>
-          </td>
-          <td class="text-center">
-            <p-tag
-              [severity]="statusSeverity(row)"
-              [value]="statusValue(row)"
-              rounded
-            ></p-tag>
-          </td>
-          <td>{{ row.dataCadastro | date : "dd/MM/yyyy" }}</td>
-
-          <td>
-            <div class="flex gap-2">
-              <button
-                pButton
-                icon="pi pi-check-square icon-av-blue"
-                [pTooltip]="'Editar'"
-                tooltipPosition="top"
-                class="p-button-text"
-                
-              ></button>
-              
-              
-              
-              <button
-                pButton
-                icon="pi pi-trash"
-                class="p-button-text p-button-danger"
-                [pTooltip]="'Remover'"
-                tooltipPosition="top"
-                
-              ></button>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="5">Nenhuma solicitação encontrada.</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-</!--div-->
-
-<div class="col-12">
-  <div class="card">
+<div class="vetorit-card">
+        
+  
     <p-card styleClass="shadow-3  text-orange-500" header="Usuários">
       
       <div class="card">
         <p-table
           class="vetorit-table"
           #usuariosTable
-          
+          [value]="usuarios"
           [rows]="20"
           [paginator]="true"
           [globalFilterFields]="['grupo', 'id']"
@@ -298,25 +132,16 @@
               </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-dados let-expanded="expanded">
+          <ng-template pTemplate="body" let-dados>
             <tr>
               <td>
-                <button
-                  type="button"
-                  pButton
-                  pRipple
-                  [pRowToggler]="dados"
-                  class="p-button-text"
-                  [icon]="
-                    expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
-                  "
-                ></button>
+                
               </td>
               <td style="text-align: left">{{ dados.userName }}</td>
               <td style="text-align: left">
-                {{ dados.firstName + " " + dados.lastName }}
+                {{ dados.nome }}
               </td>
-              <td style="text-align: left">{{ dados.perfil.nomePerfil }}</td>
+              <td style="text-align: left">{{ dados.role }}</td>
               <!--td style="text-align: left"><p-tag [value]="dados.enabled" [severity]="getStatus(dados.enabled)"></p-tag></!--td-->
               <td style="text-align: left">
                 <p-tag
@@ -344,197 +169,15 @@
               </td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="rowexpansion" let-dados>
-            <tr>
-              <td colspan="7">
-                <div class="p-3">
-                  <p-table [value]="dados.permissions" dataKey="idUsuario">
-                    <ng-template pTemplate="header">
-                      <tr>
-                        <th pSortableColumn="nomeModulo">
-                          <div
-                            class="flex justify-content-between align-items-center"
-                          >
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              Menu
-                            </div>
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              <p-sortIcon field="nomeModulo"></p-sortIcon>
-                              <p-columnFilter
-                                type="text"
-                                field="nomeModulo"
-                                display="menu"
-                                matchMode="contains"
-                                [showMatchModes]="false"
-                                [showOperator]="false"
-                                [showAddButton]="false"
-                              ></p-columnFilter>
-                            </div>
-                          </div>
-                        </th>
-                        <th pSortableColumn="permTotal">
-                          <div
-                            class="flex justify-content-between align-items-center"
-                          >
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              Permissão total
-                            </div>
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              <p-sortIcon field="permTotal"></p-sortIcon>
-                            </div>
-                          </div>
-                        </th>
-                        <th pSortableColumn="adicionar">
-                          <div
-                            class="flex justify-content-between align-items-center"
-                          >
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              Adicionar
-                            </div>
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              <p-sortIcon field="adicionar"></p-sortIcon>
-                            </div>
-                          </div>
-                        </th>
-                        <th pSortableColumn="visualizar">
-                          <div
-                            class="flex justify-content-between align-items-center"
-                          >
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              Visualizar
-                            </div>
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              <p-sortIcon field="visualizar"></p-sortIcon>
-                            </div>
-                          </div>
-                        </th>
-                        <th pSortableColumn="editar">
-                          <div
-                            class="flex justify-content-between align-items-center"
-                          >
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              Editar
-                            </div>
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              <p-sortIcon field="editar"></p-sortIcon>
-                            </div>
-                          </div>
-                        </th>
-                        <th pSortableColumn="excluir">
-                          <div
-                            class="flex justify-content-between align-items-center"
-                          >
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              Excluir
-                            </div>
-                            <div
-                              class="flex justify-content-between align-items-center"
-                            >
-                              <p-sortIcon field="excluir"></p-sortIcon>
-                            </div>
-                          </div>
-                        </th>
-                      </tr>
-                    </ng-template>
-
-                    <ng-template pTemplate="body" let-permissoes>
-                      <tr>
-                        <td style="text-align: left">
-                          {{ permissoes.description }}
-                        </td>
-                        <td style="text-align: left">
-                          <i
-                            class="pi"
-                            [ngClass]="{
-                              'text-dark-green pi-check-circle':
-                                permissoes.permTotal,
-                              'text-dark-red pi-times-circle':
-                                !permissoes.permTotal
-                            }"
-                          ></i>
-                        </td>
-                        <td style="text-align: left">
-                          <i
-                            class="pi"
-                            [ngClass]="{
-                              'text-dark-green pi-check-circle':
-                                permissoes.adicionar,
-                              'text-dark-red pi-times-circle':
-                                !permissoes.adicionar
-                            }"
-                          ></i>
-                        </td>
-                        <td style="text-align: left">
-                          <i
-                            class="pi"
-                            [ngClass]="{
-                              'text-dark-green pi-check-circle':
-                                permissoes.visualizar,
-                              'text-dark-red pi-times-circle':
-                                !permissoes.visualizar
-                            }"
-                          ></i>
-                        </td>
-                        <td style="text-align: left">
-                          <i
-                            class="pi"
-                            [ngClass]="{
-                              'text-dark-green pi-check-circle':
-                                permissoes.editar,
-                              'text-dark-red pi-times-circle':
-                                !permissoes.editar
-                            }"
-                          ></i>
-                        </td>
-                        <td style="text-align: left">
-                          <i
-                            class="pi"
-                            [ngClass]="{
-                              'text-dark-green pi-check-circle':
-                                permissoes.excluir,
-                              'text-dark-red pi-times-circle':
-                                !permissoes.excluir
-                            }"
-                          ></i>
-                        </td>
-                      </tr>
-                    </ng-template>
-
-                    <ng-template pTemplate="emptymessage">
-                      <tr>
-                        <td colspan="6">Usuário sem permissões definidas</td>
-                      </tr>
-                    </ng-template>
-                  </p-table>
-                </div>
-              </td>
-            </tr>
-          </ng-template>
+          
         </p-table>
       </div>
     </p-card>
   </div>
-</div>
+
+
+
+
+
+
 

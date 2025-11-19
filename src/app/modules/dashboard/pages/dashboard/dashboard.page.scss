@@ -1,0 +1,81 @@
+/* ================================
+   CARDS VETORIT (prefixo: vtr-custom)
+   ================================ */
+@use "sass:color";
+
+/* Container limpo, sem cor de fundo */
+.vtr-custom-cards-container {
+  background: transparent !important;
+}
+
+/* Grid: mais espaçamento e balanceamento */
+.vtr-custom-cards-container .grid {
+  gap: 3rem !important;
+}
+
+/* Card principal */
+
+.vtr-custom-card {
+  background-color: #ffffff !important;
+  border-radius: 1rem;
+  padding: 1.2rem 1.4rem; /* <-- Menos "alto" */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  }
+}
+
+/* Título */
+.vtr-custom-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: -0.2rem; /* aproxima mais */
+}
+
+/* Valor principal */
+.vtr-custom-value {
+  font-size: 1.6rem !important;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+/* Ícone */
+.vtr-custom-icon-box {
+  width: 38px;         /* menor */
+  height: 38px;
+  border-radius: 10px; /* mais suave */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vtr-custom-icon-box i {
+  font-size: 1rem !important;  /* ícone menor */
+}
+
+/* Cores personalizadas VetorIT */
+.vtr-bg-cyan {
+  background: linear-gradient(to bottom, #22d3ee, #0891b2);
+}
+
+.vtr-bg-orange {
+  background: linear-gradient(to bottom, #f97316, #ea580c);
+}
+
+.vtr-bg-slate {
+  background: linear-gradient(to bottom, #94a3b8, #64748b);
+}
+
+.vtr-bg-violet {
+  background: linear-gradient(to bottom, #a78bfa, #7c3aed);
+}
+
+/* Subtexto */
+.vtr-custom-subtext {
+  font-size: 0.85rem;
+  color: #666;
+}

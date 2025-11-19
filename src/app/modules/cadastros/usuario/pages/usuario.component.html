@@ -2,7 +2,15 @@
   <div class="col-12">
     <app-usuario-header/>
   </div>
+  
+
+  <!--p-messages *ngIf="errorMsg" severity="error" [text]="errorMsg"></!--p-messages-->
   <div class="col-12">
-    <app-usuario-table/>
+    <!--app-usuario-table
+       [usuarios]="usuarios"
+  ></!--app-usuario-table-->
+  <app-usuario-tabs
+  [usuarios]="usuarios"
+  />
   </div>
 </div>

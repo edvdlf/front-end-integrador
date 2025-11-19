@@ -42,6 +42,7 @@ totalProcessados: 123 | undefined;
 
   ngOnInit(): void {
     //this.load();
+    
   }
 
   private load(): void {
@@ -58,7 +59,13 @@ totalProcessados: 123 | undefined;
       this.loading.set(false);
     },
   });
+
+ 
+
+ 
 }
+
+
 
 
 

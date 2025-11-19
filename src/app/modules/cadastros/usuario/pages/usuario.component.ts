@@ -1,13 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuarioHeaderComponent } from "../components/usuario-header/usuario-header.component";
 import { UsuarioTableComponent } from "../components/usuario-table/usuario-table.component";
 
+import { UsuarioService } from '../service/usuario-service';
+import { ProgressSpinner } from "primeng/progressspinner";
+import { CommonModule } from '@angular/common';
+import { UsuarioResponse } from '../models/usuario.model';
+import { UsuarioTabsComponent } from "../components/usuario-tabs/usuario-tabs.component";
+
 @Component({
   selector: 'app-usuario',
-  imports: [UsuarioHeaderComponent, UsuarioTableComponent],
+  imports: [CommonModule, UsuarioHeaderComponent, UsuarioTabsComponent],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.scss'
 })
-export class UsuarioComponent {
+export class UsuarioComponent implements OnInit {
+  usuarios: UsuarioResponse[] = [];
+  loading = false;
+  errorMsg = '';
+
+  constructor(private usuarioService: UsuarioService) {}
+
+  ngOnInit(): void {
+    //this.loadUsuarios();
+  }
+
+  loadUsuarios(): void {
+    this.loading = true;
+    this.errorMsg = '';
+
+    this.usuarioService.listarTodos().subscribe({
+      next: (data) => {
+        this.usuarios = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('[UsuarioComponent] Erro ao carregar usuários:', err);
+        this.errorMsg = 'Não foi possível carregar a lista de usuários.';
+        this.loading = false;
+      }
+    });
+  }
 
 }

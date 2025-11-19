@@ -15,6 +15,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { UsuarioLocalStorage } from '../../core/models/localstorage.model';
 import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule, ReactiveFormsModule,
     PasswordModule, CheckboxModule, ButtonModule, DividerModule,
-     FormsModule, ButtonModule, CheckboxModule
+     FormsModule, ButtonModule, CheckboxModule,
+     ToastModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

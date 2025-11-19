@@ -1,1 +1,110 @@
-<p>usuario-form works!</p>
+<div class="vetorit-card">
+<form [formGroup]="form" (ngSubmit)="salvar()">
+  <div
+    class="vetorit-card header-band flex align-items-center justify-content-between"
+  >
+    <div class="text-group">
+      <h2 class="title">Novo Usuário</h2>
+      <p class="subtitle">Preencha os dados para criar um novo usuário</p>
+    </div>
+  </div>
+
+  <div class="vetorit-card">
+    <div class="formgrid grid">
+      <div class="formgrid grid">
+        
+        <!-- Primeiro Nome -->
+        <div class="field col-12 md:col-6">
+          <label for="primeiroNome">Primeiro Nome *</label>
+          <input
+            id="primeiroNome"
+            type="text"
+            formControlName="primeiroNome"
+            placeholder="Primeiro nome"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
+          />
+        </div>
+
+        <!-- Segundo Nome -->
+        <div class="field col-12 md:col-6">
+          <label for="segundoNome">Segundo Nome *</label>
+          <input
+            id="segundoNome"
+            type="text"
+            formControlName="segundoNome"
+            placeholder="Sobrenome"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
+          />
+        </div>
+
+        <!-- Perfil -->
+        <div class="field col-12 md:col-6">
+          <label for="perfil">Perfil *</label>
+          <p-select
+            id="perfil"
+            formControlName="perfil"
+            [options]="perfilOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Selecione o perfil"
+            class="w-full"
+          ></p-select>
+        </div>
+
+        <!-- Email -->
+        <div class="field col-12 md:col-6">
+          <label for="email">Email *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="email"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
+          />
+        </div>
+
+        <!-- Senha -->
+        <div class="field col-12 md:col-6">
+          <label for="senha">Senha *</label>
+          <input
+            id="senha"
+            type="password"
+            formControlName="senha"
+            placeholder="Senha"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
+          />
+        </div>
+
+        <!-- Confirmar Senha -->
+        <div class="field col-12 md:col-6">
+          <label for="confirmarSenha">Confirmar Senha *</label>
+          <input
+            id="confirmarSenha"
+            type="password"
+            formControlName="confirmarSenha"
+            placeholder="Digite novamente a senha"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
+          />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Ações -->
+  <div class="vetorit-card">
+    <div class="flex justify-content-end gap-2 mt-3">
+      <p-button
+        type="submit"
+        icon="pi pi-check"
+        label="Salvar Usuário"
+        styleClass="btn-vt btn-vt-primary btn-vt-sm"
+      ></p-button>
+    </div>
+  </div>
+</form>
+</div>
+
+
+
+
