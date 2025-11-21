@@ -41,7 +41,7 @@ export class DashboardPage implements OnInit {
 totalProcessados: 123 | undefined;
 
   ngOnInit(): void {
-    //this.load();
+    this.load();
     
   }
 

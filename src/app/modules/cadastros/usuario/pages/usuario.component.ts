@@ -7,10 +7,11 @@ import { ProgressSpinner } from "primeng/progressspinner";
 import { CommonModule } from '@angular/common';
 import { UsuarioResponse } from '../models/usuario.model';
 import { UsuarioTabsComponent } from "../components/usuario-tabs/usuario-tabs.component";
+import { UsuarioFormComponent } from "../components/usuario-form/usuario-form.component";
 
 @Component({
   selector: 'app-usuario',
-  imports: [CommonModule, UsuarioHeaderComponent, UsuarioTabsComponent],
+  imports: [CommonModule, UsuarioHeaderComponent, UsuarioTabsComponent, UsuarioFormComponent],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.scss'
 })

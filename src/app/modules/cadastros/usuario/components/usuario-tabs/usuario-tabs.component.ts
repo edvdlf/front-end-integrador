@@ -30,7 +30,9 @@ import { UsuarioResponse } from '../../models/usuario.model';
       <p-tabpanels>
         <p-tabpanel value="0">
           <div class="col-12">
-            <app-usuario-form/>
+            <app-usuario-form
+            (ativarAbaSolicitadoForms)="goToConsultas()"
+            />
           </div>
         </p-tabpanel>
 
@@ -49,5 +51,8 @@ export class UsuarioTabsComponent {
 
   activeTab: string = '0';
   @Input() usuarios: Array<UsuarioResponse> = [];
+  goToConsultas() {
+    this.activeTab = '0';
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +24,9 @@ import { MessageService } from 'primeng/api';
   styleUrl: './usuario-form.component.scss'
 })
 export class UsuarioFormComponent {
+
+  @Output() loadUsuarios = new EventEmitter<void>();
+  @Output() ativarAbaSolicitadoForms = new EventEmitter<void>();
 
   form: FormGroup;
   submitted = false;
@@ -89,6 +92,8 @@ export class UsuarioFormComponent {
       // Se quiser, pode resetar o form
       this.form.reset();
       this.submitted = false;
+      this.loadUsuarios.emit();
+       this.ativarAbaSolicitadoForms.emit();
 
       // Aqui você pode exibir um toast/alert ou navegar para a listagem:
        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Usuário criado com sucesso!' });
