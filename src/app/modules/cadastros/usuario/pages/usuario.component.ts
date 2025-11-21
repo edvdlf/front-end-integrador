@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioHeaderComponent } from "../components/usuario-header/usuario-header.component";
-import { UsuarioTableComponent } from "../components/usuario-table/usuario-table.component";
 
 import { UsuarioService } from '../service/usuario-service';
 import { ProgressSpinner } from "primeng/progressspinner";
@@ -11,7 +10,7 @@ import { UsuarioFormComponent } from "../components/usuario-form/usuario-form.co
 
 @Component({
   selector: 'app-usuario',
-  imports: [CommonModule, UsuarioHeaderComponent, UsuarioTabsComponent, UsuarioFormComponent],
+  imports: [CommonModule, UsuarioHeaderComponent, UsuarioTabsComponent],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.scss'
 })
