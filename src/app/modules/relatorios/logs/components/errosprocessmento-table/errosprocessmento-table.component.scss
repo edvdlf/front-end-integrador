@@ -1,0 +1,16 @@
+.mensagem-col {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .truncate {
+    max-width: 420px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.copiar-btn {
+  color: var(--primary-color);
+}

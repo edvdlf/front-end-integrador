@@ -35,7 +35,7 @@ const DEFAULT_MENU: MenuItem[] = [
     label: 'Cadastros',
     icon: 'pi pi-database',
     children: [
-      { label: 'Usuários', icon: 'pi pi-users', route: '/usuario', badge: 3 },
+      { label: 'Usuários', icon: 'pi pi-users', route: '/usuario' },
     ]
   },
 
@@ -43,16 +43,27 @@ const DEFAULT_MENU: MenuItem[] = [
     label: 'Notas Fiscais',
     icon: 'pi pi-file',
     children: [
-      { label: 'NFe',  icon: 'pi pi-file-edit', route: '/nfe',  badge: 3 },
-      { label: 'NFSe', icon: 'pi pi-file-pdf',  route: '/nfse', badge: 3 },
-      { label: 'CTe',  icon: 'pi pi-truck',     route: '/cte',  badge: 3 },
+      { label: 'NFe',  icon: 'pi pi-file-edit', route: '/nfe' },
+      { label: 'NFSe', icon: 'pi pi-file-pdf',  route: '/nfse' },
+      { label: 'CTe',  icon: 'pi pi-truck',     route: '/cte' },
     ]
   },
+
+  
 
   {
     label: 'Relatórios',
     icon: 'pi pi-chart-bar',
     route: '/relatorios-confrontos'
+  },
+
+  {
+    label: 'Auditoria',
+    icon: 'pi pi-file',
+    children: [
+      { label: 'Erros',  icon: 'pi pi-file-edit', route: '/relatorios-errosprocessamento' },
+      
+    ]
   },
 
   

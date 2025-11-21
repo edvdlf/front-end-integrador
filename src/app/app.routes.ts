@@ -25,6 +25,7 @@ export const routes: Routes = [
       { path: 'nfe',    loadChildren: () => import('./modules/consultas/nfe/nfe.routes').then(m => m.NFE_ROUTES) },
       { path: 'nfse',    loadChildren: () => import('./modules/consultas/nfse/nfse.routes').then(m => m.NFSE_ROUTES) },
       { path: 'relatorios-confrontos',    loadChildren: () => import('./modules/relatorios/confrontos/relatorios.routes').then(m => m.RELATORIOS_CONFRONTOS_ROUTES) },
+      { path: 'relatorios-errosprocessamento',    loadChildren: () => import('./modules/relatorios/logs/errosprocessamento.routes').then(m => m.ERROS_PROCESSAMENTO_ROUTES) },
     ]
   },
 

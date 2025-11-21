@@ -6,7 +6,7 @@ export const environment = {
     //baseUrl: 'http://192.168.0.106:8098',
      baseUrlAuth: 'https://integrador.vps6439.panel.icontainer.run',
      baseUrl: 'https://integrador.vps6439.panel.icontainer.run',
-     //baseUrlAuth: 'http://localhost:8098',
+    //baseUrlAuth: 'http://localhost:8098',
     //baseUrl: 'http://localhost:8098',
     endpoints: {
      dashboardUrl: '/api/dashboard',
@@ -15,8 +15,8 @@ export const environment = {
      nfe: '/api/v1/nfe',
      cte: '/api/v1/cte',
      confrontos: '/api/v1/documentos-confrontos',
-     usuarios: '/api/v1/usuarios'
-      
+     usuarios: '/api/v1/usuarios',
+     errosprocessamento: '/api/v1/erros-processamento' 
       
     }
   }

@@ -13,7 +13,8 @@ export const environment = {
       nfe: '/api/v1/nfe',
       cte: '/api/v1/cte',
       confrontos: '/api/v1/documentos-confrontos',
-      usuarios: '/api/v1/usuarios'
+      usuarios: '/api/v1/usuarios',
+      errosprocessamento: '/api/v1/erros-processamento' 
     }
   }
 };
