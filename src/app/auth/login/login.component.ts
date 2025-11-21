@@ -29,7 +29,7 @@ import { ToastModule } from 'primeng/toast';
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [MessageService],
+  
 })
 export default class LoginComponent {
 
@@ -39,6 +39,7 @@ export default class LoginComponent {
   private cookieService = inject(CookieService);
   private localStorageService = inject(LocalStorageService);
   private messageService = inject(MessageService);
+  
 
   loading = false;
 

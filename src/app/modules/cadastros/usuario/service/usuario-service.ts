@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { UsuarioResponse } from '../models/usuario.model';
+import { UsuarioRequest, UsuarioResponse } from '../models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +31,10 @@ export class UsuarioService {
   // ============================================================
   // CRIAR
   // ============================================================
-  criar(usuario: UsuarioResponse): Observable<UsuarioResponse> {
+  criar(usuario: UsuarioRequest): Observable<UsuarioResponse> {
     // normalmente o id não é enviado na criação
-    const payload: UsuarioResponse = { ...usuario };
-    delete payload.id;
-
+    const payload: UsuarioRequest = { ...usuario };
+    
     return this.http.post<UsuarioResponse>(this.baseUrl, payload);
   }
 

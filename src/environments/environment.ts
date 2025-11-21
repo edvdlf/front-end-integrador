@@ -5,7 +5,7 @@ export const environment = {
     //baseUrlAuth: 'http://192.168.0.106:8098',
     //baseUrl: 'http://192.168.0.106:8098',
      baseUrlAuth: 'https://integrador.vps6439.panel.icontainer.run',
-     baseUrl: 'https://integrador.vps6439.panel.icontainer.run',
+    baseUrl: 'https://integrador.vps6439.panel.icontainer.run',
     //baseUrlAuth: 'http://localhost:8098',
     //baseUrl: 'http://localhost:8098',
     endpoints: {

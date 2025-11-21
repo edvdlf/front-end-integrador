@@ -20,9 +20,9 @@ export class ErrosprocessmentoComponent implements OnInit {
   private destroy$ = new Subject<void>();
   
     loading = true;
-    //errosprocessamento$!: Observable<ErroProcessamentoDTO[]>;
+    errosprocessamento$!: Observable<ErroProcessamentoDTO[]>;
 
-    errosprocessamento: ErroProcessamentoDTO[] = [];
+    //errosprocessamento: ErroProcessamentoDTO[] = [];
     
   
      constructor(private errosprocessmentoService: ErrosprocessmentoService) {}
@@ -33,36 +33,36 @@ export class ErrosprocessmentoComponent implements OnInit {
       
     }
 
-    loadErrosProcessamento(): void {
-    this.loading = true;
+    //loadErrosProcessamento(): void {
+    //this.loading = true;
     //this.errorMsg = '';
 
-    this.errosprocessmentoService.getAllErrosProcessamentos()
-    .subscribe({
-      next: (data) => {
-        this.errosprocessamento = data;
-        this.loading = false;
-        console.log("Listagem de erros: ", data)
-      },
-      error: (err) => {
-        console.error('[UsuarioComponent] Erro ao carregar usuários:', err);
+    //this.errosprocessmentoService.getAllErrosProcessamentos()
+    //.subscribe({
+    //  next: (data) => {
+    //    this.errosprocessamento = data;
+    //    this.loading = false;
+   //     console.log("Listagem de erros: ", data)
+    //  },
+    //  error: (err) => {
+    //    console.error('[UsuarioComponent] Erro ao carregar usuários:', err);
         //this.errorMsg = 'Não foi possível carregar a lista de usuários.';
-        this.loading = false;
-      }
-    });
-  }
+    //    this.loading = false;
+     // }
+   // });
+  //}
   
-   //private loadErrosProcessamento(): void{
+   private loadErrosProcessamento(): void{
   
-    //this.errosprocessamento$ = this.errosprocessmentoService.getAllErrosProcessamentos().pipe(
-      //    catchError(err => {
-       //     console.error('[NFE] Erro ao carregar Erros de processamento', err);
-       //     return of<ErroProcessamentoDTO[]>([]);
-       //   }),
-       //   finalize(() => this.loading = false)
-      //  );
+    this.errosprocessamento$ = this.errosprocessmentoService.getAllErrosProcessamentos().pipe(
+          catchError(err => {
+           console.error('[NFE] Erro ao carregar Erros de processamento', err);
+           return of<ErroProcessamentoDTO[]>([]);
+          }),
+          finalize(() => this.loading = false)
+        );
   
-   //}
+   }
     ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

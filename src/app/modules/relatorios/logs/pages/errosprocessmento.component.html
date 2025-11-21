@@ -4,11 +4,24 @@
   </div>
   
   <div class="col-12">
-    
-      <app-errosprocessmento-table
+      <!--app-errosprocessmento-table
         [errosprocessamento]="errosprocessamento"
         >
+      </!--app-errosprocessmento-table-->
+      <ng-container *ngIf="errosprocessamento$ | async as data; else loadingTpl">
+      <app-errosprocessmento-table
+        [data]="data"
+        [loading]="false">
       </app-errosprocessmento-table>
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <app-errosprocessmento-table
+        [data]="[]"
+        [loading]="true">
+      </app-errosprocessmento-table>
+    </ng-template>
+
    
     
   </div>

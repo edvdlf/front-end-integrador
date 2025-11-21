@@ -1,10 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
-import { TooltipModule } from 'primeng/tooltip';
+import { Password } from 'primeng/password';
+import { Select } from 'primeng/select';
+import { Message } from 'primeng/message';
 import { UsuarioService } from '../../service/usuario-service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-usuario-form',
@@ -13,8 +16,9 @@ import { UsuarioService } from '../../service/usuario-service';
     CommonModule,
     ReactiveFormsModule,
     Button,
-    SelectModule,
-    TooltipModule
+    Password,
+    Select,
+    Message
   ],
   templateUrl: './usuario-form.component.html',
   styleUrl: './usuario-form.component.scss'
@@ -22,41 +26,80 @@ import { UsuarioService } from '../../service/usuario-service';
 export class UsuarioFormComponent {
 
   form: FormGroup;
+  submitted = false;
 
   perfilOptions = [
     { label: 'Administrador', value: 'ADMIN' },
-    { label: 'Normal',        value: 'NORMAL' }
+    { label: 'Usuário Normal', value: 'NORMAL' }
   ];
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
-  this.form = this.fb.group(
-    {
-      primeiroNome: ['', Validators.required],
-      segundoNome: ['', Validators.required],
-      perfil: ['NORMAL', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarSenha: ['', Validators.required]
-    },
-    {
-      validators: this.senhasDevemSerIguaisValidator
+  constructor(
+    private fb: FormBuilder,
+  private usuarioService: UsuarioService,
+   private messageService: MessageService
+  ) {
+    this.form = this.fb.group(
+      {
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        role: [null, Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmasenha: ['', Validators.required]
+      },
+      {
+        validators: this.senhasIguaisValidator
+      }
+    );
+  }
+
+  // Validador de confirmação de senha
+  private senhasIguaisValidator(group: AbstractControl) {
+    const senha = group.get('senha')?.value;
+    const confirmar = group.get('confirmasenha')?.value;
+
+    if (!senha || !confirmar) {
+      return null;
     }
-  );
-}
+
+    return senha === confirmar ? null : { senhasDiferentes: true };
+  }
+
+  get f() {
+    return this.form.controls;
+  }
 
   salvar() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+  this.submitted = true;
 
-    const usuario = this.form.value;
-    console.log('[UsuarioForm] Enviando usuário', usuario);
-    // this.usuarioService.criar(usuario).subscribe(...)
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    console.warn('[UsuarioForm] Formulário inválido', this.form.value);
+    return;
   }
-  senhasDevemSerIguaisValidator(formGroup: FormGroup) {
-  const senha = formGroup.get('senha')?.value;
-  const confirmar = formGroup.get('confirmarSenha')?.value;
-  return senha === confirmar ? null : { senhasDiferentes: true };
+
+  const payload = this.form.value; // já no formato do backend (UsuarioResponse)
+
+  console.log('[UsuarioForm] payload', payload);
+
+  this.usuarioService.criar(payload).subscribe({
+    next: (usuarioCriado) => {
+      console.log('[UsuarioForm] Usuário criado com sucesso', usuarioCriado);
+
+      // Se quiser, pode resetar o form
+      this.form.reset();
+      this.submitted = false;
+
+      // Aqui você pode exibir um toast/alert ou navegar para a listagem:
+       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Usuário criado com sucesso!' });
+      // this.router.navigate(['/usuarios']);
+    },
+    error: (err) => {
+      console.error('[UsuarioForm] Erro ao criar usuário', err);
+      // Aqui você pode exibir mensagem de erro amigável
+       this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Não foi possível criar o usuário.' });
+    }
+  });
 }
+
 }

@@ -23,7 +23,7 @@ export class ErrosprocessmentoTableComponent {
   
 constructor(private messageService: MessageService) {}
 
-  @Input() errosprocessamento: ErroProcessamentoDTO[] = [];
+  @Input() data: ErroProcessamentoDTO[] = [];
   @Input() loading = false;
 
   copiarMensagem(texto: string) {

@@ -8,4 +8,16 @@ export interface UsuarioResponse {
   role:string;   // ISO string vinda do backend (OffsetDateTime)
 }
 
+export interface UsuarioRequest {
+             // opcional na criação
+  nome: string;
+  email: string;
+  userName: string;
+  firstName: string;
+  lastName: string ;
+  password: string;
+  enabled: boolean;
+  role:string;   // ISO string vinda do backend (OffsetDateTime)
+}
+
  
