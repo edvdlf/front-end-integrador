@@ -1,70 +1,187 @@
-<div class="car">
+<div class="grid">
+  <div class="field col-12 md:col-3">
+    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
+      <div class="flex justify-between gap-4">
+        <div class="flex flex-col gap-2">
+          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
+           Recuperados
+          </span>
+          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
+            {{ dashboardResumo?.totalRecuperados || 0 }}
+          </div>
+        </div>
+        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-cyan">
+          <i class="pi pi-envelope text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
+        </div>
+      </div>
+      <div class="mt-4 vtr-custom-subtext">
+        <span class="font-medium">Total geral</span>
+        <span> Documentos recuperados</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="field col-12 md:col-3">
+    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
+      <div class="flex justify-between gap-4">
+        <div class="flex flex-col gap-2">
+          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
+           Processados
+          </span>
+          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
+           {{ dashboardResumo?.totalProcessados || 0 }}
+          </div>
+        </div>
+        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-orange">
+          <i class="pi pi-map-marker text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
+        </div>
+      </div>
+      <div class="mt-4 vtr-custom-subtext">
+        <span class="font-medium">Com erro</span>
+        <span> Erro na recuperaçao</span>
+      </div>
+    </div>
+    
+  </div>
+  <div class="field col-12 md:col-3">
+    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
+      <div class="flex justify-between gap-4">
+        <div class="flex flex-col gap-2">
+          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
+            Processados
+          </span>
+          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
+           {{ dashboardResumo?.totalProcessadosErro || 0 }}
+          </div>
+        </div>
+        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-slate">
+          <i class="pi pi-file text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
+        </div>
+      </div>
+      <div class="mt-4 vtr-custom-subtext">
+        <span>Erro</span>
+      </div>
+    </div>
+    
+
+  </div>
+  <div class="field col-12 md:col-3">
+    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
+      <div class="flex justify-between gap-4">
+        <div class="flex flex-col gap-2">
+          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
+            Confrontos
+          </span>
+          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
+           {{ dashboardResumo?.totalConfontos }}
+          </div>
+        </div>
+        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-violet">
+          <i class="pi pi-users text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
+        </div>
+      </div>
+      <div class="mt-4 vtr-custom-subtext">
+        <span class="font-medium">34567</span>
+        <span> Divergencias</span>
+      </div>
+    </div>
+  </div>
+
 
 </div>
 
-<div class="bg-surface-50 dark:bg-surface-950 px-6 py-8 md:px-12 lg:px-20">
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-                <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl">
-                    <div class="flex justify-between gap-4">
-                        <div class="flex flex-col gap-2">
-                            <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight">Messages</span>
-                            <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight!">152</div>
-                        </div>
-                        <div class="flex items-center justify-center bg-linear-to-b from-cyan-400 dark:from-cyan-300 to-cyan-600 dark:to-cyan-500 rounded-lg w-10 h-10">
-                            <i class="pi pi-envelope text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-surface-600 dark:text-surface-300 font-medium leading-tight">24 new</span>
-                        <span class="text-surface-500 dark:text-surface-300 leading-tight"> since last visit</span>
-                    </div>
-                </div>
 
-                <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl">
-                    <div class="flex justify-between gap-4">
-                        <div class="flex flex-col gap-2">
-                            <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight">Check-ins</span>
-                            <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight!">532</div>
-                        </div>
-                        <div class="flex items-center justify-center bg-linear-to-b from-orange-400 dark:from-orange-300 to-orange-600 dark:to-orange-500 rounded-lg w-10 h-10">
-                            <i class="pi pi-map-marker text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-surface-600 dark:text-surface-300 font-medium leading-tight">48 new</span>
-                        <span class="text-surface-500 dark:text-surface-300 leading-tight"> since last visit</span>
-                    </div>
-                </div>
 
-                <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl">
-                    <div class="flex justify-between gap-4">
-                        <div class="flex flex-col gap-2">
-                            <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight">Files Synced</span>
-                            <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight!">28.441</div>
-                        </div>
-                        <div class="flex items-center justify-center bg-linear-to-b from-slate-400 dark:from-slate-300 to-slate-600 dark:to-slate-500 rounded-lg w-10 h-10">
-                            <i class="pi pi-file text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-surface-500 dark:text-surface-300 leading-tight">32,56 / 250 GB</span>
-                    </div>
-                </div>
 
-                <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl">
-                    <div class="flex justify-between gap-4">
-                        <div class="flex flex-col gap-2">
-                            <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight">Users Online</span>
-                            <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight!">25.660</div>
-                        </div>
-                        <div class="flex items-center justify-center bg-linear-to-b from-violet-400 dark:from-violet-300 to-violet-600 dark:to-violet-500 rounded-lg w-10 h-10">
-                            <i class="pi pi-users text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-surface-600 dark:text-surface-300 font-medium leading-tight">72 new</span>
-                        <span class="text-surface-500 dark:text-surface-300 leading-tight"> user this week</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="cards-grid">
+
+  <div class="field col-12 md:col-3">
+    <p-card class="kpi-card kpi-purple">
+    <div class="kpi-head">
+      <div class="kpi-icon">
+        <i class="pi pi-wallet"></i>
+      </div>
+      <button pButton type="button" icon="pi pi-ellipsis-h" class="p-button-text p-button-rounded"></button>
+    </div>
+
+    
+    <div class="kpi-value" >
+        {{ totalProcessados | number }}
+      </div>
+    <div class="kpi-sub">Total 1</div>
+  </p-card>
+
+  </div>
+  <div class="field col-12 md:col-3">
+    <p-card class="kpi-card kpi-blue">
+    <div class="kpi-head">
+      <div class="kpi-icon">
+        <i class="pi pi-chart-line"></i>
+      </div>
+      <div class="kpi-segments">
+        <span class="seg active">Month</span>
+        <span class="seg">Year</span>
+      </div>
+    </div>
+
+    <div class="kpi-value">$961</div>
+    <div class="kpi-sub">C/W Last Year</div>
+
+    
+  </p-card>
+    
+  </div>
+  <div class="field col-12 md:col-3">
+    <p-card class="kpi-card kpi-cyan">
+    <div class="kpi-head">
+      <div class="kpi-icon">
+        <i class="pi pi-dollar"></i>
+      </div>
+    </div>
+
+    <div class="kpi-value">$203k</div>
+    <div class="kpi-sub">Total Income</div>
+
+    <div class="kpi-inline">
+      <i class="pi pi-check-circle"></i>
+      <span>$203k</span>
+    </div>
+  </p-card>
+    
+  </div>
+  <div class="field col-12 md:col-3">
+    
+  </div>
+  
+  
+
+  
+ 
+  
+
+ 
+</div>
+
+ <!--p-card class="panel growth">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">Total Growth</div>
+        <div class="panel-amount">$2,324.00</div>
+      </div>
+      <div class="panel-actions">
+        <button pButton type="button" icon="pi pi-sliders-h" class="p-button-text p-button-rounded"></button>
+        <button pButton type="button" icon="pi pi-ellipsis-h" class="p-button-text p-button-rounded"></button>
+      </div>
+    </div>
+  </p-card-->
+  <!--p-card class="panel stocks">
+    <div class="panel-head">
+      <div class="panel-title">Popular Stocks</div>
+      <button pButton type="button" icon="pi pi-cog" class="p-button-text p-button-rounded"></button>
+    </div>
+  </p-card-->
+
+
+
+
