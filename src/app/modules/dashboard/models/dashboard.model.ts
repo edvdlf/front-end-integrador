@@ -16,6 +16,7 @@ export interface DistribuicaoTipoDTO
     tipoDocumento: 'NFe' | 'CTe' | 'NFSe'; 
     quantidade: number; 
 }
+
 export interface DivergenciasPorTributoDTO 
 { tributo: string; 
     quantidade: number; 

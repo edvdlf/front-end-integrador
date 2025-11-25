@@ -5,7 +5,7 @@ import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 
-import { DashboardProcessamentoDiaDTO, DashboardResumoDTO,  DivergenciasPorTributoDTO } from '../../models/dashboard.model';
+import { DashboardProcessamentoDiaDTO, DashboardResumoDTO, DistribuicaoTipoDTO, DivergenciasPorTributoDTO } from '../../models/dashboard.model';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DashboardService } from '../../service/DashboardService';
 
@@ -19,7 +19,7 @@ import { DashboardService } from '../../service/DashboardService';
     ButtonModule,
     ChartModule,
     SkeletonModule,
-   
+
   ],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.scss',
@@ -33,7 +33,7 @@ export class DashboardPage implements OnInit {
   barData: any;
   barOptions: any;
 
-  dashboardResumo: DashboardResumoDTO | undefined  ;
+  dashboardResumo: DashboardResumoDTO | undefined;
 
   // PrimeNG Chart.js bindings
   barProcessadosData: any;
@@ -44,34 +44,35 @@ export class DashboardPage implements OnInit {
 
   barTributosData: any;
   barTributosOptions: any;
- totalProcessados: 123 | undefined;
+  totalProcessados: 0 | undefined;
 
-   totalNfe = 120;
-totalNfse = 80;
-totalCte = 40;
+  totalNfe = 0;
+  totalNfse = 0;
+  totalCte = 0;
 
-pieData: any;
-pieOptions: any;
+  pieData: any;
+  pieOptions: any;
 
-barProcessamentoDiaData: any;
+  barProcessamentoDiaData: any;
   barProcessamentoDiaOptions: any;
 
   ngOnInit(): void {
     //this.load();
     this.loadResumo();
-    this.loadResumoFake();
-    this.configurarGraficoPizza();
+
+
     this.loadDivergenciasPorTributo();
     this.configurarBarTributosOptions();
     this.loadProcessamentoUltimosDias(30);
-    this.configurarGraficoProcessamentoDia()
+    this.configurarGraficoProcessamentoDia();
+    this.loadProcessamentoTiposDocumentosTotais();
 
-    
+
   }
- 
-  
 
-private loadResumo(): void {
+
+
+  private loadResumo(): void {
     //this.loading = true;
     //this.errorMsg = '';
 
@@ -81,17 +82,17 @@ private loadResumo(): void {
         //this.loading = false;
         console.log('Resumo recebido:', this.dashboardResumo);
 
-      this.configurarGrafico(); 
+        this.configurarGrafico();
       },
       error: (err) => {
         console.error('[DashboardResumo] Erro ao carregar resumo da Dashboard:', err);
-     //   //this.errorMsg = 'Não foi possível carregar a lista de usuários.';
+        //   //this.errorMsg = 'Não foi possível carregar a lista de usuários.';
         //this.loading = false;
       }
     });
   }
 
- private loadDivergenciasPorTributo(): void {
+  private loadDivergenciasPorTributo(): void {
     this.dashboardService.getDivergenciasPorTributo().subscribe({
       next: (data: DivergenciasPorTributoDTO[]) => {
         const labels = data.map(d => d.tributo);
@@ -115,14 +116,6 @@ private loadResumo(): void {
   }
 
 
-private loadResumoFake(): void {
-  // Aqui futuramente você vai chamar o serviço real
-  this.totalNfe = 120;
-  this.totalNfse = 80;
-  this.totalCte = 40;
-}
-
- 
   configurarGrafico(): void {
     this.barData = {
       labels: [
@@ -188,29 +181,29 @@ private loadResumoFake(): void {
     };
   }
 
-private configurarGraficoPizza(): void {
-  this.pieData = {
-    labels: ['NFE', 'NFSE', 'CTE'],
-    datasets: [
-      {
-        data: [this.totalNfe, this.totalNfse, this.totalCte],
-        backgroundColor: ['#42A5F5', '#FFA726', '#66BB6A'], // cores padrões
-        hoverBackgroundColor: ['#64B5F6', '#FFB74D', '#81C784']
-      }
-    ]
-  };
+  private configurarGraficoPizza(): void {
+    this.pieData = {
+      labels: ['NFE', 'NFSE', 'CTE'],
+      datasets: [
+        {
+          data: [this.totalNfe, this.totalNfse, this.totalCte],
+          backgroundColor: ['#42A5F5', '#FFA726', '#66BB6A'], // cores padrões
+          hoverBackgroundColor: ['#64B5F6', '#FFB74D', '#81C784']
+        }
+      ]
+    };
 
-  this.pieOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'bottom',
+    this.pieOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+        }
       }
-    }
-  };
-}
+    };
+  }
 
-private configurarBarTributosOptions(): void {
+  private configurarBarTributosOptions(): void {
     this.barTributosOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -237,18 +230,23 @@ private configurarBarTributosOptions(): void {
     };
   }
 
-  private loadProcessamentoUltimosDias2(dias: number): void {
-    this.dashboardService.getProcessamentoUltimosDias(dias).subscribe({
-      next: (dados: DashboardProcessamentoDiaDTO[]) => {
-        this.montarGraficoProcessamentoDia(dados);
+  private loadProcessamentoTiposDocumentosTotais(): void {
+    this.dashboardService.getProcessamentoTiposDocumentosTotais().subscribe({
+      next: (dados: DistribuicaoTipoDTO[]) => {
+        this.totalNfe = dados.find(d => d.tipoDocumento === 'NFe')?.quantidade ?? 0;
+        this.totalNfse = dados.find(d => d.tipoDocumento === 'NFSe')?.quantidade ?? 0;
+        this.totalCte = dados.find(d => d.tipoDocumento === 'CTe')?.quantidade ?? 0;
+
+        
+        this.configurarGraficoPizza();
       },
       error: (err) => {
-        console.error('[Dashboard] Erro ao carregar processamento por dia', err);
+        console.error('[Dashboard] Erro ao carregar tipos', err);
       }
     });
   }
 
- private montarGraficoProcessamentoDia(dados: DashboardProcessamentoDiaDTO[]): void {
+  private montarGraficoProcessamentoDia(dados: DashboardProcessamentoDiaDTO[]): void {
     const labels = dados.map(d => {
       const date = new Date(d.data);
       return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit' }).format(date);

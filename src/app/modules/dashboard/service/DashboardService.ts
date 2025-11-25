@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { DashboardProcessamentoDiaDTO, DashboardResumoDTO, DivergenciasPorTributoDTO} from '../models/dashboard.model';
+import { DashboardProcessamentoDiaDTO, DashboardResumoDTO, DistribuicaoTipoDTO, DivergenciasPorTributoDTO} from '../models/dashboard.model';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -31,25 +31,16 @@ export class DashboardService {
     const params = new HttpParams().set('dias', dias.toString());
 
     return this.http.get<DashboardProcessamentoDiaDTO[]>(
-      `${this.baseUrl}/processamento/ultimos-dias`,
+      `${this.baseUrl}/processados-por-dia`,
       { params }
     );
   }
 
-  //getProcessadosPorDia(dias = 14) {
-    //const url = `${this.baseUrl}/processados-por-dia`;
-   // return this.http.get<SeriePorDiaDTO[]>(url, { params: { dias }});
- // }
-  //getDistribuicaoTipos() {
-   // const url = `${this.baseUrl}/distribuicao-tipos`;
-   // return this.http.get<DistribuicaoTipoDTO[]>(url);
-  //}
-  //getDivergenciasPorTributo() {
-    //const url = `${this.baseUrl}/divergencias-por-tributo`;
-    //return this.http.get<DivergenciasPorTributoDTO[]>(url);
- // }
-
- 
+  getProcessamentoTiposDocumentosTotais(): Observable<DistribuicaoTipoDTO[]> {
+    return this.http.get<DistribuicaoTipoDTO[]>(
+      `${this.baseUrl}/processados-por-tipo-documento`
+    );
+  }
 
  
 }
