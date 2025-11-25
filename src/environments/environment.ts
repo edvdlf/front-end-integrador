@@ -8,7 +8,7 @@ export const environment = {
      baseUrlAuth: 'https://integrador.vps6439.panel.icontainer.run',
     baseUrl: 'https://integrador.vps6439.panel.icontainer.run',
    //baseUrlAuth: 'http://localhost:8098',
-   //baseUrl: 'http://localhost:8098',
+  // baseUrl: 'http://localhost:8098',
     endpoints: {
      dashboardUrl: '/api/dashboard',
      taxdocsNfeUrl: "/api/integrations/taxdocs/v1/nfe",

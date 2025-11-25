@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { DashboardResumoDTO, DivergenciasPorTributoDTO} from '../models/dashboard.model';
+import { DashboardProcessamentoDiaDTO, DashboardResumoDTO, DivergenciasPorTributoDTO} from '../models/dashboard.model';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -27,6 +27,14 @@ export class DashboardService {
     );
   }
 
+  getProcessamentoUltimosDias(dias: number): Observable<DashboardProcessamentoDiaDTO[]> {
+    const params = new HttpParams().set('dias', dias.toString());
+
+    return this.http.get<DashboardProcessamentoDiaDTO[]>(
+      `${this.baseUrl}/processamento/ultimos-dias`,
+      { params }
+    );
+  }
 
   //getProcessadosPorDia(dias = 14) {
     //const url = `${this.baseUrl}/processados-por-dia`;

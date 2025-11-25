@@ -76,22 +76,30 @@
           style="width: 100%; max-width: 420px; margin: 0 auto;"></p-chart>
       </div>
     </div>
-  
+
 
     <div class="col-12">
       <section class="dashboard-chart-section">
         <h3 class="chart-title">Divergências por tributo</h3>
-        
 
-  <div class="chart-container" style="height: 320px;">
-    <p-chart
-      type="bar"
-      [data]="barTributosData"
-      [options]="barTributosOptions">
-    </p-chart>
-  </div>
+
+        <div class="chart-container" style="height: 320px;">
+          <p-chart type="bar" [data]="barTributosData" [options]="barTributosOptions">
+          </p-chart>
+        </div>
       </section>
     </div>
+    <div class="col-12">
+      <h3>Processamento por dia (Erros x Sucessos)</h3>
+
+  <p-chart
+    type="bar"
+    [data]="barProcessamentoDiaData"
+    [options]="barProcessamentoDiaOptions">
+  </p-chart>
+
+    </div>
+
 
 
 

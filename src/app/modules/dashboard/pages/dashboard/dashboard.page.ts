@@ -5,7 +5,7 @@ import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 
-import { DashboardResumoDTO, DashboardVisaoGeralDTO, DivergenciasPorTributoDTO } from '../../models/dashboard.model';
+import { DashboardProcessamentoDiaDTO, DashboardResumoDTO,  DivergenciasPorTributoDTO } from '../../models/dashboard.model';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DashboardService } from '../../service/DashboardService';
 
@@ -28,7 +28,7 @@ export class DashboardPage implements OnInit {
   private dashboardService = inject(DashboardService);
 
   loading = signal<boolean>(true);
-  data = signal<DashboardVisaoGeralDTO | null>(null);
+  //data = signal<DashboardVisaoGeralDTO | null>(null);
 
   barData: any;
   barOptions: any;
@@ -53,13 +53,18 @@ totalCte = 40;
 pieData: any;
 pieOptions: any;
 
+barProcessamentoDiaData: any;
+  barProcessamentoDiaOptions: any;
+
   ngOnInit(): void {
     //this.load();
     this.loadResumo();
-     this.loadResumoFake();
-      this.configurarGraficoPizza();
-      this.loadDivergenciasPorTributo();
+    this.loadResumoFake();
+    this.configurarGraficoPizza();
+    this.loadDivergenciasPorTributo();
     this.configurarBarTributosOptions();
+    this.loadProcessamentoUltimosDias(30);
+    this.configurarGraficoProcessamentoDia()
 
     
   }
@@ -232,120 +237,94 @@ private configurarBarTributosOptions(): void {
     };
   }
 
+  private loadProcessamentoUltimosDias2(dias: number): void {
+    this.dashboardService.getProcessamentoUltimosDias(dias).subscribe({
+      next: (dados: DashboardProcessamentoDiaDTO[]) => {
+        this.montarGraficoProcessamentoDia(dados);
+      },
+      error: (err) => {
+        console.error('[Dashboard] Erro ao carregar processamento por dia', err);
+      }
+    });
+  }
+
+ private montarGraficoProcessamentoDia(dados: DashboardProcessamentoDiaDTO[]): void {
+    const labels = dados.map(d => {
+      const date = new Date(d.data);
+      return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit' }).format(date);
+    });
+
+    const erros = dados.map(d => d.totalErro);
+    const sucessos = dados.map(d => d.totalSucesso);
+
+    this.barProcessamentoDiaData = {
+      labels,
+      datasets: [
+        {
+          label: 'Erros',
+          data: erros,
+          backgroundColor: 'rgba(228,76,76,0.85)', // Vermelho padrão
+          borderRadius: 6
+        },
+        {
+          label: 'Sucessos',
+          data: sucessos,
+          backgroundColor: 'rgba(5,154,210,0.85)', // Azul Avalara
+          borderRadius: 6
+        }
+      ]
+    };
+  }
+
+  private loadProcessamentoUltimosDias(dias: number): void {
+    this.dashboardService.getProcessamentoUltimosDias(dias).subscribe({
+      next: (dados) => this.montarGraficoProcessamentoDia(dados),
+      error: (err) => console.error('[Dashboard] Erro ao carregar processamento por dia', err)
+    });
+  }
+  private configurarGraficoProcessamentoDia(): void {
+    const textColor = '#495057';
+    const textColorSecondary = '#6c757d';
+
+    this.barProcessamentoDiaOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx: any) => {
+              const valor = ctx.parsed.y ?? 0;
+              return `${ctx.dataset.label}: ${valor}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColor
+          },
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary,
+            precision: 0
+          },
+          grid: {
+            color: '#e0e0e0'
+          }
+        }
+      }
+    };
+  }
+
 }
-
-  
-
- 
-
- 
-
-
-
-
-
-
-/*
-  private prepareCharts(d: DashboardVisaoGeralDTO) {
-    const brand =
-      getComputedStyle(document.documentElement).getPropertyValue('--vt-orange')?.trim() ||
-      '#E1742E';
-
-    // ---- Bar: processados por dia
-    const labels1 = d.processadosPorDia.map((x) => x.dia);
-    const series1 = d.processadosPorDia.map((x) => x.quantidade);
-
-    this.barProcessadosData = {
-      labels: labels1,
-      datasets: [
-        {
-          label: 'Processados',
-          data: series1,
-          borderWidth: 1,
-          backgroundColor: brand,
-          borderColor: brand,
-        },
-      ],
-    };
-
-    this.barProcessadosOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { mode: 'index', intersect: false },
-        title: { display: true, text: 'Documentos processados por dia' },
-      },
-      scales: {
-        x: { ticks: { autoSkip: true, maxTicksLimit: 14 } },
-        y: { beginAtZero: true },
-      },
-    };
-
-    // ---- Pie: distribuição por tipo
-    const labels2 = d.distribuicaoTipos.map((x) => x.tipoDocumento);
-    const series2 = d.distribuicaoTipos.map((x) => x.quantidade);
-
-    this.pieTiposData = {
-      labels: labels2,
-      datasets: [
-        {
-          data: series2,
-          // sem cores fixas -> Chart escolherá; se quiser, adicione suas cores aqui
-        },
-      ],
-    };
-
-    this.pieTiposOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom' },
-        title: { display: true, text: 'Distribuição por tipo' },
-      },
-    };
-
-    // ---- Bar: divergências por tributo
-    const labels3 = d.divergenciasPorTributo.map((x) => x.tributo);
-    const series3 = d.divergenciasPorTributo.map((x) => x.quantidade);
-
-    this.barTributosData = {
-      labels: labels3,
-      datasets: [
-        {
-          label: 'Divergências',
-          data: series3,
-          borderWidth: 1,
-          backgroundColor: brand,
-          borderColor: brand,
-        },
-      ],
-    };
-
-    this.barTributosOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        title: { display: true, text: 'Divergências por tributo' },
-      },
-      scales: {
-        x: { ticks: { autoSkip: false } },
-        y: { beginAtZero: true },
-      },
-    };
-  }
-
-  get totalProcessados(): number {
-    return this.data()?.resumo.totalProcessados ?? 0;
-  }
-
-  get totalDivergencias(): number {
-    return this.data()?.resumo.totalDivergencias ?? 0;
-  }
-
-  get generatedAt(): string {
-    return this.data()?.generatedAt ?? '';
-  }
-    */
-//}

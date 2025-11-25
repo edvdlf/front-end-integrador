@@ -10,11 +10,7 @@ export interface DashboardResumoDTO
 
 
 }
-export interface SeriePorDiaDTO 
-{ 
-    dia: string; 
-    quantidade: number; 
-}
+
 export interface DistribuicaoTipoDTO 
 { 
     tipoDocumento: 'NFe' | 'CTe' | 'NFSe'; 
@@ -25,12 +21,16 @@ export interface DivergenciasPorTributoDTO
     quantidade: number; 
 }
 
-export interface DashboardVisaoGeralDTO {
-  resumo: DashboardResumoDTO;
-  processadosPorDia: SeriePorDiaDTO[];
-  distribuicaoTipos: DistribuicaoTipoDTO[];
-  divergenciasPorTributo: DivergenciasPorTributoDTO[];
-  generatedAt: string; // ISO datetime (Instant do backend)
+//export interface DashboardVisaoGeralDTO {
+ // resumo: DashboardResumoDTO;
+  //processadosPorDia: SeriePorDiaDTO[];
+ // distribuicaoTipos: DistribuicaoTipoDTO[];
+ // divergenciasPorTributo: DivergenciasPorTributoDTO[];
+ // generatedAt: string; // ISO datetime (Instant do backend)
+//}
+export interface DashboardProcessamentoDiaDTO {
+  data: string;        // LocalDateTime em ISO (ex: 2025-11-24T10:15:00)
+  totalErro: number;
+  totalSucesso: number;
 }
-
 
