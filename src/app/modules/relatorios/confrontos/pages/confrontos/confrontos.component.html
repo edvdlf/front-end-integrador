@@ -10,7 +10,10 @@
     <ng-container *ngIf="confrontos$ | async as data; else loadingTpl">
       <app-confrontos-table
         [data]="data"
-        [loadingConfrontos]="false">
+        [loadingConfrontos]="false"
+         (carregarPorTipo)="loadConfrontosComDivergenciasPorTipo($event)"
+         (carregarTodos)="loadConfrontos()"
+        >
       </app-confrontos-table>
     </ng-container>
 

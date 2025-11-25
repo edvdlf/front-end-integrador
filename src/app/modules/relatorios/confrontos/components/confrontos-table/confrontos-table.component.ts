@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { Accordion, AccordionModule } from 'primeng/accordion';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfrontoDocumentoListaDTO, ConfrontoGrupoDTO, DocumentoFiscalConfrontoDTO } from '../../models/confronto-models';
 import { ConfrontosService } from '../../service/confrontos-service';
-import { Card } from "primeng/card";
 import { Button } from "primeng/button";
-import { TabsModule, Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -46,32 +45,35 @@ interface DocumentoFiscalConfronto {
     TabPanel,
     Button,
     ToolbarModule
-  ],  
+  ],
   templateUrl: './confrontos-table.component.html',
   styleUrl: './confrontos-table.component.scss'
 })
 export class ConfrontosTableComponent implements OnInit {
 
 
+
   documentos: ConfrontoDocumentoListaDTO[] = [];
   loading = false;
   errorMsg: string | null = null;
 
-   @Input() data: DocumentoFiscalConfrontoDTO[] =[];
-   @Input() loadingConfrontos = false;
+  @Input() data: DocumentoFiscalConfrontoDTO[] = [];
+  @Input() loadingConfrontos = false;
+  @Output() carregarPorTipo = new EventEmitter<string>();
+   @Output() carregarTodos = new EventEmitter();
 
 
   constructor(private confrontosService: ConfrontosService) { }
 
   ngOnInit(): void {
-    this.carregar();
+    this.loadConfrontos();
   }
 
-  carregar(): void {
+  loadConfrontos(): void {
     this.loading = true;
     this.errorMsg = null;
 
-    this.confrontosService.listarTodosAgrupados().subscribe({
+    this.confrontosService.getAllConfrontosComDivergenciasAgrupados().subscribe({
       next: (docs) => {
         
         this.documentos = docs;
@@ -83,6 +85,31 @@ export class ConfrontosTableComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  loadConfrontosPorTipoDocumento(tipo:string): void {
+    this.loading = true;
+    this.errorMsg = null;
+
+    this.confrontosService.getAllConfrontosComDivergenciasAgrupadosPorTipoDocumento(tipo).subscribe({
+      next: (docs) => {
+        
+        this.documentos = docs;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('[Confronto] Erro ao carregar confrontos', err);
+        this.errorMsg = 'Erro ao carregar confrontos. Tente novamente mais tarde.';
+        this.loading = false;
+      }
+    });
+  }
+ 
+  emitirCarregamentoAll() {
+    this.carregarTodos.emit();
+  }
+  emitirCarregamentoPorTipo(tipo: string) {
+    this.carregarPorTipo.emit(tipo);
   }
 
   getFalhaSeverity(falha: boolean): 'success' | 'danger' {
@@ -135,7 +162,7 @@ export class ConfrontosTableComponent implements OnInit {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     });
 
-    saveAs(blob, `confrontos_${new Date().toISOString().slice(0,10)}.xlsx`);
+    saveAs(blob, `confrontos_${new Date().toISOString().slice(0, 10)}.xlsx`);
   }
 
 

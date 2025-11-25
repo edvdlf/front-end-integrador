@@ -1,96 +1,221 @@
 @use "sass:color";
 @use "../core/tokens" as t;
 
+:root {
+  /* VetorIT cores base (substitua se já existirem no seu main) */
+  --vt-orange:        #E1742E;
+  --vt-orange-600:    #C76322; /* hover */
+  --vt-orange-700:    #A9541C; /* active */
 
-// ==============================
-//  PRIME BUTTON BASE
-// ==============================
-.p-button,
-button.p-button,
-.p-button-label,
-.p-button.p-button-text,
-.p-button.p-button-outlined {
-  font-weight: t.$btn-font-weight;
-  padding: t.$btn-padding-y t.$btn-padding-x;
-  border-radius: t.$btn-border-radius;
+  --vt-yellow:        #FFCC4D;
+  --vt-yellow-600:    #E6B844;
+
+  --vt-danger:        #E44C4C;
+  --vt-danger-600:    #C63F3F;
+
+  /* Foco acessível (ajuste caso tenha token central) */
+  --vt-focus-ring:    0 0 0 3px rgba(5,154,210,.25);
+
+  /* Avalara */
+  --av-blue:          #059AD2;
 }
 
-// ==============================
-//  BUTTON – DEFAULT
-// ==============================
-.p-button {
-  background: t.$btn-bg-default;
-  border: 1px solid t.$btn-border-default;
-  color: t.$btn-text-default;
-
-  &:hover {
-    background: t.$btn-bg-default-hover;
-    border-color: t.$btn-bg-default-hover;
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 0.15rem rgba(t.$btn-bg-default, 0.32);
-  }
-}
-
-// ==============================
-//  BUTTON – OUTLINED
-// ==============================
-.p-button.p-button-outlined {
-  background: transparent;
-  color: t.$btn-bg-default;
-  border: 1px solid t.$btn-bg-default;
-
-  &:hover {
-    background: rgba(t.$btn-bg-default, 0.12);
-  }
-}
-
-// ==============================
-//  BUTTON – TEXT
-// ==============================
-.p-button.p-button-text {
-  background: transparent;
-  color: t.$btn-bg-default;
+/* ===============================
+   Base
+   =============================== */
+.btn-vt {
   border: none;
+  font-weight: 600;
+  background: #E1742E;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background-color .2s ease, box-shadow .2s ease, color .2s ease, border-color .2s ease;
 
-  &:hover {
-    background: rgba(t.$btn-bg-default, 0.12);
+  /* Ícones PrimeIcons dentro do botão */
+  .pi { font-size: 1rem; }
+
+  /* Estados desabilitados */
+  &:disabled,
+  &.is-disabled,
+  &.p-disabled {
+    opacity: .65;
+    cursor: not-allowed;
+    filter: grayscale(.15);
+  }
+
+  /* Foco acessível */
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--vt-focus-ring);
   }
 }
-
-// ==============================
-//  VARIANTES CUSTOMIZADAS
-//  (adicionar classe <p-button class="btn-success">)
-// ==============================
-.p-button.btn-success {
-  background: t.$btn-success-bg;
-  border-color: t.$btn-success-bg;
+/* ===============================
+   Variantes "fill"
+   =============================== */
+.btn-vt-primary {
+  @extend .btn-vt;
+  background: var(--vt-orange);
   color: #fff;
 
-  &:hover {
-    background: color.adjust(t.$btn-success-bg, $lightness: -5%);
+  &:hover:not(:disabled):not(.p-disabled) {
+    background: var(--vt-orange-600);
+    border-color: var(--av-blue);
+  }
+  &:active:not(:disabled):not(.p-disabled) {
+    background: var(--vt-orange-700);
+  }
+}
+.btn-vt-yellow {
+  @extend .btn-vt;
+  background: var(--vt-yellow);
+  color: #222;
+
+  &:hover:not(:disabled):not(.p-disabled) {
+    background: var(--vt-yellow-600);
+    border-color: var(--av-blue);
+  }
+  &:active:not(:disabled):not(.p-disabled) {
+    background: color-mix(in srgb, var(--vt-yellow) 85%, #000 15%);
   }
 }
 
-.p-button.btn-danger {
-  background: t.$btn-danger-bg;
-  border-color: t.$btn-danger-bg;
+.btn-vt-danger {
+  @extend .btn-vt;
+  background: var(--vt-danger);
   color: #fff;
 
-  &:hover {
-    background: color.adjust(t.$btn-danger-bg, $lightness: -5%);
+  &:hover:not(:disabled):not(.p-disabled) {
+    background: var(--vt-danger-600);
+    border-color: var(--av-blue);
+  }
+  &:active:not(:disabled):not(.p-disabled) {
+    background: color-mix(in srgb, var(--vt-danger) 80%, #000 20%);
   }
 }
 
-.p-button.btn-warning {
-  background: t.$btn-warning-bg;
-  border-color: t.$btn-warning-bg;
-  color: #000;
+/* ===============================
+   Variantes "outlined"
+   =============================== */
+.btn-vt-outline {
+  @extend .btn-vt;
+  background: transparent;
+  border: 2px solid currentColor;
 }
 
-.p-button.btn-info {
-  background: t.$btn-info-bg;
-  border-color: t.$btn-info-bg;
-  color: #000;
+.btn-vt-outline-primary {
+  @extend .btn-vt-outline;
+  color: var(--vt-orange);
+
+  &:hover:not(:disabled):not(.p-disabled) {
+    background: color-mix(in srgb, var(--vt-orange) 12%, #fff 88%);
+    border-color: var(--av-blue);
+  }
 }
+
+.btn-vt-outline-danger {
+  @extend .btn-vt-outline;
+  color: var(--vt-danger);
+
+  &:hover:not(:disabled):not(.p-disabled) {
+    background: color-mix(in srgb, var(--vt-danger) 10%, #fff 90%);
+    border-color: var(--av-blue);
+  }
+}
+
+/* ===============================
+   Variantes "text/ghost"
+   =============================== */
+.btn-vt-text {
+  @extend .btn-vt;
+  background: transparent;
+  color: var(--vt-orange);
+
+  &:hover:not(:disabled):not(.p-disabled) {
+    background: color-mix(in srgb, var(--vt-orange) 10%, #fff 90%);
+    border-color: var(--av-blue);
+  }
+}
+
+/* ===============================
+   Tamanhos
+   =============================== */
+.btn-vt-sm   { padding: 0.4rem 1rem; font-size: .875rem; border-radius: 6px; }
+.btn-vt-lg   { padding: 0.8rem 1.6rem; font-size: 1rem;   border-radius: 10px; }
+.btn-vt-icon { padding: 0.6rem; width: 2.5rem; height: 2.5rem; justify-content: center; }
+
+/* ===============================
+   Largura total
+   =============================== */
+.btn-vt-block { display: flex; width: 100%; justify-content: center; }
+
+/* ===============================
+   Gradientes (opcional)
+   =============================== */
+.btn-vt-gradient-orange {
+  @extend .btn-vt;
+  color: #fff;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--vt-orange) 35%, #ffa257 65%) 0%,
+    var(--vt-orange) 100%
+  );
+
+  &:hover:not(:disabled):not(.p-disabled) { border-color: var(--av-blue); }
+}
+
+.btn-vt-gradient-danger {
+  @extend .btn-vt;
+  color: #fff;
+  background: linear-gradient(180deg, #ff6a6a 0%, var(--vt-danger) 100%);
+
+  &:hover:not(:disabled):not(.p-disabled) { border-color: var(--av-blue); }
+}
+
+
+/* ======================================================
+   Integração PrimeNG — força o p-button usar o tema Vetor
+   ====================================================== */
+
+.p-button.btn-vt,
+.btn-vt.p-button {
+  background: var(--vt-orange) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+/* Estado hover */
+.p-button.btn-vt-primary:hover,
+.btn-vt-primary.p-button:hover {
+  background: var(--vt-orange-600) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* Estado active */
+.p-button.btn-vt-primary:active,
+.btn-vt-primary.p-button:active {
+  background: var(--vt-orange-700) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* Ícone do PrimeNG */
+.p-button.btn-vt .p-button-icon,
+.btn-vt.p-button .p-button-icon {
+  color: #fff !important;
+}
+
+/* Desabilitado */
+.p-button.btn-vt.p-disabled,
+.btn-vt.p-button.p-disabled {
+  opacity: .65 !important;
+  filter: grayscale(.15);
+  background: var(--vt-orange) !important;
+}
+
+

@@ -4,8 +4,26 @@
 @use "styles/components/footer";
 @use "styles/components/card";
 @use "styles/components/tables";
-//@use "styles/components/buttons";
+@use "styles/components/buttons";
 @use "styles/base/base";
 @use "styles/page/login";
+
+
+
+:root {
+  --vt-orange:        #E1742E;
+  --vt-orange-600:    #C76322;
+  --vt-orange-700:    #A9541C;
+
+  --vt-yellow:        #FFCC4D;
+  --vt-yellow-600:    #E6B844;
+
+  --vt-danger:        #E44C4C;
+  --vt-danger-600:    #C63F3F;
+
+  --vt-focus-ring:    0 0 0 3px rgba(5,154,210,.25);
+  --av-blue:          #059AD2;
+}
+
 
 

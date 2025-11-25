@@ -1,95 +1,103 @@
-<div class="grid">
-  <div class="field col-12 md:col-3">
-    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
-      <div class="flex justify-between gap-4">
-        <div class="flex flex-col gap-2">
-          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
-           Recuperados
-          </span>
-          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
-            10
-          </div>
+<div class="w-full px-0">
+  <div class="grid">
+
+    <div class="col-12 md:col-6 lg:col-2">
+      <div class="kpi-card kpi-total-gradient">
+        <div class="kpi-header">
+          <span class="kpi-label">Total de documentos recuperados</span>
+          <span class="kpi-icon"><i class="pi pi-file"></i></span>
         </div>
-        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-cyan">
-          <i class="pi pi-envelope text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-        </div>
-      </div>
-      <div class="mt-4 vtr-custom-subtext">
-        <span class="font-medium">Total geral</span>
-        <span> Documentos recuperados</span>
+        <div class="kpi-value">{{ dashboardResumo?.totalRecuperados }}</div>
       </div>
     </div>
 
-  </div>
 
-  <div class="field col-12 md:col-3">
-    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
-      <div class="flex justify-between gap-4">
-        <div class="flex flex-col gap-2">
-          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
-           Recuperados
-          </span>
-          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
-            5
-          </div>
+    <div class="col-12 md:col-6 lg:col-2">
+      <div class="kpi-card kpi-concluido-gradient">
+        <div class="kpi-header">
+          <span class="kpi-label">Total de documentos processados</span>
+          <span class="kpi-icon"><i class="pi pi-check-circle"></i></span>
         </div>
-        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-orange">
-          <i class="pi pi-map-marker text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-        </div>
-      </div>
-      <div class="mt-4 vtr-custom-subtext">
-        <span class="font-medium">Com erro</span>
-        <span> Erro na recuperaçao</span>
+        <div class="kpi-value">{{ dashboardResumo?.totalProcessados }}</div>
       </div>
     </div>
-    
-  </div>
-  <div class="field col-12 md:col-3">
-    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
-      <div class="flex justify-between gap-4">
-        <div class="flex flex-col gap-2">
-          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
-            Calculados
-          </span>
-          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
-            6
-          </div>
+
+    <div class="col-12 md:col-6 lg:col-2">
+      <div class="kpi-card kpi-erro-gradient">
+        <div class="kpi-header">
+          <span class="kpi-label">Documentos processados com erro</span>
+          <span class="kpi-icon"><i class="pi pi-exclamation-triangle"></i></span>
         </div>
-        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-slate">
-          <i class="pi pi-file text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-        </div>
-      </div>
-      <div class="mt-4 vtr-custom-subtext">
-        <span>Sucesso</span>
+        <div class="kpi-value">{{ dashboardResumo?.totalProcessadosErro }}</div>
       </div>
     </div>
-    
 
-  </div>
-  <div class="field col-12 md:col-3">
-    <div class="bg-surface-0 dark:bg-surface-900 shadow-sm p-5 rounded-2xl vtr-custom-card">
-      <div class="flex justify-between gap-4">
-        <div class="flex flex-col gap-2">
-          <span class="text-surface-700 dark:text-surface-300 font-normal leading-tight vtr-custom-title">
-            Calculados
-          </span>
-          <div class="text-surface-900 dark:text-surface-0 font-semibold text-2xl! leading-tight! vtr-custom-value">
-            4
-          </div>
+
+    <div class="col-12 md:col-6 lg:col-2">
+      <div class="kpi-card kpi-processando-gradient">
+        <div class="kpi-header">
+          <span class="kpi-label">Total de itens confrontados</span>
+          <span class="kpi-icon"><i class="pi pi-spinner pi-spin"></i></span>
         </div>
-        <div class="flex items-center justify-center rounded-lg w-10 h-10 vtr-custom-icon-box vtr-bg-violet">
-          <i class="pi pi-users text-surface-0 dark:text-surface-900 text-xl! leading-none!"></i>
-        </div>
-      </div>
-      <div class="mt-4 vtr-custom-subtext">
-        <span class="font-medium">34567</span>
-        <span> Divergencias</span>
+        <div class="kpi-value">{{ dashboardResumo?.totalConfontos }}</div>
       </div>
     </div>
+
+    <div class="col-12 md:col-6 lg:col-2">
+      <div class="kpi-card kpi-concluido-gradient">
+        <div class="kpi-header">
+          <span class="kpi-label">Confrontados sem divergências</span>
+          <span class="kpi-icon"><i class="pi pi-check-circle"></i></span>
+        </div>
+        <div class="kpi-value">{{ dashboardResumo?.totalConfontosSemDivergencia }}</div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-2">
+      <div class="kpi-card kpi-erro-gradient">
+        <div class="kpi-header">
+          <span class="kpi-label">Confrontados sem divergências</span>
+          <span class="kpi-icon"><i class="pi pi-exclamation-triangle"></i></span>
+        </div>
+        <div class="kpi-value">{{ dashboardResumo?.totalConfontosComDivergencia }}</div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-8">
+      <section class="dashboard-chart-section">
+        <h3 class="chart-title">Visão gráfico</h3>
+        <p-chart type="bar" [data]="barData" [options]="barOptions" styleClass="dashboard-bar-chart">
+        </p-chart>
+      </section>
+    </div>
+    <div class="col-12 md:col-4">
+      <div class="card mt-4">
+        <p-chart type="pie" [data]="pieData" [options]="pieOptions"
+          style="width: 100%; max-width: 420px; margin: 0 auto;"></p-chart>
+      </div>
+    </div>
+  
+
+    <div class="col-12">
+      <section class="dashboard-chart-section">
+        <h3 class="chart-title">Divergências por tributo</h3>
+        
+
+  <div class="chart-container" style="height: 320px;">
+    <p-chart
+      type="bar"
+      [data]="barTributosData"
+      [options]="barTributosOptions">
+    </p-chart>
   </div>
+      </section>
+    </div>
 
 
+
+
+
+
+
+  </div>
 </div>
-
-
-

@@ -16,6 +16,7 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
 import { UsuarioLocalStorage } from '../../core/models/localstorage.model';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
+import { Message } from "primeng/message";
 
 
 @Component({
@@ -24,9 +25,10 @@ import { ToastModule } from 'primeng/toast';
   imports: [
     CommonModule, ReactiveFormsModule,
     PasswordModule, CheckboxModule, ButtonModule, DividerModule,
-     FormsModule, ButtonModule, CheckboxModule,
-     ToastModule
-  ],
+    FormsModule, ButtonModule, CheckboxModule,
+    ToastModule,
+    Message
+],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   
@@ -40,6 +42,8 @@ export default class LoginComponent {
   private localStorageService = inject(LocalStorageService);
   private messageService = inject(MessageService);
   
+  submitted = false;
+
 
   loading = false;
 
@@ -48,6 +52,10 @@ export default class LoginComponent {
     senha: ['', [Validators.required, Validators.minLength(6)]],
     lembrar: [true],
   });
+
+  get f() {
+    return this.loginForm.controls;
+  }
 
   async submit() {
     if (this.loginForm.invalid) {

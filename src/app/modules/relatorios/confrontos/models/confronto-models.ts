@@ -2,6 +2,7 @@
 export interface DocumentoFiscalConfrontoDTO {
   id: string;
   documentoFiscalId: string;
+  tipoDocumentoFiscal: string;
   grupoInformacao: string;
   lineCode?: number | null;
   cfop?: number | null;
@@ -22,3 +23,4 @@ export interface ConfrontoDocumentoListaDTO {
   documentoFiscalId: string;
   grupos: ConfrontoGrupoDTO[];
 }
+

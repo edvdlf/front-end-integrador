@@ -5,203 +5,196 @@
          <p-tab value="1">Sintético</p-tab>
       </p-tablist>
       <p-tabpanels>
-         <p-toolbar class="mb-6">
-            <ng-template #start>
-            <p-button label="NFe" icon="pi pi-search" class="mr-2"  />
-            <p-button label="CTe" icon="pi pi-search" class="mr-2"  />
-            <p-button label="NFSe" icon="pi pi-search" class="mr-2"  />
-         </ng-template>
-         <ng-template #end>
-        <p-button icon="pi pi-file-excel" label="Exportar Excel" (click)="exportarExcel()"></p-button>
-         </ng-template>
-      </p-toolbar>
+
          <p-tabpanel value="0">
-            <p-table class="vetorit-table"
-            [value]="data"
-            [rows]="20"
-            [paginator]="true"
-            dataKey="id"
-            [scrollable]="true"
-            scrollWidth="1000px"
-            [tableStyle]="{ 'min-width': '1000px' }"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} templates"
-            >
-            <ng-template pTemplate="header">
-               <tr>
-                  <th pSortableColumn="documentoFiscalId" class="whitespace-nowrap">
-                     <div class="flex justify-content-between align-items-center">
-                        <div> Número documento</div>
-                        <div class="flex align-items-center gap-2">
-                           <p-sortIcon field="documentoFiscalId"></p-sortIcon>
-                           <p-columnFilter
-                           type="text"
-                           field="documentoFiscalId"
-                           display="menu"
-                           matchMode="contains"
-                           [showMatchModes]="false"
-                           [showOperator]="false"
-                           [showAddButton]="false"
-                           ></p-columnFilter>
+            <p-toolbar class="mb-6">
+               <ng-template #start>
+                  <p-button label="NFe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="emitirCarregamentoPorTipo('NFE')" />
+                  <p-button label="CTe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="emitirCarregamentoPorTipo('CTE')" />
+                  <p-button label="NFSe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="emitirCarregamentoPorTipo('NFSE')" />
+                  <p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="emitirCarregamentoAll()" />
+               </ng-template>
+               <ng-template #end>
+                  <p-button icon="pi pi-file-excel" styleClass="btn-vt btn-vt-primary" class="mr-2"
+                     label="Exportar Excel" (click)="exportarExcel()">
+                  </p-button>
+
+                 
+               </ng-template>
+
+
+            </p-toolbar>
+            <p-table class="vetorit-table" [value]="data" [rows]="20" [paginator]="true" dataKey="id"
+               [scrollable]="true" scrollWidth="1000px" [tableStyle]="{ 'min-width': '1000px' }"
+               currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} templates">
+               <ng-template pTemplate="header">
+                  <tr>
+                     <th pSortableColumn="documentoFiscalId" class="whitespace-nowrap">
+                        <div class="flex justify-content-between align-items-center">
+                           <div> Número documento</div>
+                           <div class="flex align-items-center gap-2">
+                              <p-sortIcon field="documentoFiscalId"></p-sortIcon>
+                              <p-columnFilter type="text" field="documentoFiscalId" display="menu" matchMode="contains"
+                                 [showMatchModes]="false" [showOperator]="false"
+                                 [showAddButton]="false"></p-columnFilter>
+                           </div>
                         </div>
-                     </div>
-                  </th>
-                  <th pSortableColumn="grupoInformacao" class="whitespace-nowrap">
-                     <div class="flex justify-content-between align-items-center">
-                        <div> Grupo de informação</div>
-                        <div class="flex align-items-center gap-2">
-                           <p-sortIcon field="grupoInformacao"></p-sortIcon>
-                           <p-columnFilter
-                           type="text"
-                           field="grupoInformacao"
-                           display="menu"
-                           matchMode="contains"
-                           [showMatchModes]="false"
-                           [showOperator]="false"
-                           [showAddButton]="false"
-                           ></p-columnFilter>
+                     </th>
+                     <th pSortableColumn="grupoInformacao" class="whitespace-nowrap">
+                        <div class="flex justify-content-between align-items-center">
+                           <div> Grupo de informação</div>
+                           <div class="flex align-items-center gap-2">
+                              <p-sortIcon field="grupoInformacao"></p-sortIcon>
+                              <p-columnFilter type="text" field="grupoInformacao" display="menu" matchMode="contains"
+                                 [showMatchModes]="false" [showOperator]="false"
+                                 [showAddButton]="false"></p-columnFilter>
+                           </div>
                         </div>
-                     </div>
-                  </th>
-                  <th pSortableColumn="campo" class="whitespace-nowrap">
-                     <div class="flex justify-content-between align-items-center">
-                        <div> Campo</div>
-                        <div class="flex align-items-center gap-2">
-                           <p-sortIcon field="campo"></p-sortIcon>
-                           <p-columnFilter
-                           type="text"
-                           field="campo"
-                           display="menu"
-                           matchMode="contains"
-                           [showMatchModes]="false"
-                           [showOperator]="false"
-                           [showAddButton]="false"
-                           ></p-columnFilter>
+                     </th>
+                     <th pSortableColumn="tipoDocumentoFiscal" class="whitespace-nowrap">
+                        <div class="flex justify-content-between align-items-center">
+                           <div> Tipo</div>
+                           <div class="flex align-items-center gap-2">
+                              <p-sortIcon field="tipoDocumentoFiscal"></p-sortIcon>
+                              <p-columnFilter type="text" field="tipoDocumentoFiscal" display="menu"
+                                 matchMode="contains" [showMatchModes]="false" [showOperator]="false"
+                                 [showAddButton]="false"></p-columnFilter>
+                           </div>
                         </div>
-                     </div>
-                  </th>
-                  <th pSortableColumn="valorOriginal" class="whitespace-nowrap">
-                     <div class="flex justify-content-between align-items-center">
-                        <div> Valor Original</div>
-                        <div class="flex align-items-center gap-2">
-                           <p-sortIcon field="valorOriginal"></p-sortIcon>
-                           <p-columnFilter
-                           type="text"
-                           field="valorOriginal"
-                           display="menu"
-                           matchMode="contains"
-                           [showMatchModes]="false"
-                           [showOperator]="false"
-                           [showAddButton]="false"
-                           ></p-columnFilter>
+                     </th>
+                     <th pSortableColumn="campo" class="whitespace-nowrap">
+                        <div class="flex justify-content-between align-items-center">
+                           <div> Campo</div>
+                           <div class="flex align-items-center gap-2">
+                              <p-sortIcon field="campo"></p-sortIcon>
+                              <p-columnFilter type="text" field="campo" display="menu" matchMode="contains"
+                                 [showMatchModes]="false" [showOperator]="false"
+                                 [showAddButton]="false"></p-columnFilter>
+                           </div>
                         </div>
-                     </div>
-                  </th>
-                  <th pSortableColumn="valorCalculado" class="whitespace-nowrap">
-                     <div class="flex justify-content-between align-items-center">
-                        <div> Valor Calculado</div>
-                        <div class="flex align-items-center gap-2">
-                           <p-sortIcon field="valorCalculado"></p-sortIcon>
-                           <p-columnFilter
-                           type="text"
-                           field="valorCalculado"
-                           display="menu"
-                           matchMode="contains"
-                           [showMatchModes]="false"
-                           [showOperator]="false"
-                           [showAddButton]="false"
-                           ></p-columnFilter>
+                     </th>
+                     <th pSortableColumn="valorOriginal" class="whitespace-nowrap">
+                        <div class="flex justify-content-between align-items-center">
+                           <div> Valor Original</div>
+                           <div class="flex align-items-center gap-2">
+                              <p-sortIcon field="valorOriginal"></p-sortIcon>
+                              <p-columnFilter type="text" field="valorOriginal" display="menu" matchMode="contains"
+                                 [showMatchModes]="false" [showOperator]="false"
+                                 [showAddButton]="false"></p-columnFilter>
+                           </div>
                         </div>
-                     </div>
-                  </th>
-               </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-row>
-               <tr>
-                  <td>
-                     <div class="flex flex-col">
-                        <span class="font-medium">{{ row.documentoFiscalId }}</span>
-                     </div>
-                  </td>
-                  <td>{{ row.grupoInformacao }}</td>
-                  <td>{{ row.campo }}</td>
-                  <td>{{ row.valorOriginal  }}</td>
-                  <td>{{ row.valorCalculado  }}</td>
-               </tr>
-            </ng-template>
+                     </th>
+                     <th pSortableColumn="valorCalculado" class="whitespace-nowrap">
+                        <div class="flex justify-content-between align-items-center">
+                           <div> Valor Calculado</div>
+                           <div class="flex align-items-center gap-2">
+                              <p-sortIcon field="valorCalculado"></p-sortIcon>
+                              <p-columnFilter type="text" field="valorCalculado" display="menu" matchMode="contains"
+                                 [showMatchModes]="false" [showOperator]="false"
+                                 [showAddButton]="false"></p-columnFilter>
+                           </div>
+                        </div>
+                     </th>
+                  </tr>
+               </ng-template>
+               <ng-template pTemplate="body" let-row>
+                  <tr>
+                     <td>
+                        <div class="flex flex-col">
+                           <span class="font-medium">{{ row.documentoFiscalId }}</span>
+                        </div>
+                     </td>
+                     <td>{{ row.grupoInformacao }}</td>
+                     <td>{{ row.tipoDocumentoFiscal }}</td>
+                     <td>{{ row.campo }}</td>
+                     <td>{{ row.valorOriginal }}</td>
+                     <td>{{ row.valorCalculado }}</td>
+                  </tr>
+               </ng-template>
             </p-table>
          </p-tabpanel>
          <p-tabpanel value="1">
-            <div
-               class="custom-card header-band flex align-items-center justify-content-between"
-               >
-               <p-accordion *ngIf="!loading && documentos.length"
-               [multiple]="true">
-               <!-- Painel por documento -->
-               <p-accordion-panel
-               *ngFor="let doc of documentos; trackBy: trackByDocumento"
-               [value]="doc.documentoFiscalId">
-               <p-accordion-header>
-                  {{ getDocumentoHeader(doc) }}
-               </p-accordion-header>
-               <p-accordion-content>
-                  <!-- Accordion interno por grupo -->
-                  <p-accordion [multiple]="true" class="confronto-inner-accordion">
-                     <p-accordion-panel
-                     *ngFor="let grupo of doc.grupos; trackBy: trackByGrupo"
-                     [value]="grupo.grupoInformacao">
+            <p-toolbar class="mb-6">
+               <ng-template #start>
+                  <p-button label="NFe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="loadConfrontosPorTipoDocumento('NFE')" />
+                  <p-button label="CTe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="loadConfrontosPorTipoDocumento('CTE')" />
+                  <p-button label="NFSe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="loadConfrontosPorTipoDocumento('NFSE')" />
+                  <p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="loadConfrontos()" />
+               </ng-template>
+               
+
+
+            </p-toolbar>
+            <div class="custom-card header-band flex align-items-center justify-content-between">
+               <p-accordion *ngIf="!loading && documentos.length" [multiple]="true">
+                  <!-- Painel por documento -->
+                  <p-accordion-panel *ngFor="let doc of documentos; trackBy: trackByDocumento"
+                     [value]="doc.documentoFiscalId">
                      <p-accordion-header>
-                        {{ grupo.grupoInformacao }}
+                        {{ getDocumentoHeader(doc) }}
                      </p-accordion-header>
                      <p-accordion-content>
-                        <p-table [value]="grupo.itens"
-                           dataKey="id"
-                           class="confronto-table">
-                           <ng-template pTemplate="header">
-                              <tr>
-                                 <th style="width: 70px;">Linha</th>
-                                 <th style="width: 80px;">CFOP</th>
-                                 <th>Campo</th>
-                                 <th>Valor Original</th>
-                                 <th>Valor Calculado</th>
-                                 <th style="width: 130px;">Diferença</th>
-                                 <th style="width: 180px;">Criado em</th>
-                              </tr>
-                           </ng-template>
-                           <ng-template pTemplate="body" let-row>
-                              <tr [ngClass]="{'row-falha': row.falha}">
-                                 <td>{{ row.lineCode || '-' }}</td>
-                                 <td>{{ row.cfop || '-' }}</td>
-                                 <td>{{ row.campo }}</td>
-                                 <td>{{ row.valorOriginal }}</td>
-                                 <td>{{ row.valorCalculado }}</td>
-                                 <td>
-                                    <p-tag
-                                    [severity]="getFalhaSeverity(row.falha)"
-                                    [value]="getFalhaLabel(row.falha, row.descricaoDiferenca)">
-                                    </p-tag>
-                                 </td>
-                                 <td>
-                                    {{ row.criadoEm | date:'dd/MM/yyyy HH:mm:ss' }}
-                                 </td>
-                              </tr>
-                           </ng-template>
-                        </p-table>
+                        <!-- Accordion interno por grupo -->
+                        <p-accordion [multiple]="true" class="confronto-inner-accordion">
+                           <p-accordion-panel *ngFor="let grupo of doc.grupos; trackBy: trackByGrupo"
+                              [value]="grupo.grupoInformacao">
+                              <p-accordion-header>
+                                 {{ grupo.grupoInformacao }}
+                              </p-accordion-header>
+                              <p-accordion-content>
+                                 <p-table [value]="grupo.itens" dataKey="id" class="confronto-table">
+                                    <ng-template pTemplate="header">
+                                       <tr>
+                                          <th style="width: 70px;">Linha</th>
+                                          <th style="width: 80px;">CFOP</th>
+                                          <th>Campo</th>
+                                          <th>Valor Original</th>
+                                          <th>Valor Calculado</th>
+                                          <th style="width: 130px;">Diferença</th>
+                                          <th style="width: 180px;">Criado em</th>
+                                       </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-row>
+                                       <tr [ngClass]="{'row-falha': row.falha}">
+                                          <td>{{ row.lineCode || '-' }}</td>
+                                          <td>{{ row.cfop || '-' }}</td>
+                                          <td>{{ row.campo }}</td>
+                                          <td>{{ row.valorOriginal }}</td>
+                                          <td>{{ row.valorCalculado }}</td>
+                                          <td>
+                                             <p-tag [severity]="getFalhaSeverity(row.falha)"
+                                                [value]="getFalhaLabel(row.falha, row.descricaoDiferenca)">
+                                             </p-tag>
+                                          </td>
+                                          <td>
+                                             {{ row.criadoEm | date:'dd/MM/yyyy HH:mm:ss' }}
+                                          </td>
+                                       </tr>
+                                    </ng-template>
+                                 </p-table>
+                              </p-accordion-content>
+                           </p-accordion-panel>
+                        </p-accordion>
                      </p-accordion-content>
-                     </p-accordion-panel>
-                  </p-accordion>
-               </p-accordion-content>
-               </p-accordion-panel>
+                  </p-accordion-panel>
                </p-accordion>
             </div>
             <div class="confronto-container">
                <!-- Sem dados -->
-               <div class="empty-state"
-                  *ngIf="!loading && !documentos.length && !errorMsg">
+               <div class="empty-state" *ngIf="!loading && !documentos.length && !errorMsg">
                   Nenhum confronto encontrado.
                </div>
             </div>
          </p-tabpanel>
       </p-tabpanels>
    </p-tabs>
-   
+
 </div>

@@ -1,6 +1,14 @@
 export interface DashboardResumoDTO 
-{ totalProcessados: number; 
-    totalDivergencias: number; 
+{  
+
+    totalRecuperados: number;
+    totalProcessados: number;
+    totalConfontos: number;
+    totalProcessadosErro: number;
+    totalConfontosComDivergencia: number;
+    totalConfontosSemDivergencia: number;
+
+
 }
 export interface SeriePorDiaDTO 
 { 
@@ -24,3 +32,5 @@ export interface DashboardVisaoGeralDTO {
   divergenciasPorTributo: DivergenciasPorTributoDTO[];
   generatedAt: string; // ISO datetime (Instant do backend)
 }
+
+

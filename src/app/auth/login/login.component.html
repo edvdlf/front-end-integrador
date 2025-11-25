@@ -19,6 +19,19 @@
               formControlName="email"
               placeholder="Digite seu email"
             />
+             <!-- Obrigatório -->
+            <p-message
+              *ngIf="f['email'].hasError('required') && (f['email'].touched || submitted)"
+              severity="error"
+              text="E-mail é obrigatório.">
+            </p-message>
+
+            <!-- Formato inválido -->
+            <p-message
+              *ngIf="!f['email'].hasError('required') && f['email'].hasError('email') && (f['email'].touched || submitted)"
+              severity="error"
+              text="Informe um e-mail válido.">
+            </p-message>
           </div>
          
           <div class="input-wrapper">
@@ -32,8 +45,20 @@
                 placeholder="Digite sua senha"
                 formControlName="senha"
                 >
-                
+               
             </p-password>
+
+            <p-message
+              *ngIf="f['senha'].hasError('required') && (f['senha'].touched || submitted)"
+              severity="error"
+              text="Senha é obrigatória.">
+            </p-message>
+
+            <p-message
+              *ngIf="f['senha'].hasError('minlength') && (f['senha'].touched || submitted)"
+              severity="error"
+              text="Senha deve ter pelo menos 6 caracteres.">
+            </p-message>
             </div>
           </div>
 
