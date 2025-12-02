@@ -10,6 +10,7 @@ const PUBLIC_URLS = [
   '/auth/login',
   '/auth/refresh',
   '/auth/register',
+  '/auth/recuperar-senha',
   '/public/'
 ];
 
@@ -52,15 +53,5 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req);
 
-  //return next(authReq).pipe(
-  //  catchError((err: HttpErrorResponse) => {
-   //   if (err.status === 401 || err.status === 403) {
-   //     // token ausente/expirado/inválido → limpa e manda para login
-    //    tokenService.clearToken();
-        // opcional: preserve a URL atual para redirecionar após login
-    //    router.navigate(['/login'], { queryParams: { redirect: router.url }});
-     // }
-     // return throwError(() => err);
-    //})
-  //);
+ 
 };

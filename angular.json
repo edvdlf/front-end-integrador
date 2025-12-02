@@ -33,6 +33,10 @@
              "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.min.css"
+            ],
+            "allowedCommonJsDependencies": [
+              "file-saver",
+              "xlsx"
             ]
             
           },

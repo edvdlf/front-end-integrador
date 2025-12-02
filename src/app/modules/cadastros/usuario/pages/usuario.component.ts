@@ -1,28 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { UsuarioHeaderComponent } from "../components/usuario-header/usuario-header.component";
 
 import { UsuarioService } from '../service/usuario-service';
 import { ProgressSpinner } from "primeng/progressspinner";
 import { CommonModule } from '@angular/common';
-import { UsuarioResponse } from '../models/usuario.model';
+import { DeleteUsuarioAction, UsuarioResponse } from '../models/usuario.model';
 import { UsuarioTabsComponent } from "../components/usuario-tabs/usuario-tabs.component";
-import { UsuarioFormComponent } from "../components/usuario-form/usuario-form.component";
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-usuario',
-  imports: [CommonModule, UsuarioHeaderComponent, UsuarioTabsComponent],
+  imports: [CommonModule, 
+    UsuarioHeaderComponent, 
+    UsuarioTabsComponent,
+    
+  
+  ],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.scss'
 })
-export class UsuarioComponent implements OnInit {
+export class UsuarioComponent implements OnInit, OnDestroy {
+
   usuarios: UsuarioResponse[] = [];
   loading = false;
   errorMsg = '';
 
-  constructor(private usuarioService: UsuarioService) {}
+  private readonly destroy$: Subject<void> = new Subject();
+  private usuarioService =  inject(UsuarioService);
+  private confirmationService =  inject(ConfirmationService);
+   private messageService =  inject(MessageService);
+   private dialogService= inject(DialogService);
 
+
+  
   ngOnInit(): void {
-    //this.loadUsuarios();
+    this.loadUsuarios();
   }
 
   loadUsuarios(): void {
@@ -41,5 +55,61 @@ export class UsuarioComponent implements OnInit {
       }
     });
   }
+
+onDeleteUsuario(event: DeleteUsuarioAction): void {
+  console.log('Recebi do filho:', event);
+
+ 
+   if (event) {
+      this.confirmationService.confirm({
+        message: `Confirma a exclusão do usuário? "
+         ${event?.nome}`,
+        header: "Confirmação de Exclusão",
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Sim',
+        rejectLabel: 'Não',
+        accept: () => this.deleteUsuario(event?.id),
+        })
+    }
+
+  
+}
+  
+
+  deleteUsuario(id: string) {
+    if (id) {
+      this.usuarioService
+      .deleteUsuario(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+       next: (response) => {
+       this.loadUsuarios();
+            this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Usuário excluído com sucesso!',
+            life: 3000,
+        });
+        },
+          error: (err) => {
+
+          this.loadUsuarios();
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Não foi possivel excluir  o Usuário!',
+            life: 3000,
+          });
+          },
+        });
+      this.loadUsuarios();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
 
 }

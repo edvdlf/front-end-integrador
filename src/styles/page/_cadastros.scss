@@ -1,0 +1,160 @@
+// src/styles/page/_cadastros.scss
+@use "sass:color";
+
+// Só essa variável mesmo
+$vt-orange: #E1742E;
+
+// 🌐 Container da página de formulário
+.vt-form-page {
+  min-height: calc(100vh - 80px); // ajusta se seu header tiver outra altura
+  padding: 2rem 2.5rem;
+  background: #F2F4F7; // fundo da tela
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+// Wrapper central
+.vt-form-wrapper {
+  width: 100%;
+  max-width: 1120px;
+}
+
+// Cabeçalho (título + descrição)
+.vt-form-header {
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: #111827;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6B7280;
+  }
+}
+
+// Card cinza do formulário
+.vt-form-card {
+  background: #F7F8FA;
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  border: 1px solid #DDE3EB;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+
+  /* deixa o card mais parecido com o mock */
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+// Grid do formulário (2 colunas → 1 no mobile)
+.vt-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .vt-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Campo genérico
+.vt-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #4B5563;
+
+    &.required::after {
+      content: " *";
+      color: #DC2626;
+    }
+  }
+
+  input,
+  select,
+  textarea,
+  .p-inputgroup,
+  .p-password,
+  .p-password-input,
+  .p-inputtext {
+    width: 100%;
+  }
+  .p-calendar {
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #DDE3EB;
+    font-size: 0.9rem;
+    padding: 0.6rem 0.75rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+    &::placeholder {
+      color: #9CA3AF;
+    }
+
+    &:focus,
+    &:focus-visible,
+    &.p-focus {
+      outline: none;
+      border-color: $vt-orange;
+      box-shadow: 0 0 0 1px color.adjust($vt-orange, $alpha: -0.7);
+    }
+  }
+
+  
+
+  // Mensagem de erro
+  .vt-field-error {
+    margin-top: 0.15rem;
+    font-size: 0.75rem;
+    color: #DC2626;
+  }
+}
+
+// Área de ações (botões)
+.vt-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+// Botão principal
+.vt-btn-primary {
+  background: $vt-orange;
+  border-color: $vt-orange;
+  color: #FFFFFF;
+  font-weight: 500;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+
+  &:hover {
+    background: color.scale($vt-orange, $lightness: -5%);
+    border-color: color.scale($vt-orange, $lightness: -7%);
+  }
+}
+
+// Botão secundário (cancelar / voltar)
+.vt-btn-secondary {
+  background: transparent;
+  border-radius: 999px;
+  border: 1px solid color.scale($vt-orange, $lightness: 25%);
+  color: $vt-orange;
+  padding: 0.6rem 1.4rem;
+  font-weight: 500;
+
+  &:hover {
+    background: color.adjust($vt-orange, $alpha: -0.9);
+  }
+}

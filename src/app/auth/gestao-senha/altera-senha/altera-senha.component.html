@@ -1,0 +1,107 @@
+<div class="vt-form-page">
+  <div class="vt-form-wrapper">
+    <!-- Cabeçalho da página -->
+    <div class="vt-form-header">
+      <h1>Alterar Senha</h1>
+      <p>Informe a nova senha e a confirmação para concluir a alteração<output></output>.</p>
+    </div>
+
+    <!-- Card cinza do formulário -->
+    <div class="vt-form-card">
+      <form [formGroup]="alterarSenhaForm" (ngSubmit)="onSubmit()">
+
+        <div class="vt-form-field">
+          <label for="email" class="required">Email</label>
+          <div class="p-inputgroup mt-1">
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              readonly
+              placeholder="email"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
+            />
+            
+          </div>
+        </div>
+
+        <div class="vt-form-field">
+          <label for="password" class="required">Senha atual</label>
+          <div class="p-inputgroup mt-1">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-key"></i>
+            </span>
+            <p-password
+              inputId="password"
+              class="flex p-inputtext-sm"
+              formControlName="senhaAtual"
+              placeholder="Informe a senha atual"
+              [toggleMask]="true"
+              autocomplete="off"
+            ></p-password>
+          </div>
+        </div>
+        
+        <!-- Nova senha -->
+        <div class="vt-form-field">
+          <label for="password" class="required">Nova senha</label>
+          <div class="p-inputgroup mt-1">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-key"></i>
+            </span>
+            <p-password
+              inputId="password"
+              class="flex p-inputtext-sm"
+              formControlName="novaSenha"
+              placeholder="Informe a nova senha"
+              [toggleMask]="true"
+              autocomplete="off"
+            ></p-password>
+          </div>
+        </div>
+
+        <!-- Confirmação da nova senha -->
+        <div class="vt-form-field mt-3">
+          <label for="confirme-password" class="required"
+            >Confirme a nova senha</label
+          >
+          <div class="p-inputgroup mt-1">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-key"></i>
+            </span>
+            <p-password
+              inputId="confirme-password"
+              class="flex p-inputtext-sm"
+              formControlName="confirmeNovaSenha"
+              placeholder="Confirme a nova senha"
+              [toggleMask]="true"
+              autocomplete="off"
+            ></p-password>
+          </div>
+          <p-message
+              *ngIf="alterarSenhaForm.hasError('senhasDiferentes') && (f['confirmeNovaSenha'].touched || submitted)"
+              severity="error"
+              text="As senhas não conferem.">
+            </p-message>
+        </div>
+
+        
+        <div class="vetorit-card">
+      <div class="flex justify-content-end gap-2 mt-3">
+        <p-button
+          type="submit"
+          icon="pi pi-check"
+          label="Salvar nova senha"
+          styleClass="btn-vt btn-vt-primary btn-vt-sm"
+           [disabled]="alterarSenhaForm.invalid"
+        ></p-button>
+        
+      </div>
+    </div>
+         
+
+       
+      </form>
+    </div>
+  </div>
+</div>

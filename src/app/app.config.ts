@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -13,6 +13,9 @@ import { providePrimeNG } from 'primeng/config';
 //import Aura from 'primeng/themes/aura';
 import Aura from '@primeuix/themes/aura';
 
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
@@ -21,6 +24,10 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([tokenInterceptor])
     ),
+     importProvidersFrom(DynamicDialogModule,
+      ConfirmDialogModule
+     ),
+    DialogService,
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes), provideClientHydration(withEventReplay()),

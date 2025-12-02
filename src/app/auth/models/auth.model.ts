@@ -14,3 +14,17 @@ export interface AuthResponse{
   role: string;
 }
 
+export interface AlterarSenhaRequest{
+  email: string;
+  senhaAtual: string;
+  novaSenha: string;
+}
+
+export interface MensagemResponse {
+  mensagem: string;
+}
+
+export interface RedefinirSenhaRequest{
+  token: string;
+  novaSenha: string;
+}

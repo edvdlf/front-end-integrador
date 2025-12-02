@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { authGuard } from './core/guards/auth-guard';
 import { redirectIfAuthenticatedGuard } from './core/guards/redirect-if-authenticated.guard';
+import { RecuperaSenhaComponent } from './auth/gestao-senha/recupera-senha/recupera-senha.component';
+import { AlteraSenhaComponent } from './auth/gestao-senha/altera-senha/altera-senha.component';
+import { RedefinirSenhaComponent } from './auth/gestao-senha/redefinir-senha/redefinir-senha.component';
 
 export const routes: Routes = [
   // 1) Sempre cair no login ao acessar "/"
@@ -12,6 +15,16 @@ export const routes: Routes = [
     loadComponent: () => import('./auth/login/login.component').then(m => m.default),
     //canActivate: [redirectIfAuthenticatedGuard]
   },
+ {
+  path: 'recuperar-senha',
+  component: RecuperaSenhaComponent,
+},
+
+ {
+  path: 'redefinir-senha',
+  component: RedefinirSenhaComponent,
+},
+
 
   // 3) Shell protegido
   {
@@ -26,6 +39,7 @@ export const routes: Routes = [
       { path: 'nfse',    loadChildren: () => import('./modules/consultas/nfse/nfse.routes').then(m => m.NFSE_ROUTES) },
       { path: 'relatorios-confrontos',    loadChildren: () => import('./modules/relatorios/confrontos/relatorios.routes').then(m => m.RELATORIOS_CONFRONTOS_ROUTES) },
       { path: 'relatorios-errosprocessamento',    loadChildren: () => import('./modules/relatorios/logs/errosprocessamento.routes').then(m => m.ERROS_PROCESSAMENTO_ROUTES) },
+      { path: 'alterar-senha',   loadChildren: () => import('./auth/gestao-senha/altera-senha/altera-senha.routes').then(m => m.ALTERA_SENHA_ROUTES) },
     ]
   },
 

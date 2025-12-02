@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng s --o --port 4230",
+    "start": "npx ng s --open --port 4230",
     "build": "ng build",
     "build:dev": "ng build -c development",
     "build:qa": "ng build -c qa",

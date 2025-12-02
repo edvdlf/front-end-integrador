@@ -20,4 +20,7 @@ export interface UsuarioRequest {
   role:string;   // ISO string vinda do backend (OffsetDateTime)
 }
 
- 
+ export interface DeleteUsuarioAction {
+   id: string;
+   nome:string;
+}

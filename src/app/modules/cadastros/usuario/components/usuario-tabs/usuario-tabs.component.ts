@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 import { UsuarioFormComponent } from "../usuario-form/usuario-form.component";
 import { UsuarioTableComponent } from "../usuario-table/usuario-table.component";
-import { UsuarioResponse } from '../../models/usuario.model';
+import { DeleteUsuarioAction, UsuarioResponse } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-usuario-tabs',
@@ -39,7 +39,7 @@ import { UsuarioResponse } from '../../models/usuario.model';
         <p-tabpanel value="1">
           <div class="col-12">
             <app-usuario-table
-            
+            (deleteUsuario)="onDeleteUsuario($event)"
             />
           </div>
         </p-tabpanel>
@@ -51,8 +51,16 @@ export class UsuarioTabsComponent {
 
   activeTab: string = '0';
   @Input() usuarios: Array<UsuarioResponse> = [];
+  @Output() deleteUsuario = new EventEmitter<DeleteUsuarioAction>();
+
   goToConsultas() {
+   
     this.activeTab = '0';
+  }
+
+  onDeleteUsuario(action: DeleteUsuarioAction): void {
+    // repassa o evento para o componente pai
+    this.deleteUsuario.emit(action);
   }
 
 }

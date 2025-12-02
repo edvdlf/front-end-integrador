@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { AuthRequest, AuthResponse } from '../../auth/models/auth.model';
+import { AlterarSenhaRequest, AuthRequest, AuthResponse, MensagemResponse, RedefinirSenhaRequest } from '../../auth/models/auth.model';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -14,11 +14,7 @@ export class AuthService {
 
   constructor(private http:HttpClient, private cookie: CookieService ) { }
 
-  //registerUser(requestDatas: RegisterUserRequest): Observable<RegisterUserResponse>{
-    //return this.http.post<RegisterUserResponse>(`${this.API_URL}/auth/register`,requestDatas)
-  //}
-
-
+ 
 
   authUser(requestDatas: AuthRequest): Observable<AuthResponse> {
   return this.http.post<AuthResponse>(`${this.API_URL}/auth/signin`, requestDatas, {
@@ -30,5 +26,21 @@ export class AuthService {
     const JWT_TOKEN = this.cookie.get('USER_INFO');
     return JWT_TOKEN ? true : false;
   }
+
+  recuperarSenha(email: string): Observable<MensagemResponse> {
+  return this.http.post<MensagemResponse>(`${this.API_URL}/auth/recuperar-senha`, email, {
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
+
+alterarSenha(requestDatas: AlterarSenhaRequest): Observable<AlterarSenhaRequest>{
+
+    return this.http.put<AlterarSenhaRequest>(`${this.API_URL}/auth/alterar-senha`,requestDatas)
+  }
+
+  redefinirSenha(requestDatas: RedefinirSenhaRequest): Observable<RedefinirSenhaRequest>{
+    return this.http.post<RedefinirSenhaRequest>(`${this.API_URL}/auth/redefinir-senha`,requestDatas)
+  }
+
 
 }

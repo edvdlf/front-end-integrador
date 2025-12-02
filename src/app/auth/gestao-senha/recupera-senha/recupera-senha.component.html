@@ -1,0 +1,56 @@
+ <div class="col-12">
+    
+      <div class="recuperacao-container">
+        <p-card class="recuperacao-card">
+          <h2>Recuperação de Senha</h2>
+          <form [formGroup]="recuperarSenhaForm" (ngSubmit)="onSubmit()">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">
+                <i class="pi pi-envelope"></i>
+              </span>
+              
+              <input
+              id="email"
+              type="email"
+              pInputText
+              class="p-inputtext"
+              formControlName="email"
+              placeholder="Digite seu email"
+            />
+             <!-- Obrigatório -->
+            <p-message
+              *ngIf="f['email'].hasError('required') && (f['email'].touched || submitted)"
+              severity="error"
+              text="E-mail é obrigatório.">
+            </p-message>
+
+            <!-- Formato inválido -->
+            <p-message
+              *ngIf="!f['email'].hasError('required') && f['email'].hasError('email') && (f['email'].touched || submitted)"
+              severity="error"
+              text="Informe um e-mail válido.">
+            </p-message>
+            </div>
+            <div>
+              <button
+                id="login-button"
+                type="submit"
+                size="small"
+                severity="primary"
+                pButton
+                pRipple
+                label="Enviar Link de Recuperação"
+              ></button>
+             
+            </div>
+            <p-message
+                *ngIf="mensagemSucesso"
+                  severity="success"
+                [text]="mensagemSucesso">
+            </p-message>
+          </form>
+          <a routerLink="/login">Voltar para o login</a>
+        </p-card>
+      </div>
+   
+  </div>

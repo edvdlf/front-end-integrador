@@ -3,9 +3,19 @@
     <i class="pi pi-bars"></i>
   </button>
 
-  
   <div class="brand">
-  <img src="img/Logo_Integrador_Taxdocs_Avatax2.png" alt="Integrador Taxdocs Avatax" class="brand-logo" />
-  <strong>Taxdocs <span> Avatax</span></strong>
-</div>
+    <img src="img/Logo_Integrador_Taxdocs_Avatax2.png" alt="Integrador Taxdocs Avatax" class="brand-logo" />
+    <strong>Taxdocs <span>Avatax</span></strong>
+  </div>
+
+  <!-- 🧑 Menu do Usuário no canto direito -->
+  <div class="user-menu">
+    <div class="user-info" (click)="menu.toggle($event)">
+      <i class="pi pi-user mr-2"></i>
+      <span>{{ usuarioLogado?.usuario }}</span>
+     <i class="pi pi-chevron-down ml-2"></i>
+    </div>
+
+    <p-menu #menu [model]="items" [popup]="true"></p-menu>
+  </div>
 </header>

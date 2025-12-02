@@ -1,0 +1,139 @@
+// 🎨 Paleta VetorIT
+$brand-primary: #e1742e;
+$brand-primary-dark: #c7611f;
+$bg-gradient: linear-gradient(135deg, #fff7ef, #ffe0c2);
+
+// 🔹 Container geral FULL SCREEN
+.recuperacao-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background: $bg-gradient;
+}
+
+// 🔹 p-card estilizado
+:host ::ng-deep .p-card {
+  width: 100%;
+  max-width: 430px;
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  background: #ffffff !important;
+  border: none !important;
+  padding: 2rem 2.2rem !important;
+  text-align: center;
+  position: relative;
+}
+
+// 🔹 Título
+:host ::ng-deep .p-card h2 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #2b2b2b;
+  margin-bottom: 1.6rem;
+}
+
+// 🔹 INPUT GROUP
+.p-inputgroup {
+  width: 100%;
+  margin-top: 0.8rem;
+}
+
+.p-inputgroup-addon {
+  background: #f3f3f3 !important;
+  border: 1px solid #d2d2d2 !important;
+  border-right: none !important;
+  border-radius: 10px 0 0 10px !important;
+}
+
+input[type='email'] {
+  border: 1px solid #d2d2d2 !important;
+  border-left: none !important;
+  border-radius: 0 10px 10px 0 !important;
+  padding: 0.75rem !important;
+  font-size: 0.95rem;
+
+  &:focus {
+    border-color: $brand-primary !important;
+    box-shadow: 0 0 0 2px rgba(225,116,46,0.23);
+  }
+}
+
+// 🔹 Botão elegante
+#login-button.p-button {
+  width: 100%;
+  margin-top: 1.7rem;
+  border-radius: 50px !important;
+  padding: 0.9rem 0;
+  background: $brand-primary !important;
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(225, 116, 46, 0.35);
+  font-size: 1rem;
+  font-weight: 600;
+
+  &:hover {
+    background: $brand-primary-dark !important;
+    box-shadow: 0 8px 24px rgba(199, 97, 31, 0.35);
+    transform: translateY(-1px);
+  }
+}
+
+// 🔹 Link voltar
+.recuperacao-card a[routerLink='/login'],
+:host ::ng-deep a[routerLink='/login'] {
+  display: inline-block;
+  margin-top: 1.3rem;
+  font-size: 0.9rem;
+  color: $brand-primary;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// 🔹 Responsivo
+@media (max-width: 480px) {
+  :host ::ng-deep .p-card {
+    padding: 1.6rem !important;
+    border-radius: 14px;
+  }
+
+  :host ::ng-deep .p-card h2 {
+    font-size: 1.3rem;
+  }
+}
+/* === BOTÃO – estilo igual ao do LOGIN === */
+#login-button.p-button {
+  width: 100%;
+  background: #1d3b6b !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-radius: 8px !important;
+  padding: 0.9rem 0 !important;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+#login-button.p-button:hover {
+  background: #153051 !important;
+  transform: translateY(-1px);
+}
+
+#login-button.p-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Remove estilos ruins de antes */
+#login-button,
+#login-button::before,
+#login-button::after {
+  background-image: none !important;
+}

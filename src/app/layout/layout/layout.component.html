@@ -1,6 +1,8 @@
 <div class="layout" [class.collapsed]="collapsed">
   <app-topbar
-    (toggleSidebar)="toggleSidebar()">
+    (toggleSidebar)="toggleSidebar()"
+     [usuarioLogado]="usuarioLogado"
+      (sair)="logout()">
   </app-topbar>
 
   <div class="layout-body">
@@ -14,6 +16,6 @@
       <router-outlet></router-outlet>
     </main>
   </div>
-
+<p-confirmDialog></p-confirmDialog>
   <!--app-footer></!--app-footer-->
 </div>

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -27,11 +27,12 @@ import { Message } from "primeng/message";
     PasswordModule, CheckboxModule, ButtonModule, DividerModule,
     FormsModule, ButtonModule, CheckboxModule,
     ToastModule,
+    RouterLink,
     Message
-],
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  
+
 })
 export default class LoginComponent {
 
@@ -41,7 +42,7 @@ export default class LoginComponent {
   private cookieService = inject(CookieService);
   private localStorageService = inject(LocalStorageService);
   private messageService = inject(MessageService);
-  
+
   submitted = false;
 
 
@@ -62,36 +63,24 @@ export default class LoginComponent {
       this.loginForm.markAllAsTouched();
       return;
     }
-
     this.loading = true;
-
-   
-
     if (this.loginForm.invalid) { this.loginForm.markAllAsTouched(); return; }
-
-  const payload: AuthRequest = {
-    userName: this.loginForm.get('email')?.value!,   // mapeia do form
-    password: this.loginForm.get('senha')?.value!,
-  };
-
-  //console.log('Payload que será enviado:', payload);
-
+    const payload: AuthRequest = {
+      userName: this.loginForm.get('email')?.value!,   // mapeia do form
+      password: this.loginForm.get('senha')?.value!,
+    };
     this.authService.authUser(payload).subscribe({
       next: (response) => {
         if (response) {
-          
           this.cookieService.set('USER_INFO', response.accessToken);
-
           const obj: UsuarioLocalStorage = {
             id: response.id,
             usuario: response.username,
             role: response.role,
           };
-
           this.localStorageService.armazenarUsuario(obj);
           this.loginForm.reset();
           this.router.navigate(['/dashboard']);
-
           this.messageService.add({
             severity: 'success',
             summary: 'Sucesso',

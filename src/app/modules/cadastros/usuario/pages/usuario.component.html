@@ -6,7 +6,12 @@
   <div class="col-12">
      <app-usuario-tabs
      [usuarios]="usuarios"
+     (deleteUsuario)="onDeleteUsuario($event)"
+    ></app-usuario-tabs>
+   
+     
   />
+  
   </div>
-  <!--app-usuario-form (loadUsuarios)="loadUsuarios()"></!--app-usuario-form-->
+  
 </div>

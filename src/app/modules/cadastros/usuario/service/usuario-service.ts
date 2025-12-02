@@ -49,7 +49,7 @@ export class UsuarioService {
   // ============================================================
   // DELETAR
   // ============================================================
-  deletar(id: string): Observable<void> {
+  deleteUsuario(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 

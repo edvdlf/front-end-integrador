@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { ProgressBar, ProgressBarModule } from 'primeng/progressbar';
 import { Card } from "primeng/card";
-import { UsuarioResponse } from '../../models/usuario.model';
+import { DeleteUsuarioAction, UsuarioResponse } from '../../models/usuario.model';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
 import { UsuarioService } from '../../service/usuario-service';
 
@@ -37,19 +37,23 @@ usuarios: UsuarioResponse[] = [];
   constructor(private usuarioService: UsuarioService) {}
 
  //@Input() usuarios: Array<UsuarioResponse> = [];
-  
+ 
+@Output() deleteUsuario = new EventEmitter<DeleteUsuarioAction>();
 
-//@Output() deleteUsuarioEvent = new EventEmitter<DeleteUsuarioAction>();
-  handleDeleteUsuarioEvent(id: string, nome: string): void {
-    if (id && nome !== '') {
-
-      //this.deleteUsuarioEvent.emit({id, nome});
-    }
+handleDeleteUsuarioEvent(usuario: UsuarioResponse): void {
+  if (usuario.id && usuario.nome !== '') {
+    this.deleteUsuario.emit({
+      id: usuario.id,
+      nome: usuario.nome
+    });
   }
+}
 
   ngOnInit(): void {
     this.loadUsuarios();
   }
+
+  
 
   loadUsuarios(): void {
     this.loading = true;
