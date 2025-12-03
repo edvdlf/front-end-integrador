@@ -40,7 +40,7 @@ const DEFAULT_MENU: MenuItem[] = [
   },
 
   {
-    label: 'Notas Fiscais',
+    label: 'Documentos Fiscais',
     icon: 'pi pi-file',
     children: [
       { label: 'NFe',  icon: 'pi pi-file-edit', route: '/nfe' },
@@ -54,27 +54,19 @@ const DEFAULT_MENU: MenuItem[] = [
   {
     label: 'Relatórios',
     icon: 'pi pi-chart-bar',
-    route: '/relatorios-confrontos'
-  },
-
-  {
-    label: 'Auditoria',
-    icon: 'pi pi-file',
-    children: [
+    children:[
+      { label: 'Confrontos',  icon: 'pi pi-file-edit', route: '/relatorios-confrontos' },
       { label: 'Erros',  icon: 'pi pi-file-edit', route: '/relatorios-errosprocessamento' },
-      
+
     ]
+    
   },
-
-  
-
-  // Ajuda (opcional)
-  // {
-  //   label: 'Ajuda',
-  //   icon: 'pi pi-book',
-  //   externalUrl: '/help/html/index.htm',
-  //   target: '_blank'
-  // },
+   {
+     label: 'Ajuda',
+     icon: 'pi pi-book',
+     externalUrl: '/help/html/VisaoGeral.html',
+     target: '_blank'
+   },
 ];
 
 @Injectable({ providedIn: 'root' })
