@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
       class="custom-card header-band flex align-items-center justify-content-between"
     >
       <div class="text-group">
-        <h2 class="title">Consultas de Notas de conhecimento de transporte eletronico</h2>
+        <h2 class="title">Consultas de documentos fiscais de conhecimento de transporte eletrônico</h2>
         <p class="subtitle">
-          Gerencie as notas de conhecimento de transporte eletronico.
+          A listagem abaixo, exibe os documentos fiscais do tipo [CTE] que foram recuperados do sistema Taxdocs.
         </p>
       </div>
 

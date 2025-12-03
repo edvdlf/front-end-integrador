@@ -53,7 +53,7 @@
               </th>
        <th pSortableColumn="cnpjCpfIssuer" class="whitespace-nowrap">
                 <div class="flex justify-content-between align-items-center">
-                  <div> Cnpj / Cpf Emissor</div>
+                  <div> Emitente</div>
                   <div class="flex align-items-center gap-2">
                     <p-sortIcon field="cnpjCpfIssuer"></p-sortIcon>
                     <p-columnFilter
@@ -71,7 +71,7 @@
 
               <th pSortableColumn="cnpjCpfRecipient" class="whitespace-nowrap">
                 <div class="flex justify-content-between align-items-center">
-                  <div> Cnpj / Cpf Recebedor</div>
+                  <div> Destinatário</div>
                   <div class="flex align-items-center gap-2">
                     <p-sortIcon field="cnpjCpfRecipient"></p-sortIcon>
                     <p-columnFilter
@@ -106,7 +106,7 @@
                 </div>
               </th>
         
-        <th>Ações</th>
+        
       </tr>
     </ng-template>
 
@@ -119,21 +119,10 @@
           </div>
         </td>
         <td>{{ row.invoiceNumber }}</td>
-        <td>{{ row.cnpjCpfIssuer }}</td>
-        <td>{{ row.cnpjCpfRecipient }}</td>
+        <td>{{ row.razaoSocialEmitente }}</td>
+        <td>{{ row.razaoSocialDestinatario }}</td>
         <td>{{ row.entryDate  }}</td>
-        <td>
-          
-          <button
-                pButton
-                icon="pi pi-trash"
-                class="p-button-text p-button-danger"
-                [pTooltip]="'Remover'"
-                tooltipPosition="top"
-                
-              ></button>
-
-        </td>
+        
       </tr>
     </ng-template>
   </p-table>

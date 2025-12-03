@@ -90,6 +90,11 @@ span.rvts16
 }
 span.rvts17
 {
+ font-size: 16pt;
+ font-weight: bold;
+}
+span.rvts18
+{
  font-size: 14pt;
  font-style: italic;
  font-weight: bold;

@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
       <div class="text-group">
         <h2 class="title">Consultas de Notas fiscais eletrônicas de serviços</h2>
         <p class="subtitle">
-          Gerencie as Notas fiscais eletrônicas de serviços.
+          A listagem abaixo, exibe os documentos fiscais do tipo [NFSE] que foram recuperados do sistema Taxdocs.
         </p>
       </div>
 

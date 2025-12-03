@@ -14,7 +14,7 @@ export interface UsuarioRequest {
   email: string;
   userName: string;
   firstName: string;
-  lastName: string ;
+  lastName: string;
   password: string;
   enabled: boolean;
   role:string;   // ISO string vinda do backend (OffsetDateTime)

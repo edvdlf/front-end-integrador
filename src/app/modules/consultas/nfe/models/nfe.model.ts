@@ -9,14 +9,15 @@ export interface NFeResponse {
   invoiceNumber: string;
   cnpjCpfIssuer: string;
   cnpjCpfRecipient: string;
-   validSefaz: boolean,
-   hasServices: boolean,
+   validSefaz: boolean;
+   hasServices: boolean;
    operationType: number;
    totalInvoice: number;
-   availableXML: boolean,
+   availableXML: boolean;
   issueDate: string; 
   entryDate: string; 
-  validXmlStructure: boolean,
- 
+  validXmlStructure: boolean;
+  razaoSocialEmitente: string;
+  razaoSocialDestinatario: string;
   
 }

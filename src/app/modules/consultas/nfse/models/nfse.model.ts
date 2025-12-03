@@ -14,5 +14,7 @@ export interface NFSeResponse {
  entryDate: string; 
  operationType: number;
  totalInvoice: number;
+ razaoSocialEmitente: string;
+  razaoSocialDestinatario: string;
   
 }
