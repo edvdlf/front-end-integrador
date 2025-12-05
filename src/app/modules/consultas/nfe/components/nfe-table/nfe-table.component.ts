@@ -21,7 +21,9 @@ export class NfeTableComponent {
   @Input() data: NFeResponse[] = [];
   @Input() loading = false;
 
-  
+  get totalRegistros(): number {
+    return this.data?.length ?? 0;
+  }
 
 
 }

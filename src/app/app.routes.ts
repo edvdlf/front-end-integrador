@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout/layout.component';
-import { authGuard } from './core/guards/auth-guard';
-import { redirectIfAuthenticatedGuard } from './core/guards/redirect-if-authenticated.guard';
 import { RecuperaSenhaComponent } from './auth/gestao-senha/recupera-senha/recupera-senha.component';
-import { AlteraSenhaComponent } from './auth/gestao-senha/altera-senha/altera-senha.component';
 import { RedefinirSenhaComponent } from './auth/gestao-senha/redefinir-senha/redefinir-senha.component';
 
 export const routes: Routes = [

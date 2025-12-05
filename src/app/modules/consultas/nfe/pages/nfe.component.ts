@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-
-import { catchError, finalize, Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { catchError, finalize, of, Subject, takeUntil, tap } from 'rxjs';
 
 import { NFeResponse } from '../models/nfe.model';
 import { NfeService } from '../service/nfe-service';
@@ -14,7 +13,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     NfeHeaderComponent,
-    NfeTableComponent],
+    NfeTableComponent
+  ],
   templateUrl: './nfe.component.html',
   styleUrl: './nfe.component.scss'
 })
@@ -22,27 +22,37 @@ export class NfeComponent {
 
   private destroy$ = new Subject<void>();
 
+  data: NFeResponse[] = [];
   loading = true;
-  nfe$!: Observable<NFeResponse[]>;
+  totalRegistros: number | null = null;
 
   constructor(private nfeService: NfeService) { }
 
-
-
   ngOnInit(): void {
-    //this.loadNFe();
-    this.nfe$ = this.nfeService.getAllNfe().pipe(
-      catchError(err => {
-        console.error('[NFE] Erro ao carregar NF-es', err);
-        return of<NFeResponse[]>([]);
-      }),
-      finalize(() => this.loading = false)
-    );
-
-
+    this.loadNFe();
   }
 
+  loadNFe(): void {
+    this.loading = true;
 
+    this.nfeService
+      .getAllNfe()
+      .pipe(
+        tap((lista: NFeResponse[]) => {
+          this.data = lista;
+          this.totalRegistros = this.data.length;
+        }),
+        catchError(err => {
+          console.error('Erro ao buscar NFes', err);
+          this.data = [];
+          this.totalRegistros = 0;
+          return of([]);
+        }),
+        finalize(() => this.loading = false),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

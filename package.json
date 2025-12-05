@@ -43,6 +43,7 @@
     "chart.js": "^4.5.0",
     "express": "^5.1.0",
     "file-saver": "^2.0.5",
+    "ng2-pdf-viewer": "^10.4.0",
     "ngx-cookie-service": "^20.1.1",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",

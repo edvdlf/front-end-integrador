@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { NsfeComponent } from './pages/nsfe.component';
+import { NfseComponent } from './pages/nfse.component';
 
 
 export const NFSE_ROUTES: Routes = [
   {
     path: '',
-    component: NsfeComponent
+    component: NfseComponent
   }
 ];

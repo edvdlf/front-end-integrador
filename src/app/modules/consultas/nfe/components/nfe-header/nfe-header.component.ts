@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-nfe-header',
-  imports: [],
+  imports: [
+    CommonModule,
+    BadgeModule
+  ],
   template:`
- <div
+ <!--div
       class="custom-card header-band flex align-items-center justify-content-between"
     >
       <div class="text-group">
@@ -13,10 +18,31 @@ import { Component } from '@angular/core';
           A listagem abaixo, exibe os documentos fiscais do tipo [NFE] que foram recuperados do sistema Taxdocs.
         </p>
       </div>
+ </div-->
+<div class="custom-card header-band flex align-items-center justify-content-between">
+      
+      <div class="text-group">
+        <h2 class="title flex align-items-center gap-2">
+          Consultas de Notas fiscais eletrônicas
 
-</div>
+          @if (totalRegistros !== null) {
+              <span class="p-badge p-badge-info">
+              {{ totalRegistros }}
+           </span>
+          }
+        </h2>
+
+        <p class="subtitle">
+          A listagem abaixo exibe os documentos fiscais do tipo [NFE] que foram recuperados do sistema Taxdocs.
+        </p>
+      </div>
+
+    </div>
+
+
   `
 })
 export class NfeHeaderComponent {
 
+  @Input() totalRegistros: number | null = null;
 }

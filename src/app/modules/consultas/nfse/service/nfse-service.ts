@@ -22,5 +22,10 @@ export class NfseService {
       })
     );
   }
+
+  getPdf(id: number): Observable<Blob> {
+    const url = `${this.baseUrl}/${id}/pdf`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
   
 }

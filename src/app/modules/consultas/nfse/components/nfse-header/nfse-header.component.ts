@@ -17,6 +17,6 @@ import { Component } from '@angular/core';
 </div>
   `
 })
-export class NsfeHeaderComponent {
+export class NfseHeaderComponent {
 
 }

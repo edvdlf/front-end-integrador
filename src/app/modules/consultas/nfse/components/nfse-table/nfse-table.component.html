@@ -1,0 +1,123 @@
+<div class="vetorit-card">
+
+  <p-table
+    class="vetorit-table"
+    [value]="data"
+    [rows]="20"
+    [paginator]="true"
+    dataKey="id"
+    [scrollable]="true"
+    scrollWidth="1000px"
+    [tableStyle]="{ 'min-width': '1000px' }"
+    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} templates"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="invoiceNumber" class="whitespace-nowrap">
+          <div class="flex justify-content-between align-items-center">
+            <div>Número</div>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="invoiceNumber"></p-sortIcon>
+              <p-columnFilter
+                type="text"
+                field="invoiceNumber"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <th pSortableColumn="razaoSocialEmitente" class="whitespace-nowrap">
+          <div class="flex justify-content-between align-items-center">
+            <div>Emitente</div>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="razaoSocialEmitente"></p-sortIcon>
+              <p-columnFilter
+                type="text"
+                field="razaoSocialEmitente"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <th pSortableColumn="razaoSocialDestinatario" class="whitespace-nowrap">
+          <div class="flex justify-content-between align-items-center">
+            <div>Destinatário</div>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="razaoSocialDestinatario"></p-sortIcon>
+              <p-columnFilter
+                type="text"
+                field="razaoSocialDestinatario"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <th pSortableColumn="entryDate" class="whitespace-nowrap">
+          <div class="flex justify-content-between align-items-center">
+            <div>Data de entrada</div>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="entryDate"></p-sortIcon>
+              <p-columnFilter
+                type="text"
+                field="entryDate"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>
+          <a
+            class="nfse-link font-medium"
+            (click)="abrirPdf(row)"
+          >
+            {{ row.invoiceNumber }}
+          </a>
+        </td>
+        <td>{{ row.razaoSocialEmitente }}</td>
+        <td>{{ row.razaoSocialDestinatario }}</td>
+        <td>{{ row.entryDate }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog
+    [(visible)]="showPdfDialog"
+    [modal]="true"
+    [dismissableMask]="true"
+    [closable]="true"
+    [style]="{ width: '80vw' }"
+    [contentStyle]="{ height: '80vh', padding: '0' }"
+    (onHide)="fecharDialog()"
+    [breakpoints]="{ '960px': '95vw', '640px': '100vw' }"
+    header="NFSe {{ selectedNfseId }}"
+  >
+    <ng-container *ngIf="selectedNfseId">
+      <app-nfse-viewer-pdf [nfseId]="selectedNfseId"></app-nfse-viewer-pdf>
+    </ng-container>
+  </p-dialog>
+
+</div>

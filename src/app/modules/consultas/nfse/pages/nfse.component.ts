@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { catchError, finalize, Observable, of, shareReplay, Subject, takeUntil } from 'rxjs';
-import { NsfeHeaderComponent } from '../components/nsfe-header/nsfe-header.component';
-import { NsfeTableComponent } from '../components/nsfe-table/nsfe-table.component';
 import { NFSeResponse } from '../models/nfse.model';
 import { NfseService } from '../service/nfse-service';
 import { CommonModule } from '@angular/common';
+import { NfseTableComponent } from '../components/nfse-table/nfse-table.component';
+import { NfseHeaderComponent } from '../components/nfse-header/nfse-header.component';
 
 @Component({
   selector: 'app-nsfe',
   imports: [
     CommonModule,
-    NsfeHeaderComponent, NsfeTableComponent],
-  templateUrl: './nsfe.component.html',
-  styleUrl: './nsfe.component.scss',
+    NfseHeaderComponent, NfseTableComponent],
+  templateUrl: './nfse.component.html',
+  styleUrl: './nfse.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NsfeComponent implements OnInit {
+export class NfseComponent implements OnInit {
 
   private destroy$ = new Subject<void>();
 

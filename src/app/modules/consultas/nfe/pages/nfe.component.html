@@ -1,31 +1,28 @@
 <div class="grid">
-  <div class="col-12">
-    <app-nfe-header/>
-  </div>
-  <!--div class="col-12">
-    <app-nfe-table  [data]="(nfe$ | async) ?? []"
-     [loading]="loading"
-    />
-  </!--div-->
 
+  <!-- Header com badge de total -->
   <div class="col-12">
-    <!-- Enquanto não chegou nada: loading -->
-    <ng-container *ngIf="nfe$ | async as data; else loadingTpl">
+    <app-nfe-header
+      [totalRegistros]="totalRegistros">
+    </app-nfe-header>
+  </div>
+
+  <!-- Tabela -->
+  <div class="col-12">
+
+    @if (!loading) {
       <app-nfe-table
         [data]="data"
         [loading]="false">
       </app-nfe-table>
-    </ng-container>
-
-    <ng-template #loadingTpl>
+    } @else {
       <app-nfe-table
         [data]="[]"
         [loading]="true">
       </app-nfe-table>
-    </ng-template>
+    }
+
   </div>
+
 </div>
-
-
-
 
