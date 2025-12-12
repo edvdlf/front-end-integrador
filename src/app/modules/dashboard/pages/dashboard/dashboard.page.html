@@ -8,6 +8,7 @@
           <span class="kpi-icon"><i class="pi pi-file"></i></span>
         </div>
         <div class="kpi-value">{{ dashboardResumo?.totalRecuperados }}</div>
+        
       </div>
     </div>
 
@@ -18,6 +19,7 @@
           <span class="kpi-icon"><i class="pi pi-check-circle"></i></span>
         </div>
         <div class="kpi-value">{{ dashboardResumo?.totalProcessados }}</div>
+        
       </div>
     </div>
 
@@ -28,6 +30,11 @@
           <span class="kpi-icon"><i class="pi pi-exclamation-triangle"></i></span>
         </div>
         <div class="kpi-value">{{ dashboardResumo?.totalProcessadosErro }}</div>
+        <div class="kpi-sub"><a 
+          class="kpi-more"
+          [routerLink]="['/relatorios-errosprocessamento']">
+          Saiba mais →
+        </a></div>
       </div>
     </div>
 
@@ -54,10 +61,15 @@
     <div class="col-12 md:col-6 lg:col-2">
       <div class="kpi-card kpi-erro-gradient">
         <div class="kpi-header">
-          <span class="kpi-label">Confrontados sem divergências</span>
+          <span class="kpi-label">Confrontados com divergências</span>
           <span class="kpi-icon"><i class="pi pi-exclamation-triangle"></i></span>
         </div>
         <div class="kpi-value">{{ dashboardResumo?.totalConfontosComDivergencia }}</div>
+        <div class="kpi-sub"><a 
+          class="kpi-more"
+          [routerLink]="['/relatorios-confrontos']">
+          Saiba mais →
+        </a></div>
       </div>
     </div>
 

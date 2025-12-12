@@ -3,26 +3,29 @@
   <!-- Header com badge de total -->
   <div class="col-12">
     <app-nfe-header
-      [totalRegistros]="totalRegistros">
+      >
     </app-nfe-header>
   </div>
 
   <!-- Tabela -->
   <div class="col-12">
+    <ng-container *ngIf="nfeResponse$ | async as data; else loadingTpl">
+      <app-nfe-table
+        [inputNFeResponse]="data"
+        [inputLoading]="loading"
+        (outPutRecuperarDocumento)="recuperarDocumentoFiscal($event)"
+        >
+      </app-nfe-table>
+    </ng-container>
 
-    @if (!loading) {
+    <ng-template #loadingTpl>
       <app-nfe-table
-        [data]="data"
-        [loading]="false">
+        [inputNFeResponse]="[]"
+        [inputLoading]="loading">
       </app-nfe-table>
-    } @else {
-      <app-nfe-table
-        [data]="[]"
-        [loading]="true">
-      </app-nfe-table>
-    }
+    </ng-template>
 
   </div>
-
+  
 </div>
 

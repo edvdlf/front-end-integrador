@@ -1,8 +1,7 @@
 <div class="vetorit-card">
-
   <p-table
     class="vetorit-table"
-    [value]="data"
+    [value]="inputNFSeResponse"
     [rows]="20"
     [paginator]="true"
     dataKey="id"
@@ -15,7 +14,7 @@
       <tr>
         <th pSortableColumn="invoiceNumber" class="whitespace-nowrap">
           <div class="flex justify-content-between align-items-center">
-            <div>Número</div>
+            <div>Número / Série Rps</div>
             <div class="flex align-items-center gap-2">
               <p-sortIcon field="invoiceNumber"></p-sortIcon>
               <p-columnFilter
@@ -84,40 +83,39 @@
             </div>
           </div>
         </th>
+
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              NFSe
+            </div>
+          </div>
+        </th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-row>
       <tr>
         <td>
-          <a
-            class="nfse-link font-medium"
-            (click)="abrirPdf(row)"
-          >
-            {{ row.invoiceNumber }}
+          <a class="nfse-link font-medium" (click)="abrirPdf(row.processId)">
+            {{ row.processId }} / {{ row.serieRps }} 
           </a>
         </td>
         <td>{{ row.razaoSocialEmitente }}</td>
         <td>{{ row.razaoSocialDestinatario }}</td>
-        <td>{{ row.entryDate }}</td>
+        <td>{{ row.entryDate | date : 'dd/MM/yyyy' }}</td>
+        <td style="text-align: center">
+          <p-button
+            icon="pi pi-file-pdf"
+            styleClass="p-button-rounded p-button-secondary p-button-text"
+            (click)="abrirDocumentoFiscalPdf(row.processId); $event.preventDefault()"
+            type="button"
+          >
+          </p-button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
 
-  <p-dialog
-    [(visible)]="showPdfDialog"
-    [modal]="true"
-    [dismissableMask]="true"
-    [closable]="true"
-    [style]="{ width: '80vw' }"
-    [contentStyle]="{ height: '80vh', padding: '0' }"
-    (onHide)="fecharDialog()"
-    [breakpoints]="{ '960px': '95vw', '640px': '100vw' }"
-    header="NFSe {{ selectedNfseId }}"
-  >
-    <ng-container *ngIf="selectedNfseId">
-      <app-nfse-viewer-pdf [nfseId]="selectedNfseId"></app-nfse-viewer-pdf>
-    </ng-container>
-  </p-dialog>
-
+  
 </div>

@@ -9,8 +9,8 @@
 @use "styles/page/login";
 @use "styles/page/cadastros";
 
-
 :root {
+  /* Paleta VetorIT – uso interno do seu layout */
   --vt-orange:        #E1742E;
   --vt-orange-600:    #C76322;
   --vt-orange-700:    #A9541C;
@@ -25,5 +25,12 @@
   --av-blue:          #059AD2;
 }
 
+/* EXEMPLO: se ainda quiser garantir o checkbox azul na marra */
+.p-checkbox .p-checkbox-box.p-highlight {
+  background: #0A285F;
+  border-color: #0A285F;
+}
 
-
+.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon {
+  color: #ffffff;
+}

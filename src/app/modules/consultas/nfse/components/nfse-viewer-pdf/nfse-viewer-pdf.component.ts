@@ -1,110 +1,95 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { Component, Input } from '@angular/core';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { NfseService } from '../../service/nfse-service';
+import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { NfseService } from '../../service/nfse-service';
 
 @Component({
   selector: 'app-nfse-viewer-pdf',
+  standalone: true,
   imports: [
     CommonModule,
-    PdfViewerModule,
-    ButtonModule,
+    NgxExtendedPdfViewerModule,
     ProgressSpinnerModule,
+    ButtonModule,
   ],
   templateUrl: './nfse-viewer-pdf.component.html',
   styleUrl: './nfse-viewer-pdf.component.scss'
 })
 export class NfseViewerPdfComponent {
+  @Input({ required: true }) processId!: string;
+  @Input() nfseNumero: string = '';
 
-   @Input() nfseId!: number;
+  pdfSrc?: string; // string é aceita pelo [src] do ngx-extended-pdf-viewer
+  carregando = false;
+  temErroCarregarPdf = false;
+  mensagemErro: string | null = null;
 
-  private nfsePdfService = inject(NfseService);
-  private messageService = inject(MessageService);
+  constructor(
+    private nfseService: NfseService,
+    private messageService: MessageService
+  ) {}
 
-  loading = false;
-  errorMessage: string | null = null;
-
-  // 👉 o que vai para o <pdf-viewer>
-  pdfSrc: Uint8Array | null = null;
-
-  // 👉 mantemos o Blob para download / impressão
-  pdfBlob: Blob | null = null;
-  pdfUrl: string | null = null;
-
-  zoom = 1.0;
-
-  ngOnInit(): void {
-    if (this.nfseId == null) {
-      this.errorMessage = 'ID da NFSe não informado.';
+  /**
+   * Método público chamado pelo componente pai via @ViewChild
+   * assim que o p-dialog é exibido.
+   */
+  public carregarPdf(): void {
+    if (!this.processId) {
+      this.tratarErroLocal('ID da NFSe não informado.');
       return;
     }
-    this.carregarPdf();
-  }
 
-  carregarPdf(): void {
-    this.loading = true;
-    this.errorMessage = null;
-    alert("Chegou no carregaPDF " + this.nfseId)
-    this.nfsePdfService.getPdf(this.nfseId).subscribe({
-      next: (blob) => {
-        this.pdfBlob = blob;
-        this.pdfUrl = URL.createObjectURL(blob);
+    this.carregando = true;
+    this.temErroCarregarPdf = false;
+    this.mensagemErro = null;
+    this.pdfSrc = undefined;
 
-        // 👇 converte Blob -> ArrayBuffer -> Uint8Array
-        blob.arrayBuffer().then((buffer) => {
-          this.pdfSrc = new Uint8Array(buffer);
-          this.loading = false;
-        });
+    this.nfseService.getPdf(this.processId).subscribe({
+      next: (blob: Blob) => {
+         console.log('Blob recebido:', blob);
+         console.log('Tipo do blob:', blob.type, 'Tamanho:', blob.size);
+        const fileUrl = URL.createObjectURL(blob);
+
+        window.open(fileUrl, '_blank');
+        this.pdfSrc = fileUrl;
+        this.carregando = false;
       },
       error: (err) => {
-        console.error('Erro ao carregar PDF da NFSe', err);
-        this.errorMessage = 'Não foi possível carregar o PDF desta NFSe.';
-        this.loading = false;
-
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: 'Falha ao carregar o PDF da NFSe.',
-        });
+        console.error('Erro ao buscar PDF da NFSe', err);
+        this.tratarErroLocal(
+          'Não foi possível carregar o PDF. Tente novamente mais tarde.'
+        );
       },
     });
   }
 
-  downloadPdf(): void {
-    if (!this.pdfBlob) return;
-
-    const a = document.createElement('a');
-    a.href = this.pdfUrl!;
-    a.download = `NFSE_${this.nfseId}.pdf`;
-    a.click();
+  onPdfLoaded(_event: any): void {
+    // Se quiser, pode logar algo aqui
+     console.log('PDF carregado com sucesso', _event);
   }
 
-  imprimirPdf(): void {
-    if (!this.pdfUrl) return;
-
-    const win = window.open(this.pdfUrl);
-    const interval = setInterval(() => {
-      if (!win) return;
-      if (win.document.readyState === 'complete') {
-        clearInterval(interval);
-        win.print();
-      }
-    }, 300);
+  onErroCarregar(event: any): void {
+    console.error('Erro ao renderizar o PDF no viewer', event);
+    this.tratarErroLocal('Falha ao exibir o PDF no visualizador.');
   }
 
-  zoomIn(): void {
-    this.zoom = this.zoom + 0.2;
+  onRecarregar(): void {
+    this.carregarPdf();
   }
 
-  zoomOut(): void {
-    if (this.zoom > 0.4) this.zoom = this.zoom - 0.2;
-  }
+  private tratarErroLocal(msg: string): void {
+    this.carregando = false;
+    this.temErroCarregarPdf = true;
+    this.mensagemErro = msg;
 
-  resetZoom(): void {
-    this.zoom = 1.0;
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: msg,
+      life: 4000,
+    });
   }
-
 }

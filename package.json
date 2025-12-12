@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npx ng s --open --port 4230",
+    "start": "ng s --open --port 4230",
     "build": "ng build",
     "build:dev": "ng build -c development",
     "build:qa": "ng build -c qa",
@@ -45,6 +45,8 @@
     "file-saver": "^2.0.5",
     "ng2-pdf-viewer": "^10.4.0",
     "ngx-cookie-service": "^20.1.1",
+    "ngx-extended-pdf-viewer": "^25.6.1",
+    "pdfjs-dist": "^5.4.449",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^20.2.0",

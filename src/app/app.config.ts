@@ -10,16 +10,26 @@ import { CookieService } from 'ngx-cookie-service';
 import { tokenInterceptor } from './core/interceptors/token-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
-//import Aura from 'primeng/themes/aura';
-import Aura from '@primeuix/themes/aura';
+
+
+import { VetorItPreset } from './vetorit.preset';
 
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { localePtBr } from './shared/locales/calendar-locale';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } }),
+     providePrimeNG({
+      
+      theme: {
+        preset: VetorItPreset,
+        options: { darkModeSelector: '.app-dark' },
+      },
+      ripple: true, 
+      translation: localePtBr,
+    }),
     provideHttpClient(
       withFetch(),
       withInterceptors([tokenInterceptor])

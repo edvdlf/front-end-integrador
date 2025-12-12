@@ -1,0 +1,91 @@
+<!-- agendador-taxdocs.component.html -->
+
+<p-toast></p-toast>
+
+<div class="agendador-card" [formGroup]="consultaForm">
+  <div class="agendador-header">
+    <h2 class="agendador-title">Recuperar documento</h2>
+    <p class="agendador-subtitle">
+      É recomendada o uso desta funcionalidade do sistema, para executar a recuperação de documentos fiscais junto ao sistema Taxdocs, principalmente 
+      para obter a primeira importação dos arquivos, visto que, a partir daí, esse processo se torna automático, com base nas configurações de agendamento, definidas em variaveis de ambiente.
+    </p>
+  </div>
+
+  <!-- FILTRO DE DATAS -->
+  <div class="formgrid grid agendador-filtros">
+    <div class="field col-12 md:col-6">
+      <label for="dataInicial">Data inicial*:</label>
+      <p-datepicker
+        id="dataInicial"
+        formControlName="dataInicial"
+        dateFormat="dd/mm/yy"
+        [showIcon]="true"
+        inputId="dataInicialInput"
+        [showOnFocus]="false"
+        class="w-full">
+      </p-datepicker>
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="dataFinal">Data final*:</label>
+      <p-datepicker
+        id="dataFinal"
+        formControlName="dataFinal"
+        dateFormat="dd/mm/yy"
+        [showIcon]="true"
+        inputId="dataFinalInput"
+        [showOnFocus]="false"
+        class="w-full">
+      </p-datepicker>
+    </div>
+  </div>
+
+  <div class="agendador-hint">
+    <i class="pi pi-calendar"></i>
+    <span>O período máximo permitido é de <strong>30 dias</strong>.</span>
+  </div>
+
+  <!-- BOTÕES -->
+  <div class="agendador-buttons">
+    <button
+      pButton
+      type="button"
+      label="Recuperar NFe"
+      icon="pi pi-file"
+      class="p-button-primary agendador-btn"
+      [disabled]="loadingNfe"
+      [loading]="loadingNfe"
+      (click)="onClickConsulta('NFE')">
+    </button>
+
+    <button
+      pButton
+      type="button"
+      label="Recuperar NFSe"
+      icon="pi pi-building"
+      class="p-button-success agendador-btn"
+      [disabled]="loadingNfse"
+      [loading]="loadingNfse"
+      (click)="onClickConsulta('NFSE')">
+    </button>
+
+    <button
+      pButton
+      type="button"
+      label="Recuperar CTe"
+      icon="pi pi-truck"
+      class="p-button-warning agendador-btn"
+      [disabled]="loadingCte"
+      [loading]="loadingCte"
+      (click)="onClickConsulta('CTE')">
+    </button>
+  </div>
+
+  <div class="agendador-info">
+    <i class="pi pi-info-circle"></i>
+    <span>
+      As consultas são executadas em background pela API.  
+      Acompanhe o resultado nas telas de documentos e dashboards.
+    </span>
+  </div>
+</div>

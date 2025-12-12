@@ -11,6 +11,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ToolbarModule } from 'primeng/toolbar';
+import { Badge } from "primeng/badge";
 
 
 interface DocumentoFiscalConfronto {
@@ -44,8 +45,9 @@ interface DocumentoFiscalConfronto {
     TabPanels,
     TabPanel,
     Button,
-    ToolbarModule
-  ],
+    ToolbarModule,
+    Badge
+],
   templateUrl: './confrontos-table.component.html',
   styleUrl: './confrontos-table.component.scss'
 })
@@ -66,10 +68,10 @@ export class ConfrontosTableComponent implements OnInit {
   constructor(private confrontosService: ConfrontosService) { }
 
   ngOnInit(): void {
-    this.loadConfrontos();
+    this.loadConfrontosComDivergencias();
   }
 
-  loadConfrontos(): void {
+  loadConfrontosComDivergencias(): void {
     this.loading = true;
     this.errorMsg = null;
 

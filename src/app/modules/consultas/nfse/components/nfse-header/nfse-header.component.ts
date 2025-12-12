@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-nsfe-header',
+  selector: 'app-nfse-header',
   imports: [],
   template:`
  <div

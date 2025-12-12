@@ -1,89 +1,34 @@
 <div class="vetorit-card">
-    <div *ngIf="loading">Carregando...</div>
-    <div *ngIf="!loading && data.length === 0">
-  Nenhum documento encontrado.
-</div>
-    <p-table class="vetorit-table"
-      *ngIf="!loading && data.length"
-      [value]="data"
-      [rows]="20"
-      [paginator]="true"
-      dataKey="id"
-      [scrollable]="true"
-      scrollWidth="1000px"
-      [tableStyle]="{ 'min-width': '1000px' }"
-      
-      
 
-      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} Nfe"
->
+    <p-table class="vetorit-table" [value]="inputNFeResponse" [(selection)]="nfeSelected" [rows]="20" [paginator]="true"
+        [showCurrentPageReport]="true" dataKey="id" [scrollable]="true" scrollWidth="1000px"
+        [tableStyle]="{ 'min-width': '1000px' }"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} Nfe">
         <ng-template pTemplate="header">
             <tr>
+                <!--th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th-->
                 <th pSortableColumn="invoiceNumber" class="whitespace-nowrap">
                     <div class="flex justify-content-between align-items-center">
-                        <div> Número NF</div>
+                        <div> Número NF / Série </div>
                         <div class="flex align-items-center gap-2">
                             <p-sortIcon field="invoiceNumber"></p-sortIcon>
-                            <p-columnFilter
-                      type="text"
-                      field="invoiceNumber"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
+                            <p-columnFilter type="text" field="invoiceNumber" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                            </p-columnFilter>
                         </div>
                     </div>
                 </th>
-                <th pSortableColumn="invoiceNumber" class="whitespace-nowrap">
-                    <div class="flex justify-content-between align-items-center">
-                        <div> Série / Subsérie</div>
-                        <div class="flex align-items-center gap-2">
-                            <p-sortIcon field="invoiceNumber"></p-sortIcon>
-                            <p-columnFilter
-                      type="text"
-                      field="invoiceNumber"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                        </div>
-                    </div>
-                </th>
-                <th pSortableColumn="entryDate" class="whitespace-nowrap">
-                    <div class="flex justify-content-between align-items-center">
-                        <div> Data de Emissão</div>
-                        <div class="flex align-items-center gap-2">
-                            <p-sortIcon field="entryDate"></p-sortIcon>
-                            <p-columnFilter
-                      type="text"
-                      field="entryDate"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                        </div>
-                    </div>
-                </th>
+
                 <th pSortableColumn="razaoSocialEmitente" class="whitespace-nowrap">
                     <div class="flex justify-content-between align-items-center">
                         <div> Emitente</div>
                         <div class="flex align-items-center gap-2">
                             <p-sortIcon field="razaoSocialEmitente"></p-sortIcon>
-                            <p-columnFilter
-                      type="text"
-                      field="razaoSocialEmitente"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
+                            <p-columnFilter type="text" field="razaoSocialEmitente" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false"
+                                [showAddButton]="false"></p-columnFilter>
                         </div>
                     </div>
                 </th>
@@ -92,34 +37,67 @@
                         <div> Destinatário</div>
                         <div class="flex align-items-center gap-2">
                             <p-sortIcon field="razaoSocialDestinatario"></p-sortIcon>
-                            <p-columnFilter
-                      type="text"
-                      field="razaoSocialDestinatario"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
+                            <p-columnFilter type="text" field="razaoSocialDestinatario" display="menu"
+                                matchMode="contains" [showMatchModes]="false" [showOperator]="false"
+                                [showAddButton]="false"></p-columnFilter>
                         </div>
                     </div>
                 </th>
-                
+                <th pSortableColumn="entryDate" class="whitespace-nowrap">
+                    <div class="flex justify-content-between align-items-center">
+                        <div> Data de Emissão</div>
+                        <div class="flex align-items-center gap-2">
+                            <p-sortIcon field="entryDate"></p-sortIcon>
+                            <p-columnFilter type="text" field="entryDate" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false"
+                                [showAddButton]="false"></p-columnFilter>
+                        </div>
+                    </div>
+                </th>
+
+                <th>
+                    <div class="flex justify-content-between align-items-center">
+                        <div class="flex justify-content-between align-items-center">
+                            NFE
+                        </div>
+                    </div>
+                </th>
+                <!--th>
+                    <div class="flex justify-content-between align-items-center">
+                        <div class="flex justify-content-between align-items-center">
+                            Reprocessar
+                        </div>
+                    </div>
+                </th-->
+
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-row>
             <tr>
+                <!--td>
+                    <p-tableCheckbox [value]="row"></p-tableCheckbox>
+                </td-->
+
                 <td>
                     <div class="flex flex-col">
-                        <span class="font-medium">{{ row.invoiceNumber  }}</span>
+                        <span class="font-medium">{{ row.invoiceNumber }} / {{ row.serie }}</span>
                     </div>
+                    
                 </td>
-                <td>000000000</td>
-                
-                <td>{{ row.issueDate | date : 'dd/MM/yyyy'  }}</td>
                 <td>{{ row.razaoSocialEmitente }}</td>
                 <td>{{ row.razaoSocialDestinatario }}</td>
-                
+                <td>{{ row.issueDate | date : 'dd/MM/yyyy' }}</td>
+                <td style="text-align: center">
+                    <p-button icon="pi pi-file-pdf" styleClass="p-button-rounded p-button-secondary p-button-text"
+                        (click)="abrirDocumentoFiscalPdf(row.invoiceKey); $event.preventDefault()" type="button">
+                    </p-button>
+                </td>
+                <!--td style="text-align: center">
+                    <p-button icon="pi pi-replay" styleClass="p-button-rounded p-button-secondary p-button-text"
+                        (onClick)="recuperarDocumentoFiscalNfe(row.invoiceKey,row.invoiceKey)"></p-button>
+                </td-->
+
             </tr>
         </ng-template>
     </p-table>

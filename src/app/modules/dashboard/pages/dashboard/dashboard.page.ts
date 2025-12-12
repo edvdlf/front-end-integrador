@@ -8,6 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { DashboardProcessamentoDiaDTO, DashboardResumoDTO, DistribuicaoTipoDTO, DivergenciasPorTributoDTO } from '../../models/dashboard.model';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DashboardService } from '../../service/DashboardService';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -19,6 +20,7 @@ import { DashboardService } from '../../service/DashboardService';
     ButtonModule,
     ChartModule,
     SkeletonModule,
+    RouterLink
 
   ],
   templateUrl: './dashboard.page.html',

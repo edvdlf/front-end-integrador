@@ -1,97 +1,35 @@
-<div class="pdf-viewer-wrapper">
-  <!-- Toolbar -->
-  <div class="pdf-toolbar">
-    <div class="pdf-toolbar-left">
-      <span class="pdf-title">NFSe #{{ nfseId }}</span>
-    </div>
-
-    <div class="pdf-toolbar-right">
-      <button
-        pButton
-        type="button"
-        icon="pi pi-search-minus"
-        class="p-button-text"
-        (click)="zoomOut()"
-        [disabled]="loading"
-        title="Diminuir zoom"
-      ></button>
-
-      <button
-        pButton
-        type="button"
-        icon="pi pi-search"
-        class="p-button-text"
-        (click)="resetZoom()"
-        [disabled]="loading"
-        title="Zoom 100%"
-      ></button>
-
-      <button
-        pButton
-        type="button"
-        icon="pi pi-search-plus"
-        class="p-button-text"
-        (click)="zoomIn()"
-        [disabled]="loading"
-        title="Aumentar zoom"
-      ></button>
-
-      <span class="zoom-label">{{ (zoom * 100) | number : '1.0-0' }}%</span>
-
-      <button
-        pButton
-        type="button"
-        icon="pi pi-refresh"
-        class="p-button-text"
-        (click)="carregarPdf()"
-        [disabled]="loading"
-        label="Recarregar"
-      ></button>
-
-      <button
-        pButton
-        type="button"
-        icon="pi pi-print"
-        class="p-button-text"
-        (click)="imprimirPdf()"
-        [disabled]="loading || !pdfUrl"
-        label="Imprimir"
-      ></button>
-
-      <button
-        pButton
-        type="button"
-        icon="pi pi-download"
-        class="p-button-rounded p-button-sm"
-        (click)="downloadPdf()"
-        [disabled]="loading || !pdfUrl"
-        label="Download"
-      ></button>
-    </div>
-  </div>
-
-  <!-- Área do Viewer -->
-  <div class="pdf-viewer-container">
-    <div class="pdf-loading-overlay" *ngIf="loading">
-      <p-progressSpinner></p-progressSpinner>
-      <span>Carregando PDF...</span>
-    </div>
-
-    <div class="pdf-error" *ngIf="!loading && errorMessage">
-      <i class="pi pi-exclamation-triangle"></i>
-      <span>{{ errorMessage }}</span>
-    </div>
-
-    <pdf-viewer
-      *ngIf="!loading && !errorMessage && pdfSrc"
-      class="pdf-viewer"
-      [src]="pdfSrc"
-      [render-text]="true"
-      [autoresize]="true"
-      [zoom]="zoom"
-      [original-size]="false"
-    >
-    </pdf-viewer>
-  </div>
+<div class="nfse-header-info">
+  <span class="nfse-subtitle">NFSe #{{ nfseNumero }}</span>
 </div>
 
+@if (carregando) {
+  <div class="nfse-loading flex flex-column align-items-center justify-content-center">
+    <p-progressSpinner></p-progressSpinner>
+    <p class="mt-3">Carregando PDF da NFSe...</p>
+  </div>
+}
+@else if (temErroCarregarPdf) {
+  <div class="nfse-error">
+    <h3>Não foi possível carregar o PDF</h3>
+    <p>{{ mensagemErro }}</p>
+
+    <button
+      pButton
+      type="button"
+      label="Tentar novamente"
+      icon="pi pi-refresh"
+      (click)="onRecarregar()"
+    ></button>
+  </div>
+}
+@else {
+  <div class="nfse-pdf-wrapper">
+    <ngx-extended-pdf-viewer
+      [src]="pdfSrc"
+      height="80vh"
+      useBrowserLocale="true"
+      (pdfLoaded)="onPdfLoaded($event)"
+      (pdfLoadingFailed)="onErroCarregar($event)"
+    ></ngx-extended-pdf-viewer>
+  </div>
+}

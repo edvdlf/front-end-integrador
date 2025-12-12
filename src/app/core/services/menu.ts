@@ -61,6 +61,15 @@ const DEFAULT_MENU: MenuItem[] = [
     ]
     
   },
+
+ {
+    label: 'Adm',
+    icon: 'pi pi-lock',
+    children: [
+      { label: 'Recuperar dodumentos', icon: 'pi pi-sync', route: '/recuperar-documentos' },
+    ]
+  },
+
    {
      label: 'Ajuda',
      icon: 'pi pi-book',

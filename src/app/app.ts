@@ -3,6 +3,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { PrimengLocaleService } from './core/services/primeng-locale.service';
 
 @Component({
   selector: 'app-root',
@@ -22,5 +23,8 @@ import { ToastModule } from 'primeng/toast';
 })
 export class App {
   //protected readonly title = signal('template-padrao-menu-retratil');
+  constructor(private locale: PrimengLocaleService) {
+    this.locale.init();
+  }
 
 }

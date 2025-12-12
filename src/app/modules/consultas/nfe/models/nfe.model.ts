@@ -19,5 +19,11 @@ export interface NFeResponse {
   validXmlStructure: boolean;
   razaoSocialEmitente: string;
   razaoSocialDestinatario: string;
+  serie: string;
+ 
   
+}
+
+export interface NfeEventAction {
+   id: string;
 }

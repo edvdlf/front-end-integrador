@@ -17,105 +17,133 @@
                      (onClick)="emitirCarregamentoPorTipo('NFSE')" />
                   <p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
                      (onClick)="emitirCarregamentoAll()" />
+                  <p-badge [value]=data.length severity="warn" />
+
                </ng-template>
                <ng-template #end>
                   <p-button icon="pi pi-file-excel" styleClass="btn-vt btn-vt-primary" class="mr-2"
                      label="Exportar Excel" (click)="exportarExcel()">
                   </p-button>
-
-                 
                </ng-template>
-
-
             </p-toolbar>
-            <p-table class="vetorit-table" [value]="data" [rows]="20" [paginator]="true" dataKey="id"
+            <p-table class="vetorit-table" [value]="data" [rows]="50" [paginator]="true" dataKey="id"
+               rowGroupMode="rowspan" groupRowsBy="documentoFiscalId" sortField="documentoFiscalId" sortMode="single"
                [scrollable]="true" scrollWidth="1000px" [tableStyle]="{ 'min-width': '1000px' }"
-               currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} templates">
+               currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros">
+
+               <!-- HEADER -->
                <ng-template pTemplate="header">
                   <tr>
                      <th pSortableColumn="documentoFiscalId" class="whitespace-nowrap">
                         <div class="flex justify-content-between align-items-center">
-                           <div> Número documento</div>
+                           <div>Número documento</div>
                            <div class="flex align-items-center gap-2">
                               <p-sortIcon field="documentoFiscalId"></p-sortIcon>
                               <p-columnFilter type="text" field="documentoFiscalId" display="menu" matchMode="contains"
-                                 [showMatchModes]="false" [showOperator]="false"
-                                 [showAddButton]="false"></p-columnFilter>
+                                 [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                              </p-columnFilter>
                            </div>
                         </div>
                      </th>
+
                      <th pSortableColumn="grupoInformacao" class="whitespace-nowrap">
                         <div class="flex justify-content-between align-items-center">
-                           <div> Grupo de informação</div>
+                           <div>Grupo de informação</div>
                            <div class="flex align-items-center gap-2">
                               <p-sortIcon field="grupoInformacao"></p-sortIcon>
                               <p-columnFilter type="text" field="grupoInformacao" display="menu" matchMode="contains"
-                                 [showMatchModes]="false" [showOperator]="false"
-                                 [showAddButton]="false"></p-columnFilter>
+                                 [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                              </p-columnFilter>
                            </div>
                         </div>
                      </th>
+
                      <th pSortableColumn="tipoDocumentoFiscal" class="whitespace-nowrap">
                         <div class="flex justify-content-between align-items-center">
-                           <div> Tipo</div>
+                           <div>Tipo</div>
                            <div class="flex align-items-center gap-2">
                               <p-sortIcon field="tipoDocumentoFiscal"></p-sortIcon>
                               <p-columnFilter type="text" field="tipoDocumentoFiscal" display="menu"
                                  matchMode="contains" [showMatchModes]="false" [showOperator]="false"
-                                 [showAddButton]="false"></p-columnFilter>
+                                 [showAddButton]="false">
+                              </p-columnFilter>
                            </div>
                         </div>
                      </th>
+
                      <th pSortableColumn="campo" class="whitespace-nowrap">
                         <div class="flex justify-content-between align-items-center">
-                           <div> Campo</div>
+                           <div>Campo</div>
                            <div class="flex align-items-center gap-2">
                               <p-sortIcon field="campo"></p-sortIcon>
                               <p-columnFilter type="text" field="campo" display="menu" matchMode="contains"
-                                 [showMatchModes]="false" [showOperator]="false"
-                                 [showAddButton]="false"></p-columnFilter>
+                                 [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                              </p-columnFilter>
                            </div>
                         </div>
                      </th>
+
                      <th pSortableColumn="valorOriginal" class="whitespace-nowrap">
                         <div class="flex justify-content-between align-items-center">
-                           <div> Valor Original</div>
+                           <div>Valor Original</div>
                            <div class="flex align-items-center gap-2">
                               <p-sortIcon field="valorOriginal"></p-sortIcon>
                               <p-columnFilter type="text" field="valorOriginal" display="menu" matchMode="contains"
-                                 [showMatchModes]="false" [showOperator]="false"
-                                 [showAddButton]="false"></p-columnFilter>
+                                 [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                              </p-columnFilter>
                            </div>
                         </div>
                      </th>
+
                      <th pSortableColumn="valorCalculado" class="whitespace-nowrap">
                         <div class="flex justify-content-between align-items-center">
-                           <div> Valor Calculado</div>
+                           <div>Valor Calculado</div>
                            <div class="flex align-items-center gap-2">
                               <p-sortIcon field="valorCalculado"></p-sortIcon>
                               <p-columnFilter type="text" field="valorCalculado" display="menu" matchMode="contains"
-                                 [showMatchModes]="false" [showOperator]="false"
-                                 [showAddButton]="false"></p-columnFilter>
+                                 [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                              </p-columnFilter>
                            </div>
                         </div>
                      </th>
                   </tr>
                </ng-template>
-               <ng-template pTemplate="body" let-row>
+
+               <!-- BODY AGRUPADO -->
+               <ng-template pTemplate="body" let-row let-rowgroup="rowgroup" let-rowspan="rowspan">
+
                   <tr>
-                     <td>
-                        <div class="flex flex-col">
-                           <span class="font-medium">{{ row.documentoFiscalId }}</span>
+                     <!-- COLUNA AGRUPADA: DOCUMENTO FISCAL -->
+                     <td *ngIf="rowgroup" [attr.rowspan]="rowspan" class="documento-group-cell">
+                        <div class="flex flex-column gap-1">
+                           <span class="font-medium documento-numero">
+                              {{ row.documentoFiscalId }}
+                           </span>
+
+                           <!-- badge com quantidade de linhas no grupo -->
+                           <span class="p-badge p-badge-info documento-badge">
+                              {{ rowspan }} divergência{{ rowspan > 1 ? 's' : '' }}
+                           </span>
+
+                           <!-- opcional: tipo do documento -->
+                           <span class="text-xs text-color-secondary">
+                              Tipo: {{ row.tipoDocumentoFiscal }}
+                           </span>
                         </div>
                      </td>
+
+                     <!-- demais colunas -->
                      <td>{{ row.grupoInformacao }}</td>
                      <td>{{ row.tipoDocumentoFiscal }}</td>
                      <td>{{ row.campo }}</td>
                      <td>{{ row.valorOriginal }}</td>
                      <td>{{ row.valorCalculado }}</td>
                   </tr>
+
                </ng-template>
             </p-table>
+
+
          </p-tabpanel>
          <p-tabpanel value="1">
             <p-toolbar class="mb-6">
@@ -127,15 +155,12 @@
                   <p-button label="NFSe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
                      (onClick)="loadConfrontosPorTipoDocumento('NFSE')" />
                   <p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
-                     (onClick)="loadConfrontos()" />
+                     (onClick)="loadConfrontosComDivergencias()" />
                </ng-template>
-               
-
-
             </p-toolbar>
             <div class="custom-card header-band flex align-items-center justify-content-between">
                <p-accordion *ngIf="!loading && documentos.length" [multiple]="true">
-                  <!-- Painel por documento -->
+
                   <p-accordion-panel *ngFor="let doc of documentos; trackBy: trackByDocumento"
                      [value]="doc.documentoFiscalId">
                      <p-accordion-header>

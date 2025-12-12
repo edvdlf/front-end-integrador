@@ -4,7 +4,7 @@
 .vetorit-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem; // 14px
+  font-size: 0.875rem;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -40,7 +40,18 @@
       padding: 8px;
     }
   }
+
+  /* ✅ COR LARANJA APENAS QUANDO ESTÁ SELECIONADO */
+  ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+    background: #E1742E !important;   // laranja VetorIT
+    border-color: #E1742E !important;
+  }
+
+  ::ng-deep .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon {
+    color: #ffffff !important;        // check branco
+  }
 }
+
 
 /* ========== 📋 TABELA COMPACTA (para diálogos e listas densas) ========== */
 .vetorit-table-sm {

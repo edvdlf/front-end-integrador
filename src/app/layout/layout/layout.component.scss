@@ -17,8 +17,8 @@
 app-topbar {
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: #ffffff;
+  z-index: 1000;
+  background: #FA6400;
   border-bottom: 2px solid #e5e7eb;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }

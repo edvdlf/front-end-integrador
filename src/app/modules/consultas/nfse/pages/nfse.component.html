@@ -1,27 +1,22 @@
 <div class="grid">
   <div class="col-12">
-    <app-nsfe-header/>
+    <app-nfse-header />
   </div>
-  <!--div class="col-12">
-    <app-nsfe-table 
-    [data]="nfse"
-    />
-  </!--div-->
 
   <div class="col-12">
-    <!-- Enquanto não chegou nada: loading -->
-    <ng-container *ngIf="nfse$ | async as data; else loadingTpl">
-      <app-nsfe-table
-        [data]="data"
-        [loading]="false">
-      </app-nsfe-table>
+    <!-- Enquanto não chegou nada: mostra tabela vazia com loading -->
+    <ng-container *ngIf="nfseResponse$ | async as data; else loadingTpl">
+      <app-nfse-table
+        [inputNFSeResponse]="data"
+        [inputLoading]="loading">
+      </app-nfse-table>
     </ng-container>
 
     <ng-template #loadingTpl>
-      <app-nsfe-table
-        [data]="[]"
-        [loading]="true">
-      </app-nsfe-table>
+      <app-nfse-table
+        [inputNFSeResponse]="[]"
+        [inputLoading]="loading">
+      </app-nfse-table>
     </ng-template>
   </div>
 </div>

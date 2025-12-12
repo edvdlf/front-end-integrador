@@ -9,16 +9,7 @@ import { BadgeModule } from 'primeng/badge';
     BadgeModule
   ],
   template:`
- <!--div
-      class="custom-card header-band flex align-items-center justify-content-between"
-    >
-      <div class="text-group">
-        <h2 class="title">Consultas de Notas fiscais eletrônicas</h2>
-        <p class="subtitle">
-          A listagem abaixo, exibe os documentos fiscais do tipo [NFE] que foram recuperados do sistema Taxdocs.
-        </p>
-      </div>
- </div-->
+ 
 <div class="custom-card header-band flex align-items-center justify-content-between">
       
       <div class="text-group">

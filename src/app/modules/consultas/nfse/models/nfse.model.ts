@@ -15,6 +15,13 @@ export interface NFSeResponse {
  operationType: number;
  totalInvoice: number;
  razaoSocialEmitente: string;
-  razaoSocialDestinatario: string;
-  
+ razaoSocialDestinatario: string;
+ serieRps: string;
+}
+
+export interface TaxdocsHealthResponse {
+  status: string;      // OK, DEGRADED, OFFLINE
+  codigo: string;
+  mensagem: string;
+  erroTecnico?: string;
 }

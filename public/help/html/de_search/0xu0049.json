@@ -1,0 +1,16 @@
+[
+	{ "s": "ICONE", "p": [9, 15, 12] },
+	{ "s": "IDENTIFICADOR", "p": [15, 9] },
+	{ "s": "IDENTIFICADORES", "p": [13] },
+	{ "s": "IMAGEM", "p": [8, 7] },
+	{ "s": "INATIVO", "p": [9] },
+	{ "s": "INATIVOS", "p": [9] },
+	{ "s": "INCLUSÃO", "p": [15, 9, 7, 12] },
+	{ "s": "INFORMADO", "p": [12] },
+	{ "s": "INFORMAÇÕES", "p": [3] },
+	{ "s": "INFORME", "p": [16, 6] },
+	{ "s": "INICIAL", "p": [6, 16] },
+	{ "s": "IRÃO", "p": [6] },
+	{ "s": "ITEM", "p": [13] },
+	{ "s": "ITENS", "p": [13, 2] }
+]

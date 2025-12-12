@@ -1,0 +1,47 @@
+.agendador-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.agendador-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.agendador-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.agendador-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.agendador-btn {
+  min-width: 190px;
+}
+
+.agendador-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #4b5563;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 0.75rem;
+}
+
+.agendador-info .pi {
+  font-size: 0.85rem;
+  color: #3b82f6;
+}
