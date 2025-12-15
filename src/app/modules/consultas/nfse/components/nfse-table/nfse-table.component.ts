@@ -9,6 +9,8 @@ import { NfseService } from '../../service/nfse-service';
 import { MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { finalize } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nfse-table',
@@ -36,11 +38,13 @@ export class NfseTableComponent {
 
   constructor(
     private nfseService: NfseService,
-    private messageService: MessageService
+    private messageService: MessageService,
+     private router: Router,
+
   ) {}
 
   
-  abrirPdf(processId: string): void {
+  abrirPdfoLD(processId: string): void {
     // Evita clique duplo enquanto já está checando
     if (this.carregando) {
       return;
@@ -110,14 +114,32 @@ export class NfseTableComponent {
         // limpa a URL depois de alguns segundos
         setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
       },
-      error: (err) => {
-        console.error('Erro ao abrir PDF da NFSe:', err);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'NFSe',
-          detail: 'Não foi possível carregar o PDF da NFSe. Tente novamente mais tarde.'
-        });
-      }
+      //error: (err) => {
+       // console.error('Erro ao abrir PDF da NFSe:', err);
+       // this.messageService.add({
+       //   severity: 'error',
+       //   summary: 'NFSe',
+       //   detail: 'Não foi possível carregar o PDF da NFSe. Tente novamente mais tarde.'
+       // });
+      //}
+      error: (err: unknown) => {
+      console.error('Erro ao abrir PDF da NFe:', err);
+
+      const httpErr = err as HttpErrorResponse;
+
+      this.router.navigate(['/relatorios-errosprocessamento'], {
+        state: {
+          origem: 'NFE_PDF',
+          processId,
+          status: httpErr?.status ?? null,
+          mensagem:
+            httpErr?.error?.mensagem ??
+            httpErr?.message ??
+            'Falha ao carregar PDF da NFe.',
+          dataHora: new Date().toISOString()
+        }
+      });
+    }
     });
   }
 

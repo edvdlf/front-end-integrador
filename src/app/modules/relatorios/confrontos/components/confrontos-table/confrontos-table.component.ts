@@ -16,6 +16,9 @@ import { NfeService } from '../../../../consultas/nfe/service/nfe-service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NfseService } from '../../../../consultas/nfse/service/nfse-service';
+import { CteService } from '../../../../consultas/cte/service/cte-service';
+import { Observable } from 'rxjs';
 
 
 interface DocumentoFiscalConfronto {
@@ -31,6 +34,8 @@ interface DocumentoFiscalConfronto {
   descricaoDiferenca: string;
   criadoEm: string;
 }
+
+type TipoDocumentoFiscal = 'NFE' | 'NFSE' | 'CTE';
 
 @Component({
   selector: 'app-confrontos-table',
@@ -69,6 +74,8 @@ export class ConfrontosTableComponent implements OnInit {
    @Output() carregarTodos = new EventEmitter();
 
 private nfeService = inject(NfeService);
+private nfseService = inject(NfseService);
+private cteService = inject(CteService);
 private messageService = inject(MessageService);
 private router = inject (Router);
 private confrontosService =  inject(ConfrontosService);
@@ -175,12 +182,32 @@ private confrontosService =  inject(ConfrontosService);
     saveAs(blob, `confrontos_${new Date().toISOString().slice(0, 10)}.xlsx`);
   }
 
-  abrirDocumentoFiscalPdf(processId: string): void {
+  abrirDocumentoFiscalPdf(processId: string, tipo: string): void {
   if (!processId) {
     this.messageService.add({
       severity: 'warn',
-      summary: 'NFe',
-      detail: 'ID do processo da NFe não informado.'
+      summary: 'Documento Fiscal',
+      detail: 'ID do Documento fiscal não informado.'
+    });
+    return;
+  }
+
+  const tipoUpper = (tipo ?? '').toUpperCase() as TipoDocumentoFiscal;
+
+  // escolhe o "getPdf" correto
+  const pdfGetters: Record<TipoDocumentoFiscal, (id: string) => Observable<Blob>> = {
+    NFE:  (id) => this.nfeService.getNfePdf(id),
+    NFSE: (id) => this.nfseService.getPdf(id), 
+    CTE:  (id) => this.cteService.getCtePdf(id)    
+  };
+
+  const getPdf = pdfGetters[tipoUpper];
+
+  if (!getPdf) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Documento Fiscal',
+      detail: `Tipo inválido: ${tipo}. Use NFE, NFSE ou CTE.`
     });
     return;
   }
@@ -188,22 +215,20 @@ private confrontosService =  inject(ConfrontosService);
   this.messageService.clear();
   this.messageService.add({
     severity: 'info',
-    summary: 'NFe',
-    detail: 'Carregando PDF da NFe...',
+    summary: tipoUpper,
+    detail: 'Carregando PDF do documento fiscal...',
     life: 2000
   });
 
-  this.nfeService.getNfePdf(processId).subscribe({
+  getPdf(processId).subscribe({
     next: (blob: Blob) => {
-      console.log('Blob PDF NFe recebido:', blob);
-
       const blobUrl = URL.createObjectURL(blob);
       const win = window.open(blobUrl, '_blank');
 
       if (!win) {
         this.messageService.add({
           severity: 'warn',
-          summary: 'NFe',
+          summary: tipoUpper,
           detail: 'O navegador bloqueou a abertura da nova aba. Libere pop-ups para este site.'
         });
       }
@@ -212,19 +237,17 @@ private confrontosService =  inject(ConfrontosService);
     },
 
     error: (err: unknown) => {
-      console.error('Erro ao abrir PDF da NFe:', err);
-
       const httpErr = err as HttpErrorResponse;
 
       this.router.navigate(['/relatorios-errosprocessamento'], {
         state: {
-          origem: 'NFE_PDF',
+          origem: `${tipoUpper}_PDF`,
           processId,
           status: httpErr?.status ?? null,
           mensagem:
-            httpErr?.error?.mensagem ??
+            (httpErr as any)?.error?.mensagem ??
             httpErr?.message ??
-            'Falha ao carregar PDF da NFe.',
+            `Falha ao carregar PDF do ${tipoUpper}.`,
           dataHora: new Date().toISOString()
         }
       });

@@ -22,5 +22,9 @@ export class ErrosprocessmentoService {
       `${this.baseUrl}/todos`
     );
   }
+
+  deleteErrosProcessamentos(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
   
 }
