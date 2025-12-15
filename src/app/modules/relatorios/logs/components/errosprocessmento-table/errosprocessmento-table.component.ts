@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { TableModule } from "primeng/table";
 
-import { ErroProcessamentoDTO } from '../../models/erro-processamento.model';
+import { DeleteErroProcessamentoAction, ErroProcessamentoDTO } from '../../models/erro-processamento.model';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -31,6 +31,8 @@ constructor(private messageService: MessageService) {}
 
   @Input() data: ErroProcessamentoDTO[] = [];
   @Input() loading = false;
+  
+@Output() outPutDeleteRegistroErro = new EventEmitter<DeleteErroProcessamentoAction>();
 
 copiarMensagem(texto: string) {
   navigator.clipboard.writeText(texto);
@@ -39,6 +41,15 @@ copiarMensagem(texto: string) {
     summary: 'Copiado!',
     detail: 'Mensagem copiada para a área de transferência.'
   });
+}
+
+handleDeleteErroProcessamentoEvent(erroProcessamento: ErroProcessamentoDTO): void {
+  if (erroProcessamento.id && erroProcessamento.acao !== '') {
+    this.outPutDeleteRegistroErro.emit({
+      id: erroProcessamento.id,
+      nome: erroProcessamento.acao
+    });
+  }
 }
 exportarExcel() {
     if (!this.data || this.data.length === 0) {

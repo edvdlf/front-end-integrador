@@ -28,6 +28,7 @@
             </p-toolbar>
             <p-table class="vetorit-table" [value]="data" [rows]="50" [paginator]="true" dataKey="id"
                rowGroupMode="rowspan" groupRowsBy="documentoFiscalId" sortField="documentoFiscalId" sortMode="single"
+               [showCurrentPageReport]="true"
                [scrollable]="true" scrollWidth="1000px" [tableStyle]="{ 'min-width': '1000px' }"
                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros">
 
@@ -114,23 +115,37 @@
 
                   <tr>
                      <!-- COLUNA AGRUPADA: DOCUMENTO FISCAL -->
-                     <td *ngIf="rowgroup" [attr.rowspan]="rowspan" class="documento-group-cell">
-                        <div class="flex flex-column gap-1">
-                           <span class="font-medium documento-numero">
-                              {{ row.documentoFiscalId }}
-                           </span>
+                    <td *ngIf="rowgroup"
+    [attr.rowspan]="rowspan"
+    class="documento-group-cell">
 
-                           <!-- badge com quantidade de linhas no grupo -->
-                           <span class="p-badge p-badge-info documento-badge">
-                              {{ rowspan }} divergência{{ rowspan > 1 ? 's' : '' }}
-                           </span>
+  <div class="flex flex-column gap-1">
+    <span class="font-medium documento-numero">
 
-                           <!-- opcional: tipo do documento -->
-                           <span class="text-xs text-color-secondary">
-                              Tipo: {{ row.tipoDocumentoFiscal }}
-                           </span>
-                        </div>
-                     </td>
+      <a
+        class="nfse-link font-medium"
+        href="#"
+        (click)="abrirDocumentoFiscalPdf(row.documentoFiscalId, row.tipoDocumentoFiscal); $event.preventDefault()">
+
+        {{ row.documentoFiscalId }}
+
+      </a>
+
+    </span>
+
+    <!-- badge com quantidade de linhas no grupo -->
+    <span class="p-badge p-badge-info documento-badge">
+      {{ rowspan }} divergência{{ rowspan > 1 ? 's' : '' }}
+    </span>
+
+    <!-- opcional: tipo do documento -->
+    <span class="text-xs text-color-secondary">
+      Tipo: {{ row.tipoDocumentoFiscal }}
+    </span>
+  </div>
+
+</td>
+
 
                      <!-- demais colunas -->
                      <td>{{ row.grupoInformacao }}</td>

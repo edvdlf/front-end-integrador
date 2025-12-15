@@ -7,3 +7,7 @@ export interface ErroProcessamentoDTO {
   mensagem: string;             // vem como JSON em formato de string
 }
 
+export interface DeleteErroProcessamentoAction {
+   id: string;
+   nome:string;
+}

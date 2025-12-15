@@ -18,10 +18,10 @@
       [scrollable]="true"
       scrollWidth="1000px"
       [tableStyle]="{ 'min-width': '1000px' }"
-      
+      [showCurrentPageReport]="true"
       
 
-      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} Nfe"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} Documentos fiscais"
 >
      
     <ng-template pTemplate="header">
@@ -118,9 +118,11 @@
                   </div>
                 </div>
               <th>
-                <!--div class="flex justify-content-between align-items-center">
-                  Download
-                </div-->
+                <div class="flex justify-content-between align-items-center">
+                  <div class="flex justify-content-between align-items-center">
+                    Excluir
+                  </div>
+                </div>
               </th>
 
         
@@ -169,13 +171,14 @@
 </td>
 
 
-        <!--td style="text-align: center">
-          <p-button
-             icon="pi pi-file-pdf"
-             styleClass="p-button-rounded p-button-secondary p-button-text"
-             >
-          </p-button>
-      </td-->
+       <td style="text-align: center">
+                <p-button
+                  icon="pi pi-trash"
+                  styleClass="p-button-rounded p-button-secondary p-button-text"
+                  (onClick)="handleDeleteErroProcessamentoEvent(row)"
+                >
+                </p-button>
+              </td>
        
       </tr>
     </ng-template>

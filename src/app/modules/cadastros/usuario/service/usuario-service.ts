@@ -11,7 +11,6 @@ export class UsuarioService {
 
    private http = inject(HttpClient);
 
-  // Ajuste a baseUrl conforme seu environment (ex.: baseUrlAuth, baseUrlPortal, etc.)
   
     private readonly baseUrl = environment.api.baseUrl + environment.api.endpoints.usuarios;
   
