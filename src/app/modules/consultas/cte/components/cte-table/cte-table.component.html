@@ -8,9 +8,8 @@
       [scrollable]="true"
       scrollWidth="1000px"
       [tableStyle]="{ 'min-width': '1000px' }"
-      
-      
-      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} templates"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} CTE"
 >
      
     <ng-template pTemplate="header">
@@ -36,7 +35,7 @@
 
         <th pSortableColumn="invoiceNumber" class="whitespace-nowrap">
                 <div class="flex justify-content-between align-items-center">
-                  <div> Numero</div>
+                  <div> Número / Série</div>
                   <div class="flex align-items-center gap-2">
                     <p-sortIcon field="invoiceNumber"></p-sortIcon>
                     <p-columnFilter
@@ -121,7 +120,7 @@
       <tr>
         <td>
           <div class="flex flex-col">
-            <span class="font-medium">{{ row.invoiceNumber }}</span>
+            <span class="font-medium">{{ row.invoiceNumber }} / {{ row.serie }}</span>
 
           </div>
         </td>

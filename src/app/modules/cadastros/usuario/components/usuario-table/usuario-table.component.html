@@ -26,7 +26,7 @@
           </ng-template>
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 5rem"></th>
+             
               <th pSortableColumn="userName">
                 <div class="flex justify-content-between align-items-center">
                   <div class="flex justify-content-between align-items-center">
@@ -134,15 +134,13 @@
           </ng-template>
           <ng-template pTemplate="body" let-dados>
             <tr>
-              <td>
-                
-              </td>
+              
               <td style="text-align: left">{{ dados.userName }}</td>
               <td style="text-align: left">
                 {{ dados.nome }}
               </td>
               <td style="text-align: left">{{ dados.role }}</td>
-              <!--td style="text-align: left"><p-tag [value]="dados.enabled" [severity]="getStatus(dados.enabled)"></p-tag></!--td-->
+              
               <td style="text-align: left">
                 <p-tag
                   [value]="getStatusText(dados.enabled)"

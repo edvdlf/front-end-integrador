@@ -15,8 +15,8 @@
                      (onClick)="emitirCarregamentoPorTipo('CTE')" />
                   <p-button label="NFSe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
                      (onClick)="emitirCarregamentoPorTipo('NFSE')" />
-                  <p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
-                     (onClick)="emitirCarregamentoAll()" />
+                  <!--p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="emitirCarregamentoAll()" /-->
                   <p-badge [value]=data.length severity="warn" />
 
                </ng-template>
@@ -154,8 +154,8 @@
                      (onClick)="loadConfrontosPorTipoDocumento('CTE')" />
                   <p-button label="NFSe" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
                      (onClick)="loadConfrontosPorTipoDocumento('NFSE')" />
-                  <p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
-                     (onClick)="loadConfrontosComDivergencias()" />
+                  <!--p-button label="Todos" icon="pi pi-search" class="mr-2" styleClass="btn-vt btn-vt-primary"
+                     (onClick)="loadConfrontosComDivergencias()" /-->
                </ng-template>
             </p-toolbar>
             <div class="custom-card header-band flex align-items-center justify-content-between">
@@ -163,9 +163,29 @@
 
                   <p-accordion-panel *ngFor="let doc of documentos; trackBy: trackByDocumento"
                      [value]="doc.documentoFiscalId">
-                     <p-accordion-header>
-                        {{ getDocumentoHeader(doc) }}
-                     </p-accordion-header>
+                     <!--p-accordion-header>
+                        {{ getDocumentoHeader(doc) }} / Teste
+                     </p-accordion-header-->
+
+<p-accordion-header>
+  <div class="flex align-items-center justify-content-between w-full gap-2">
+    <span class="flex-1">
+      {{ getDocumentoHeader(doc) }}
+    </span>
+
+    <button
+      pButton
+      type="button"
+      icon="pi pi-file-pdf"
+      class="p-button-text p-button-rounded p-button-danger"
+      pTooltip="Abrir PDF"
+      tooltipPosition="top"
+      
+      ></button>
+   
+  </div>
+</p-accordion-header>
+
                      <p-accordion-content>
                         <!-- Accordion interno por grupo -->
                         <p-accordion [multiple]="true" class="confronto-inner-accordion">

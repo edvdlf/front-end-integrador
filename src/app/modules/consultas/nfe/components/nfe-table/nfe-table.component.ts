@@ -8,6 +8,8 @@ import { ButtonModule } from "primeng/button";
 import { NfeService } from '../../service/nfe-service';
 import { MessageService } from 'primeng/api';
 import { NFSeResponse } from '../../../nfse/models/nfse.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nfe-table',
@@ -35,54 +37,66 @@ export class NfeTableComponent {
 
   private nfeService = inject(NfeService);
    private messageService = inject(MessageService);
+   private router = inject (Router);
 
-  abrirDocumentoFiscalPdf(processId: string): void {
-    if (!processId) {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'NFe',
-        detail: 'ID do processo da NFe não informado.'
-      });
-      return;
-    }
+ 
 
-    this.messageService.clear();
+abrirDocumentoFiscalPdf(processId: string): void {
+  if (!processId) {
     this.messageService.add({
-      severity: 'info',
-      summary: 'NFSe',
-      detail: 'Carregando PDF da NFe...',
-      life: 2000
+      severity: 'warn',
+      summary: 'NFe',
+      detail: 'ID do processo da NFe não informado.'
     });
+    return;
+  }
 
-    this.nfeService.getNfePdf(processId).subscribe({
-      next: (blob: Blob) => {
-        console.log('Blob PDF NFe recebido:', blob);
+  this.messageService.clear();
+  this.messageService.add({
+    severity: 'info',
+    summary: 'NFe',
+    detail: 'Carregando PDF da NFe...',
+    life: 2000
+  });
 
-        const blobUrl = URL.createObjectURL(blob);
-        const win = window.open(blobUrl, '_blank');
+  this.nfeService.getNfePdf(processId).subscribe({
+    next: (blob: Blob) => {
+      console.log('Blob PDF NFe recebido:', blob);
 
-        if (!win) {
-          // popup bloqueado
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'NFE',
-            detail: 'O navegador bloqueou a abertura da nova aba. Libere pop-ups para este site.'
-          });
-        }
+      const blobUrl = URL.createObjectURL(blob);
+      const win = window.open(blobUrl, '_blank');
 
-        // limpa a URL depois de alguns segundos
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-      },
-      error: (err) => {
-        console.error('Erro ao abrir PDF da NFSe:', err);
+      if (!win) {
         this.messageService.add({
-          severity: 'error',
+          severity: 'warn',
           summary: 'NFe',
-          detail: 'Não foi possível carregar o PDF da NFe. Tente novamente mais tarde.'
+          detail: 'O navegador bloqueou a abertura da nova aba. Libere pop-ups para este site.'
         });
       }
-    });
-  }
+
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    },
+
+    error: (err: unknown) => {
+      console.error('Erro ao abrir PDF da NFe:', err);
+
+      const httpErr = err as HttpErrorResponse;
+
+      this.router.navigate(['/relatorios-errosprocessamento'], {
+        state: {
+          origem: 'NFE_PDF',
+          processId,
+          status: httpErr?.status ?? null,
+          mensagem:
+            httpErr?.error?.mensagem ??
+            httpErr?.message ??
+            'Falha ao carregar PDF da NFe.',
+          dataHora: new Date().toISOString()
+        }
+      });
+    }
+  });
+}
 
   recuperarDocumentoFiscalNfe(id: string, nome:string) {
       if (id  !== '') {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { Accordion, AccordionModule } from 'primeng/accordion';
@@ -12,6 +12,10 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ToolbarModule } from 'primeng/toolbar';
 import { Badge } from "primeng/badge";
+import { NfeService } from '../../../../consultas/nfe/service/nfe-service';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 interface DocumentoFiscalConfronto {
@@ -64,8 +68,12 @@ export class ConfrontosTableComponent implements OnInit {
   @Output() carregarPorTipo = new EventEmitter<string>();
    @Output() carregarTodos = new EventEmitter();
 
+private nfeService = inject(NfeService);
+private messageService = inject(MessageService);
+private router = inject (Router);
+private confrontosService =  inject(ConfrontosService);
 
-  constructor(private confrontosService: ConfrontosService) { }
+  
 
   ngOnInit(): void {
     this.loadConfrontosComDivergencias();
@@ -166,6 +174,64 @@ export class ConfrontosTableComponent implements OnInit {
 
     saveAs(blob, `confrontos_${new Date().toISOString().slice(0, 10)}.xlsx`);
   }
+
+  abrirDocumentoFiscalPdf(processId: string): void {
+  if (!processId) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'NFe',
+      detail: 'ID do processo da NFe não informado.'
+    });
+    return;
+  }
+
+  this.messageService.clear();
+  this.messageService.add({
+    severity: 'info',
+    summary: 'NFe',
+    detail: 'Carregando PDF da NFe...',
+    life: 2000
+  });
+
+  this.nfeService.getNfePdf(processId).subscribe({
+    next: (blob: Blob) => {
+      console.log('Blob PDF NFe recebido:', blob);
+
+      const blobUrl = URL.createObjectURL(blob);
+      const win = window.open(blobUrl, '_blank');
+
+      if (!win) {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'NFe',
+          detail: 'O navegador bloqueou a abertura da nova aba. Libere pop-ups para este site.'
+        });
+      }
+
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    },
+
+    error: (err: unknown) => {
+      console.error('Erro ao abrir PDF da NFe:', err);
+
+      const httpErr = err as HttpErrorResponse;
+
+      this.router.navigate(['/relatorios-errosprocessamento'], {
+        state: {
+          origem: 'NFE_PDF',
+          processId,
+          status: httpErr?.status ?? null,
+          mensagem:
+            httpErr?.error?.mensagem ??
+            httpErr?.message ??
+            'Falha ao carregar PDF da NFe.',
+          dataHora: new Date().toISOString()
+        }
+      });
+    }
+  });
+}
+
 
 
 
