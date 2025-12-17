@@ -176,29 +176,64 @@
 
             <a id="main-content"></a>
 
-            <h2>Sobre o sistema</h2>
+            <h2>Integrador Taxdocs Avatax</h2>
 
             <div class="main-content">
                 
+<div class="rvps6">
+<table width="100%" style="border-color: #000000; border-style: solid; border-width: 1px; background-color: #ff6600; border-spacing: 2px;">
+ <tr style="vertical-align: middle;">
+  <td style="border-width : 1px; border-color: #ffffff; border-style: solid; padding: 1px; height: 42px;">
+   <h1 class="rvps5"><span class="rvts0"><span class="rvts16">Manual do usuário</span></span></h1>
+  </td>
+ </tr>
+</table>
+</div>
 <h1 class="rvps5"><span class="rvts0"><span class="rvts13">Sobre o Integrador Taxdocs Avatax</span></span></h1>
-<p class="rvps4"><span class="rvts6">O </span><span class="rvts11">Integrador Taxdocs × Avatax</span><span class="rvts6">, desenvolvido pela </span><span class="rvts11">Vetor IT</span><span class="rvts6">, é uma solução corporativa criada para automatizar, padronizar e dar transparência ao processo de </span><span class="rvts11">consulta, validação e confronto de documentos fiscais</span><span class="rvts6">.</span></p>
-<p class="rvps4"><span class="rvts6">Seu propósito central é conectar-se ao sistema </span><span class="rvts11">Taxdocs</span><span class="rvts6">, utilizando as credenciais fornecidas pelo cliente, recuperar os documentos fiscais autorizados e submetê-los às validações específicas realizadas por um sistema terceirizado: o </span><span class="rvts11">Avatax</span><span class="rvts6">, solução fiscal de propriedade da empresa </span><span class="rvts11">Avalara</span><span class="rvts6">.</span></p>
-<p class="rvps4"><span class="rvts6">Após a submissão:</span></p>
-<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 40px; list-style-position: outside;">
- <li class="rvps8 noindent"><span class="rvts6">O </span><span class="rvts11">Avatax</span><span class="rvts6"> processa cada documento e retorna uma versão enriquecida, contendo cálculos e validações fiscais.</span></li>
- <li class="rvps8 noindent"><span class="rvts6">O </span><span class="rvts11">Integrador Taxdocs × Avatax</span><span class="rvts6"> compara automaticamente o </span><span class="rvts11">documento original</span><span class="rvts6"> (obtido do Taxdocs) com o </span><span class="rvts11">documento validado</span><span class="rvts6"> (retornado pelo Avatax).</span></li>
- <li class="rvps8 noindent"><span class="rvts6">O sistema identifica, classifica e registra possíveis </span><span class="rvts11">divergências</span><span class="rvts6">, permitindo ao cliente agir de forma rápida e fundamentada.</span></li>
-</ol>
-<p class="rvps4"><span class="rvts6">Além disso, o Integrador disponibiliza </span><span class="rvts11">relatórios detalhados</span><span class="rvts6">, que evidenciam diferenças encontradas, indicadores de processamento, erros e estatísticas gerais, auxiliando as áreas fiscal e contábil na tomada de decisões e na regularização de inconsistências.</span></p>
-<p class="rvps4"><span class="rvts6">Em resumo, o </span><span class="rvts11">Integrador Taxdocs × Avatax</span><span class="rvts6"> oferece:</span></p>
+<p class="rvps2"><span class="rvts6">O </span><span class="rvts11">Integrador Taxdocs × Avatax</span><span class="rvts6"> é uma aplicação corporativa, projetada com uma </span><span class="rvts11">arquitetura moderna, modular e escalável</span><span class="rvts6">, sendo composta por dois principais componentes:</span></p>
+<hr style="height : 1px; background-color : #000000; border-style : none;">
+<h3 class="rvps9"><span class="rvts0"><span class="rvts19">Arquitetura da Aplicação</span></span></h3>
+<h3 class="rvps9"><span class="rvts0"><span class="rvts19">Backend (API)</span></span></h3>
+<p class="rvps4"><span class="rvts6">O </span><span class="rvts11">Backend</span><span class="rvts6"> é responsável por toda a lógica de negócio, processamento de dados, integrações externas e persistência das informações. Entre suas principais funções, destacam-se:</span></p>
 <ul style="text-indent: 0px; padding: 0; margin: 0 0 0 40px; list-style-position: outside; list-style-type: disc;">
- <li class="rvps8 noindent"><span class="rvts6">Automação completa do fluxo de integração Taxdocs → Avatax → Integração interna</span></li>
- <li class="rvps8 noindent"><span class="rvts6">Confronto automático de dados fiscais</span></li>
- <li class="rvps8 noindent"><span class="rvts6">Rastreabilidade total do processo</span></li>
- <li class="rvps8 noindent"><span class="rvts6">Relatórios analíticos e gerenciais</span></li>
- <li class="rvps8 noindent"><span class="rvts6">Redução de esforço manual e de erros operacionais</span><span class="rvts6"></span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Integração com os serviços do </span><span class="rvts11">Taxdocs (Avalara)</span><span class="rvts6"> para recuperação de documentos fiscais eletrônicos, como </span><span class="rvts11">NFe</span><span class="rvts6">, </span><span class="rvts11">NFSe</span><span class="rvts6"> e </span><span class="rvts11">CTe</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Integração com o </span><span class="rvts11">Avatax (Avalara)</span><span class="rvts6"> para cálculo, validação e conferência tributária</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Processamento, normalização e armazenamento dos documentos fiscais</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Execução de tarefas agendadas, incluindo consultas automáticas, reprocessamentos e sincronizações</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Exposição de endpoints seguros para consumo pelo front-end</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Registro de logs, erros e informações operacionais para auditoria, monitoramento e suporte técnico</span></li>
 </ul>
-<p class="rvps7" style="clear: both;"><span class="rvts14">Created with the Personal Edition of HelpNDoc: </span><a class="rvts15" href="https://www.helpndoc.com/feature-tour/create-ebooks-for-amazon-kindle">Full-featured Kindle eBooks generator</a></p>
+<p class="rvps4"><span class="rvts6">O Backend é implementado como uma </span><span class="rvts11">API REST</span><span class="rvts6">, permitindo fácil integração, manutenção e evolução do sistema.</span></p>
+<p class="rvps4"><span class="rvts6">Toda a API é </span><span class="rvts11">documentada por meio do Swagger</span><span class="rvts6">, disponibilizando uma interface interativa que permite:</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 40px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps7 noindent"><span class="rvts6">Visualizar todos os endpoints disponíveis</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Consultar detalhes de requisições e respostas</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Validar parâmetros, tipos de dados e contratos da API</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Executar chamadas de teste diretamente pela interface</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Facilitar a integração com sistemas externos e o suporte técnico</span></li>
+</ul>
+<p class="rvps4"><span class="rvts6">A documentação Swagger serve como </span><span class="rvts11">referência oficial</span><span class="rvts6"> para desenvolvedores, equipes de integração e administradores do sistema, garantindo clareza, padronização e agilidade no uso e na evolução da API.</span></p>
+<h4 class="rvps10"><span class="rvts0"><span class="rvts20">Front-end (Interface Web)</span></span></h4>
+<p class="rvps4"><span class="rvts6">O </span><span class="rvts11">Front-end</span><span class="rvts6"> é a camada responsável pela interação com o usuário, oferecendo uma interface web moderna, intuitiva e responsiva. Suas principais características incluem:</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 40px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps7 noindent"><span class="rvts6">Visualização e acompanhamento do processamento de documentos fiscais, inclusive recuperando documentos fiscais para confronto de calculos.</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Dashboards e indicadores operacionais</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Consulta de documentos, status e divergências</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Acesso a relatórios e informações consolidadas</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Interface amigável para usuários técnicos e administrativos</span></li>
+</ul>
+<p class="rvps4"><span class="rvts6">O Front-end consome exclusivamente os serviços disponibilizados pelo Backend, garantindo separação de responsabilidades e maior segurança.</span></p>
+<h3 class="rvps9"><span class="rvts0"><span class="rvts19">Modelo de Implantação On-Premise</span></span></h3>
+<p class="rvps4"><span class="rvts6">O </span><span class="rvts11">Integrador Taxdocs × Avatax</span><span class="rvts6"> foi </span><span class="rvts11">projetado para utilização no modelo on-premise</span><span class="rvts6">, ou seja, a aplicação é instalada e executada dentro da infraestrutura do próprio cliente.</span></p>
+<p class="rvps4"><span class="rvts6">Esse modelo de implantação oferece diversas vantagens, como:</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 40px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps7 noindent"><span class="rvts11">Maior controle sobre os dados</span><span class="rvts6">, atendendo a requisitos de segurança e compliance</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Adequação a políticas internas de TI e governança corporativa</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Possibilidade de integração direta com sistemas internos do cliente</span></li>
+ <li class="rvps7 noindent"><span class="rvts6">Independência de ambientes de nuvem pública, quando necessário</span></li>
+</ul>
+<p class="rvps4"><span class="rvts6">Tanto o Backend quanto o Front-end podem ser hospedados nos servidores do cliente, respeitando os requisitos técnicos definidos no manual de instalação.</span><span class="rvts6"></span></p>
+<p class="rvps8" style="clear: both;"><span class="rvts17">Created with the Personal Edition of HelpNDoc: </span><a class="rvts18" href="https://www.helpndoc.com/feature-tour/create-ebooks-for-amazon-kindle">Full-featured Kindle eBooks generator</a></p>
 
             </div>
             
