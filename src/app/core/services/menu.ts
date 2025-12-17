@@ -50,11 +50,9 @@ const USUARIO_NORMAL_MENU: MenuItem[] = [
 const USUARIO_ADMIN_MENU: MenuItem[] = [
   { label: 'Dashboard', icon: 'pi pi-home', route: '/dashboard' },
 
-  {
-    label: 'Cadastros',
-    icon: 'pi pi-database',
-    children: [{ label: 'Usuários', icon: 'pi pi-users', route: '/usuario' }],
-  },
+   { label: 'Gestão de Usuários', icon: 'pi pi-users', route: '/usuario' },
+
+  
 
   {
     label: 'Documentos Fiscais',
