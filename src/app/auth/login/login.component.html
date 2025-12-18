@@ -9,90 +9,82 @@
             <p class="login-subtitle">Use seu e-mail e senha para entrar</p>
           </header>
 
+          <!-- E-mail -->
           <div class="input-wrapper">
             <label for="email">E-mail</label>
-            <input
-              id="email"
-              type="email"
-              pInputText
-              class="p-inputtext"
-              formControlName="email"
-              placeholder="Digite seu email"
-            />
-             <!-- Obrigatório -->
-            <p-message
-              *ngIf="f['email'].hasError('required') && (f['email'].touched || submitted)"
-              severity="error"
-              text="E-mail é obrigatório.">
-            </p-message>
+            <input id="login-email" type="email" pInputText class="p-inputtext" formControlName="email"
+              placeholder="Digite seu email" />
 
-            <!-- Formato inválido -->
-            <p-message
-              *ngIf="!f['email'].hasError('required') && f['email'].hasError('email') && (f['email'].touched || submitted)"
-              severity="error"
-              text="Informe um e-mail válido.">
-            </p-message>
+            <!--p-message *ngIf="f['email'].hasError('required') && (f['email'].touched || submitted)" severity="error"
+              text="E-mail é obrigatório.">
+            </p-message-->
+
+            <!--p-message
+              *ngIf="f['email'].hasError('email') && !f['email'].hasError('required') && (f['email'].touched || submitted)"
+              severity="error" text="Informe um e-mail válido.">
+            </p-message-->
+            <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched" class="text-red-600 mt-1">
+              Email é obrigatório.
+            </div>
+            <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched" class="text-red-600 mt-1">
+              Formato de email inválido.
+            </div>
+          <div *ngIf="loginForm.get('email')?.errors?.['maxlength'] && loginForm.get('email')?.touched" class="text-red-600 mt-1">
+              O email não pode exceder 100 caracteres.
           </div>
-         
+
+          </div>
+
+          <!-- Senha -->
           <div class="input-wrapper">
             <label for="senha">Senha</label>
-            <div class="password-field">
-             <p-password
-                [toggleMask]="true"
-                [feedback]="false"
-                class="w-full"
-                inputClass="p-inputtext w-full"
-                placeholder="Digite sua senha"
-                formControlName="senha"
-                >
-               
+
+            <p-password id="login-password" formControlName="senha" [toggleMask]="true" [feedback]="false" class="w-full"
+              inputClass="p-inputtext w-full" placeholder="Digite sua senha">
             </p-password>
 
-            <p-message
-              *ngIf="f['senha'].hasError('required') && (f['senha'].touched || submitted)"
-              severity="error"
+            <!--p-message *ngIf="f['senha'].hasError('required') && (f['senha'].touched || submitted)" severity="error"
               text="Senha é obrigatória.">
-            </p-message>
+            </p-message-->
 
-            <p-message
-              *ngIf="f['senha'].hasError('minlength') && (f['senha'].touched || submitted)"
-              severity="error"
-              text="Senha deve ter pelo menos 6 caracteres.">
-            </p-message>
+            <!--p-message
+              *ngIf="f['senha'].hasError('minlength') && !f['senha'].hasError('required') && (f['senha'].touched || submitted)"
+              severity="error" text="Senha deve ter pelo menos 6 caracteres.">
+            </p-message-->
+            <div *ngIf="loginForm.get('senha')?.errors?.['required'] && loginForm.get('senha')?.touched" class="text-red-600 mt-1">
+                Senha é obrigatória.
             </div>
+
           </div>
 
+          <!-- Ações -->
           <div class="actions">
             <div class="remember-wrap">
               <p-checkbox inputId="lembrar" formControlName="lembrar" binary="true"></p-checkbox>
               <label for="lembrar" class="remember">Lembrar</label>
             </div>
-            <!--a routerLink="/recuperar-senha" class="forgot">Esqueci minha senha</a-->
-            <a
-              routerLink="/recuperar-senha"
-              class="text-sm text-blue-500 hover:underline cursor-pointer"
-              style="font-weight: 500;"
 
-            >
+            <a routerLink="/recuperar-senha" class="text-sm text-blue-500 hover:underline cursor-pointer"
+              style="font-weight: 500;">
               Esqueci minha senha
             </a>
           </div>
 
-          <button pButton type="submit" label="Entrar" class="btn-primary"></button>
-
-          <!--p class="signup">Não tem conta? <a routerLink="/signup">Criar agora</a></!--p-->
+          <!-- Botão -->
+          <button pButton type="submit" label="Entrar" id="login-button" class="btn-primary" [disabled]="loginForm.invalid || loading">
+          </button>
         </form>
       </div>
     </section>
 
-    <!-- Coluna direita: painel visual EDL -->
+    <!-- Coluna direita: painel visual -->
     <aside class="right">
       <div class="brand">
-        <img src="img/Logo_Integrador_Taxdocs_Avatax.png" alt="Integrador " class="logo" />
-        <h2 class="brand-title">Plataforma de  <span>Integração dos Sistemas</span></h2>
-        <!--p class="brand-sub">Plataforma de Integração dos Sistemas </!--p-->
+        <img src="img/Logo_Integrador_Taxdocs_Avatax.png" alt="Integrador" class="logo" />
+        <h2 class="brand-title">
+          Plataforma de <span>Integração dos Sistemas</span>
+        </h2>
       </div>
     </aside>
   </div>
 </div>
- 
