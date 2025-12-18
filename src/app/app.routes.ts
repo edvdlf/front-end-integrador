@@ -9,7 +9,7 @@ export const routes: Routes = [
 
   // 2) /login acessível; se já logado, manda para /dashboard
   { path: 'login',
-    loadComponent: () => import('./auth/login/login.component').then(m => m.default),
+    loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent),
     //canActivate: [redirectIfAuthenticatedGuard]
   },
  {
