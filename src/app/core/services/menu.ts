@@ -13,28 +13,60 @@ export interface MenuItem {
   permission?: string | string[];
   separator?: boolean;
   target?: string;
+  testId?: string;
 }
 
-/** Menu do usuário NORMAL */
 const USUARIO_NORMAL_MENU: MenuItem[] = [
-  { label: 'Dashboard', icon: 'pi pi-home', route: '/dashboard' },
+  {
+    label: 'Dashboard',
+    icon: 'pi pi-home',
+    route: '/dashboard',
+    testId: 'menu-dashboard',
+  },
 
   {
     label: 'Documentos Fiscais',
     icon: 'pi pi-file',
+    testId: 'menu-documentos-fiscais',
     children: [
-      { label: 'NFe', icon: 'pi pi-file-edit', route: '/nfe' },
-      { label: 'NFSe', icon: 'pi pi-file-pdf', route: '/nfse' },
-      { label: 'CTe', icon: 'pi pi-truck', route: '/cte' },
+      {
+        label: 'NFe',
+        icon: 'pi pi-file-edit',
+        route: '/nfe',
+        testId: 'menu-nfe',
+      },
+      {
+        label: 'NFSe',
+        icon: 'pi pi-file-pdf',
+        route: '/nfse',
+        testId: 'menu-nfse',
+      },
+      {
+        label: 'CTe',
+        icon: 'pi pi-truck',
+        route: '/cte',
+        testId: 'menu-cte',
+      },
     ],
   },
 
   {
     label: 'Relatórios',
     icon: 'pi pi-chart-bar',
+    testId: 'menu-relatorios',
     children: [
-      { label: 'Confrontos', icon: 'pi pi-file-edit', route: '/relatorios-confrontos' },
-      { label: 'Erros', icon: 'pi pi-file-edit', route: '/relatorios-errosprocessamento' },
+      {
+        label: 'Confrontos',
+        icon: 'pi pi-file-edit',
+        route: '/relatorios-confrontos',
+        testId: 'menu-relatorios-confrontos',
+      },
+      {
+        label: 'Erros',
+        icon: 'pi pi-file-edit',
+        route: '/relatorios-erros',
+        testId: 'menu-relatorios-erros',
+      },
     ],
   },
 
@@ -43,40 +75,58 @@ const USUARIO_NORMAL_MENU: MenuItem[] = [
     icon: 'pi pi-book',
     externalUrl: '/help/html/VisaoGeral.html',
     target: '_blank',
+    testId: 'menu-ajuda',
   },
 ];
 
-/** Menu do usuário ADMIN */
 const USUARIO_ADMIN_MENU: MenuItem[] = [
-  { label: 'Dashboard', icon: 'pi pi-home', route: '/dashboard' },
+  {
+    label: 'Dashboard',
+    icon: 'pi pi-home',
+    route: '/dashboard',
+    testId: 'menu-dashboard',
+  },
 
-   { label: 'Gestão de Usuários', icon: 'pi pi-users', route: '/usuario' },
-
-  
+  {
+    label: 'Gestão de Usuários',
+    icon: 'pi pi-users',
+    route: '/usuario',
+    testId: 'menu-gestao-usuarios',
+  },
 
   {
     label: 'Documentos Fiscais',
     icon: 'pi pi-file',
+    testId: 'menu-documentos-fiscais',
     children: [
-      { label: 'NFe', icon: 'pi pi-file-edit', route: '/nfe' },
-      { label: 'NFSe', icon: 'pi pi-file-pdf', route: '/nfse' },
-      { label: 'CTe', icon: 'pi pi-truck', route: '/cte' },
+      { label: 'NFe', icon: 'pi pi-file-edit', route: '/nfe', testId: 'menu-nfe' },
+      { label: 'NFSe', icon: 'pi pi-file-pdf', route: '/nfse', testId: 'menu-nfse' },
+      { label: 'CTe', icon: 'pi pi-truck', route: '/cte', testId: 'menu-cte' },
     ],
   },
 
   {
     label: 'Relatórios',
     icon: 'pi pi-chart-bar',
+    testId: 'menu-relatorios',
     children: [
-      { label: 'Confrontos', icon: 'pi pi-file-edit', route: '/relatorios-confrontos' },
-      { label: 'Erros', icon: 'pi pi-file-edit', route: '/relatorios-errosprocessamento' },
+      { label: 'Confrontos', icon: 'pi pi-file-edit', route: '/relatorios-confrontos', testId: 'menu-relatorios-confrontos' },
+      { label: 'Erros', icon: 'pi pi-file-edit', route: '/relatorios-erros', testId: 'menu-relatorios-erros' },
     ],
   },
 
   {
     label: 'Adm',
     icon: 'pi pi-lock',
-    children: [{ label: 'Recuperar documentos', icon: 'pi pi-sync', route: '/recuperar-documentos' }],
+    testId: 'menu-adm',
+    children: [
+      {
+        label: 'Recuperar documentos',
+        icon: 'pi pi-sync',
+        route: '/recuperar-documentos',
+        testId: 'menu-recuperar-documentos',
+      },
+    ],
   },
 
   {
@@ -84,8 +134,11 @@ const USUARIO_ADMIN_MENU: MenuItem[] = [
     icon: 'pi pi-book',
     externalUrl: '/help/html/VisaoGeral.html',
     target: '_blank',
+    testId: 'menu-ajuda',
   },
 ];
+
+
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {

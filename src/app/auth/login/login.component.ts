@@ -25,7 +25,7 @@ import { ToastModule } from 'primeng/toast';
     FormsModule, ButtonModule, CheckboxModule,
     ToastModule,
     RouterLink,
-    Message
+    
   ],
 })
 export class LoginComponent {

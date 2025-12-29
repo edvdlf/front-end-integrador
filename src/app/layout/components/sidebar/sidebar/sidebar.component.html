@@ -10,7 +10,9 @@
                role="menuitem"
                [routerLink]="it.route"
                routerLinkActive="active"
-               [routerLinkActiveOptions]="{ exact: true }">
+               [routerLinkActiveOptions]="{ exact: true }"
+               [attr.data-cy]="it.testId || null"
+               >
               @if (it.icon) {
                 <i class="nav-icon" [ngClass]="it.icon"></i>
               }
@@ -24,7 +26,9 @@
             <a class="nav-link"
                role="menuitem"
                [href]="it.externalUrl"
-               target="_blank" rel="noopener">
+               target="_blank" rel="noopener"
+               [attr.data-cy]="it.testId || null"
+               >
               @if (it.icon) {
                 <i class="nav-icon" [ngClass]="it.icon"></i>
               }
@@ -34,7 +38,7 @@
 
           <!-- cabeçalho de grupo (tem filhos) -->
           @if (it.children?.length) {
-            <div class="nav-link has-children" role="menuitem" aria-haspopup="true" aria-expanded="false">
+            <div class="nav-link has-children" role="menuitem" aria-haspopup="true" aria-expanded="false" [attr.data-cy]="it.testId || null">
               @if (it.icon) {
                 <i class="nav-icon" [ngClass]="it.icon"></i>
               }
@@ -45,10 +49,10 @@
             @if (!collapsed) {
               <ul class="submenu" role="menu">
                 @for (ch of it.children; track ch.label ?? ch.route ?? ch.externalUrl) {
-                  <li class="submenu-item">
+                  <li class="submenu-item" [attr.data-cy]="ch.testId || null">
                     @if (ch.route) {
                       <a class="submenu-link" role="menuitem"
-                         [routerLink]="ch.route" routerLinkActive="active">
+                         [routerLink]="ch.route" routerLinkActive="active" [attr.data-cy]="ch.testId || null">
                         @if (ch.icon) {
                           <i class="nav-icon" [ngClass]="ch.icon"></i>
                         }
@@ -57,7 +61,7 @@
                       </a>
                     } @else if (!ch.route && ch.externalUrl) {
                       <a class="submenu-link" role="menuitem"
-                         [href]="ch.externalUrl" target="_blank" rel="noopener">
+                         [href]="ch.externalUrl" target="_blank" rel="noopener" [attr.data-cy]="ch.testId || null">
                         @if (ch.icon) {
                           <i class="nav-icon" [ngClass]="ch.icon"></i>
                         }
