@@ -39,19 +39,36 @@ export class AuthService {
   return this.http
     .post<AuthResponse>(`${this.API_URL}/auth/signin`, requestDatas, { withCredentials: true })
     .pipe(
-      tap((resp) => {
-        const perfil = this.toPerfilUsuario(resp.role);
+      //tap((resp) => {
+       // const perfil = this.toPerfilUsuario(resp.role);
 
-        const user: UsuarioLogado = {
-          id: resp.id,
-          nome: resp.username,
-          perfil,
-          roles: [perfil],
-        };
+       // const user: UsuarioLogado = {
+       //   id: resp.id,
+       //   nome: resp.username,
+       //   perfil,
+       //   roles: [perfil],
+      //  };
 
-        this._usuario.set(user);
-        localStorage.setItem('USER_INFO', JSON.stringify(user));
-      })
+      //  this._usuario.set(user);
+      //  localStorage.setItem('USER_INFO', JSON.stringify(user));
+     // })
+      tap((resp: any) => {
+          if (resp?.accessToken) {
+          localStorage.setItem('ACCESS_TOKEN', resp.accessToken);
+      }
+      const perfil = this.toPerfilUsuario(resp.role);
+      // (seu código atual)
+      const usuario: UsuarioLogado = {
+        id: resp.id,
+        nome: resp.username,
+        perfil,
+        roles: [perfil],
+        
+      };
+      this._usuario.set(usuario);
+      localStorage.setItem('USER_INFO', JSON.stringify(usuario));
+    })
+
     );
 }
 

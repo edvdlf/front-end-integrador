@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
 import { TokenService } from '../services/token-service';
 
 const PUBLIC_URLS = [
-  '/auth/login',
+  '/auth/sgnin',
   '/auth/refresh',
   '/auth/register',
   '/auth/recuperar-senha',

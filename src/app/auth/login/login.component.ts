@@ -84,7 +84,17 @@ export class LoginComponent {
           if (!response) return;
 
           // Sugestão: nome mais claro p/ token
-          this.cookieService.set('ACCESS_TOKEN', response.accessToken);
+          //this.cookieService.set('ACCESS_TOKEN', response.accessToken);
+
+          this.cookieService.set(
+              'ACCESS_TOKEN',
+                response.accessToken,
+                1,       // 1 dia
+                '/',     // path
+                  undefined,
+                  false,   // secure (true só se https)
+                'Lax'    // SameSite
+            );
 
           const obj: UsuarioLocalStorage = {
             id: response.id,
