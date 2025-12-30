@@ -1,53 +1,45 @@
 <aside class="sidebar" [class.collapsed]="collapsed">
   <ul class="nav" role="menu">
     @for (it of items; track it.label ?? it.route ?? it.externalUrl) {
-      <li class="nav-item" [class.has-children]="it.children?.length">
-        @if (!(it.separator ?? false)) {
+    <li class="nav-item" [class.has-children]="it.children?.length">
+      @if (!(it.separator ?? false)) {
 
-          <!-- link interno -->
-          @if (it.route && !it.children?.length) {
-            <a class="nav-link"
-               role="menuitem"
-               [routerLink]="it.route"
-               routerLinkActive="active"
-               [routerLinkActiveOptions]="{ exact: true }"
-               [attr.data-cy]="it.testId || null"
-               >
-              @if (it.icon) {
-                <i class="nav-icon" [ngClass]="it.icon"></i>
-              }
-              @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
-              @if (it.badge && !collapsed) { <span class="nav-badge">{{ it.badge }}</span> }
-            </a>
-          }
+      <!-- link interno -->
+      @if (it.route && !it.children?.length) {
+      <a class="nav-link" role="menuitem" [routerLink]="it.route" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }" [attr.data-cy]="it.testId || null">
+        @if (it.icon) {
+        <i class="nav-icon" [ngClass]="it.icon"></i>
+        }
+        @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
+        @if (it.badge && !collapsed) { <span class="nav-badge">{{ it.badge }}</span> }
+      </a>
+      }
 
-          <!-- link externo -->
-          @if (!it.route && it.externalUrl && !it.children?.length) {
-            <a class="nav-link"
-               role="menuitem"
-               [href]="it.externalUrl"
-               target="_blank" rel="noopener"
-               [attr.data-cy]="it.testId || null"
-               >
-              @if (it.icon) {
-                <i class="nav-icon" [ngClass]="it.icon"></i>
-              }
-              @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
-            </a>
-          }
+      <!-- link externo -->
+      @if (!it.route && it.externalUrl && !it.children?.length) {
+      <a class="nav-link" role="menuitem" [href]="it.externalUrl" target="_blank" rel="noopener"
+        [attr.data-cy]="it.testId || null">
+        @if (it.icon) {
+        <i class="nav-icon" [ngClass]="it.icon"></i>
+        }
+        @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
+      </a>
+      }
 
-          <!-- cabeçalho de grupo (tem filhos) -->
-          @if (it.children?.length) {
-            <div class="nav-link has-children" role="menuitem" aria-haspopup="true" aria-expanded="false" [attr.data-cy]="it.testId || null">
-              @if (it.icon) {
-                <i class="nav-icon" [ngClass]="it.icon"></i>
-              }
-              @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
-            </div>
+      <!-- cabeçalho de grupo (tem filhos) -->
+      @if (it.children?.length) {
+      <div class="nav-link has-children" role="menuitem" aria-haspopup="true" aria-expanded="false"
+        [attr.data-cy]="it.testId || null">
+        @if (it.icon) {
+        <i class="nav-icon" [ngClass]="it.icon"></i>
+        }
+        @if (!collapsed) { <span class="nav-label">{{ it.label }}</span> }
+      </div>
 
-            <!-- submenu (expandido) -->
-            @if (!collapsed) {
-              <ul class="submenu" role="menu">
+      <!-- submenu (expandido) -->
+      @if (!collapsed) {
+      <!--ul class="submenu" role="menu">
                 @for (ch of it.children; track ch.label ?? ch.route ?? ch.externalUrl) {
                   <li class="submenu-item" [attr.data-cy]="ch.testId || null">
                     @if (ch.route) {
@@ -70,28 +62,54 @@
                     }
                   </li>
                 }
-              </ul>
-            }
-          }
-
-        } @else {
-          <!-- separador -->
-          @if (!collapsed) { <div class="nav-sep" role="separator"></div> }
+              </ul-->
+      <ul class="submenu" role="menu">
+        @for (ch of it.children; track ch.label ?? ch.route ?? ch.externalUrl) {
+        <li class="submenu-item">
+          @if (ch.route) {
+                      <a class="submenu-link" role="menuitem"
+                         [routerLink]="ch.route" routerLinkActive="active" [attr.data-cy]="ch.testId || null">
+                        @if (ch.icon) {
+                          <i class="nav-icon" [ngClass]="ch.icon"></i>
+                        }
+                        <span>{{ ch.label }}</span>
+                        @if (ch.badge) { <span class="nav-badge">{{ ch.badge }}</span> }
+                      </a>
+                    } @else if (!ch.route && ch.externalUrl) {
+                      <a class="submenu-link" role="menuitem"
+                         [href]="ch.externalUrl" target="_blank" rel="noopener" [attr.data-cy]="ch.testId || null">
+                        @if (ch.icon) {
+                          <i class="nav-icon" [ngClass]="ch.icon"></i>
+                        }
+                        <span>{{ ch.label }}</span>
+                      </a>
+                    }
+          
+        </li>
         }
-      </li>
+      </ul>
+
+      }
+      }
+
+      } @else {
+      <!-- separador -->
+      @if (!collapsed) { <div class="nav-sep" role="separator"></div> }
+      }
+    </li>
     }
   </ul>
 
   <!-- Miolo reutilizável (ícone, label, badge) -->
   <ng-template #linkInner let-item="item" let-isChild="isChild">
     @if (item?.icon) {
-      <i class="nav-icon" [ngClass]="item.icon"></i>
+    <i class="nav-icon" [ngClass]="item.icon"></i>
     }
     @if (!collapsed || isChild) {
-      <span class="nav-label">{{ item.label }}</span>
+    <span class="nav-label">{{ item.label }}</span>
     }
     @if (item?.badge && (!collapsed || isChild)) {
-      <span class="nav-badge">{{ item.badge }}</span>
+    <span class="nav-badge">{{ item.badge }}</span>
     }
   </ng-template>
 </aside>
