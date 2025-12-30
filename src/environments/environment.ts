@@ -2,10 +2,10 @@ export const environment = {
   production: false,
   useMock: false,
   api: {
-    baseUrlAuth: 'https://integrador.vps6439.panel.icontainer.run',
-    baseUrl: 'https://integrador.vps6439.panel.icontainer.run/api',
-   //baseUrlAuth: 'http://192.168.0.106:8098',
-    //baseUrl: 'http://192.168.0.106:8098/api',
+    //baseUrlAuth: 'https://integrador.vps6439.panel.icontainer.run',
+    //baseUrl: 'https://integrador.vps6439.panel.icontainer.run/api',
+   baseUrlAuth: 'http://192.168.0.106:8098',
+    baseUrl: 'http://192.168.0.106:8098/api',
     //baseUrlAuth: 'http://localhost:8098',
     //baseUrl: 'http://localhost:8098/api',
     endpoints: {
