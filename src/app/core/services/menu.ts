@@ -64,7 +64,7 @@ const USUARIO_NORMAL_MENU: MenuItem[] = [
       {
         label: 'Erros',
         icon: 'pi pi-file-edit',
-        route: '/relatorios-erros',
+        route: '/relatorios-errosprocessamento',
         testId: 'menu-relatorios-erros',
       },
     ],
@@ -111,7 +111,7 @@ const USUARIO_ADMIN_MENU: MenuItem[] = [
     testId: 'menu-relatorios',
     children: [
       { label: 'Confrontos', icon: 'pi pi-file-edit', route: '/relatorios-confrontos', testId: 'menu-relatorios-confrontos' },
-      { label: 'Erros', icon: 'pi pi-file-edit', route: '/relatorios-erros', testId: 'menu-relatorios-erros' },
+      { label: 'Erros', icon: 'pi pi-file-edit', route: '/relatorios-errosprocessamento', testId: 'menu-relatorios-erros' },
     ],
   },
 

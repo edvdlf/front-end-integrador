@@ -34,7 +34,7 @@ export const routes: Routes = [
       { path: 'cte',    loadChildren: () => import('./modules/consultas/cte/cte.routes').then(m => m.CTE_ROUTES) },
       { path: 'nfe',    loadChildren: () => import('./modules/consultas/nfe/nfe.routes').then(m => m.NFE_ROUTES) },
       { path: 'nfse',    loadChildren: () => import('./modules/consultas/nfse/nfse.routes').then(m => m.NFSE_ROUTES) },
-      { path: 'relatorios-confrontos',    loadChildren: () => import('./modules/relatorios/confrontos/relatorios.routes').then(m => m.RELATORIOS_CONFRONTOS_ROUTES) },
+      { path: 'relatorios-confrontos',    loadChildren: () => import('./modules/relatorios/confrontos/confrontos.routes').then(m => m.RELATORIOS_CONFRONTOS_ROUTES) },
       { path: 'relatorios-errosprocessamento',    loadChildren: () => import('./modules/relatorios/logs/errosprocessamento.routes').then(m => m.ERROS_PROCESSAMENTO_ROUTES) },
       { path: 'alterar-senha',   loadChildren: () => import('./auth/gestao-senha/altera-senha/altera-senha.routes').then(m => m.ALTERA_SENHA_ROUTES) },
       { path: 'recuperar-documentos',   loadChildren: () => import('./modules/recuperacao-documentos/recuperacao-documentos.routes').then(m => m.RECUPERACAO_DOCUMENTOS_ROUTES) },

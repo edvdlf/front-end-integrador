@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Badge } from "primeng/badge";
 
 @Component({
   selector: 'app-confrontos-header',

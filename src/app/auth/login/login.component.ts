@@ -82,10 +82,6 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           if (!response) return;
-
-          // Sugestão: nome mais claro p/ token
-          //this.cookieService.set('ACCESS_TOKEN', response.accessToken);
-
           this.cookieService.set(
               'ACCESS_TOKEN',
                 response.accessToken,
@@ -123,7 +119,7 @@ export class LoginComponent {
             severity: 'error',
             summary: 'Erro',
             detail: 'Login ou Usuário inválido! Tente novamente.',
-            life: 2000,
+            life: 5000,
           });
         },
       });

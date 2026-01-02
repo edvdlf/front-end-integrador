@@ -17,9 +17,7 @@ import { UsuarioService } from '../../service/usuario-service';
     CommonModule,
     TableModule,
     ButtonModule,
-    //ProgressBarModule,
     TooltipModule,
-    //ConfirmDialogModule,
     TagModule,
     Card,
     TableModule,
@@ -30,56 +28,23 @@ import { UsuarioService } from '../../service/usuario-service';
 })
 export class UsuarioTableComponent {
 
-usuarios: UsuarioResponse[] = [];
-  loading = false;
-  errorMsg = '';
+@Input() usuarios: UsuarioResponse[] = [];   // ✅ vem do pai
+  @Input() loading = false;                   // opcional (se quiser)
+  @Input() errorMsg = '';                     // opcional (se quiser)
 
-  constructor(private usuarioService: UsuarioService) {}
+  @Output() deleteUsuario = new EventEmitter<DeleteUsuarioAction>();
 
- //@Input() usuarios: Array<UsuarioResponse> = [];
- 
-@Output() deleteUsuario = new EventEmitter<DeleteUsuarioAction>();
-
-handleDeleteUsuarioEvent(usuario: UsuarioResponse): void {
-  if (usuario.id && usuario.nome !== '') {
-    this.deleteUsuario.emit({
-      id: usuario.id,
-      nome: usuario.nome
-    });
+  handleDeleteUsuarioEvent(usuario: UsuarioResponse): void {
+    if (usuario.id && usuario.nome) {
+      this.deleteUsuario.emit({ id: usuario.id, nome: usuario.nome });
+    }
   }
-}
-
-  ngOnInit(): void {
-    this.loadUsuarios();
-  }
-
-  
-
-  loadUsuarios(): void {
-    this.loading = true;
-    this.errorMsg = '';
-
-    this.usuarioService.listarTodos().subscribe({
-      next: (data) => {
-        this.usuarios = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('[UsuarioComponent] Erro ao carregar usuários:', err);
-        this.errorMsg = 'Não foi possível carregar a lista de usuários.';
-        this.loading = false;
-      }
-    });
-  }
-
 
   getStatusText(enabled: boolean): string {
     return enabled ? 'Sim' : 'Não';
   }
 
   getStatusColor(enabled: boolean): string {
-    return enabled ? '#006400' : '#FF0000'; // Verde escuro para desbloqueado e vermelho para bloqueado
+    return enabled ? '#006400' : '#FF0000';
   }
-
-
 }

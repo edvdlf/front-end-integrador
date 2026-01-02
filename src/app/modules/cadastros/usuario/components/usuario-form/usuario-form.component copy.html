@@ -1,20 +1,10 @@
-<div class="vetorit-card" data-cy="page-novo-usuario">
-  <form
-    [formGroup]="form"
-    (ngSubmit)="salvar()"
-    data-cy="form-novo-usuario"
-  >
+<div class="vetorit-card">
+  <form [formGroup]="form" (ngSubmit)="salvar()">
 
-    <!-- Cabeçalho -->
-    <div
-      class="vetorit-card header-band flex align-items-center justify-content-between"
-      data-cy="card-header-novo-usuario"
-    >
+    <div class="vetorit-card header-band flex align-items-center justify-content-between">
       <div class="text-group">
-        <h2 class="title" data-cy="title-novo-usuario">Novo Usuário</h2>
-        <p class="subtitle" data-cy="subtitle-novo-usuario">
-          Preencha os dados para criar um novo usuário
-        </p>
+        <h2 class="title">Novo Usuário</h2>
+        <p class="subtitle">Preencha os dados para criar um novo usuário</p>
       </div>
     </div>
 
@@ -23,98 +13,88 @@
         <div class="formgrid grid">
 
           <!-- Primeiro Nome -->
-          <div class="field col-12 md:col-6" data-cy="field-first-name">
+          <div class="field col-12 md:col-6">
             <label for="primeiroNome">Primeiro Nome *</label>
             <input
               id="primeiroNome"
               type="text"
               formControlName="firstName"
               placeholder="Primeiro nome"
-              data-cy="input-first-name"
               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
             />
 
             <p-message
               *ngIf="(f['firstName'].invalid && (f['firstName'].touched || submitted))"
               severity="error"
-              text="Primeiro nome é obrigatório."
-              data-cy="error-first-name"
-            ></p-message>
+              text="Primeiro nome é obrigatório.">
+            </p-message>
           </div>
 
           <!-- Segundo Nome -->
-          <div class="field col-12 md:col-6" data-cy="field-last-name">
+          <div class="field col-12 md:col-6">
             <label for="segundoNome">Segundo Nome *</label>
             <input
               id="segundoNome"
               type="text"
               formControlName="lastName"
               placeholder="Sobrenome"
-              data-cy="input-last-name"
               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
             />
 
             <p-message
               *ngIf="(f['lastName'].invalid && (f['lastName'].touched || submitted))"
               severity="error"
-              text="Sobrenome é obrigatório."
-              data-cy="error-last-name"
-            ></p-message>
+              text="Sobrenome é obrigatório.">
+            </p-message>
           </div>
 
           <!-- Perfil -->
-          <div class="field col-12 md:col-6" data-cy="field-role">
+          <div class="field col-12 md:col-6">
             <label for="perfil">Perfil *</label>
             <p-select
               id="perfil"
               formControlName="role"
               [options]="perfilOptions"
-              [filter]="true"
-              filterBy="label"
               optionLabel="label"
               optionValue="value"
               placeholder="Selecione o perfil"
               class="w-full"
-              data-cy="select-perfil"
             ></p-select>
 
             <p-message
               *ngIf="(f['role'].invalid && (f['role'].touched || submitted))"
               severity="error"
-              text="Perfil é obrigatório."
-              data-cy="error-role"
-            ></p-message>
+              text="Perfil é obrigatório.">
+            </p-message>
           </div>
 
           <!-- Email -->
-          <div class="field col-12 md:col-6" data-cy="field-email">
+          <div class="field col-12 md:col-6">
             <label for="email">Email *</label>
             <input
               id="email"
               type="email"
               formControlName="email"
               placeholder="email"
-              data-cy="input-email"
               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none w-full"
             />
 
+            <!-- Obrigatório -->
             <p-message
               *ngIf="f['email'].hasError('required') && (f['email'].touched || submitted)"
               severity="error"
-              text="E-mail é obrigatório."
-              data-cy="error-email-required"
-            ></p-message>
+              text="E-mail é obrigatório.">
+            </p-message>
 
+            <!-- Formato inválido -->
             <p-message
               *ngIf="!f['email'].hasError('required') && f['email'].hasError('email') && (f['email'].touched || submitted)"
               severity="error"
-              text="Informe um e-mail válido."
-              data-cy="error-email-invalid"
-            ></p-message>
+              text="Informe um e-mail válido.">
+            </p-message>
           </div>
-
           <!-- Senha -->
-          <div class="field col-12 md:col-6" data-cy="field-password">
+          <div class="field col-12 md:col-6">
             <label for="senha">Senha *</label>
             <p-password
               formControlName="password"
@@ -124,26 +104,23 @@
               placeholder="Digite sua senha"
               style="width: 100%"
               inputStyleClass="w-full"
-              data-cy="input-password"
             ></p-password>
 
             <p-message
               *ngIf="f['password'].hasError('required') && (f['password'].touched || submitted)"
               severity="error"
-              text="Senha é obrigatória."
-              data-cy="error-password-required"
-            ></p-message>
+              text="Senha é obrigatória.">
+            </p-message>
 
             <p-message
               *ngIf="f['password'].hasError('minlength') && (f['password'].touched || submitted)"
               severity="error"
-              text="Senha deve ter pelo menos 6 caracteres."
-              data-cy="error-password-minlength"
-            ></p-message>
+              text="Senha deve ter pelo menos 6 caracteres.">
+            </p-message>
           </div>
 
           <!-- Confirmar Senha -->
-          <div class="field col-12 md:col-6" data-cy="field-confirm-password">
+          <div class="field col-12 md:col-6">
             <label for="confirmarSenha">Confirmar Senha *</label>
             <p-password
               formControlName="confirmasenha"
@@ -153,22 +130,21 @@
               placeholder="Digite novamente a senha"
               style="width: 100%"
               inputStyleClass="w-full"
-              data-cy="input-confirm-password"
             ></p-password>
 
+            <!-- Campo obrigatório -->
             <p-message
               *ngIf="f['confirmasenha'].hasError('required') && (f['confirmasenha'].touched || submitted)"
               severity="error"
-              text="Confirmação de senha é obrigatória."
-              data-cy="error-confirm-password-required"
-            ></p-message>
+              text="Confirmação de senha é obrigatória.">
+            </p-message>
 
+            <!-- Senhas diferentes (validador do form) -->
             <p-message
               *ngIf="form.hasError('senhasDiferentes') && (f['confirmasenha'].touched || submitted)"
               severity="error"
-              text="As senhas não conferem."
-              data-cy="error-password-mismatch"
-            ></p-message>
+              text="As senhas não conferem.">
+            </p-message>
           </div>
 
         </div>
@@ -176,15 +152,15 @@
     </div>
 
     <!-- Ações -->
-    <div class="vetorit-card" data-cy="card-actions-novo-usuario">
+    <div class="vetorit-card">
       <div class="flex justify-content-end gap-2 mt-3">
         <p-button
           type="submit"
           icon="pi pi-check"
           label="Salvar Usuário"
           styleClass="btn-vt btn-vt-primary btn-vt-sm"
-          data-cy="btn-salvar-usuario"
         ></p-button>
+        
       </div>
     </div>
 

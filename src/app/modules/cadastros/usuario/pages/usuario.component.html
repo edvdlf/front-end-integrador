@@ -5,13 +5,11 @@
   
   <div class="col-12">
      <app-usuario-tabs
+     [(activeTab)]="activeTab"
      [usuarios]="usuarios"
      (deleteUsuario)="onDeleteUsuario($event)"
+     (createSolicitadoTabs)="onCreateUsuario($event)"
     ></app-usuario-tabs>
-   
-     
-  
-  
   </div>
   
 </div>

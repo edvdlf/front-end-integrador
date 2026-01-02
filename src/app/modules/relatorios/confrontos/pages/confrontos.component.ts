@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { ConfrontosHeaderComponent } from "../../components/confrontos-header/confrontos-header.component";
-import { ConfrontosTableComponent } from "../../components/confrontos-table/confrontos-table.component";
+
+
 import { catchError, finalize, Observable, of, Subject } from 'rxjs';
-import { DocumentoFiscalConfrontoDTO } from '../../models/confronto-models';
-import { ConfrontosService } from '../../service/confrontos-service';
+
+
 import { CommonModule } from '@angular/common';
+import { ConfrontosHeaderComponent } from '../components/confrontos-header/confrontos-header.component';
+import { ConfrontosTableComponent } from '../components/confrontos-table/confrontos-table.component';
+import { DocumentoFiscalConfrontoDTO } from '../models/confronto-models';
+import { ConfrontosService } from '../service/confrontos-service';
 
 @Component({
   selector: 'app-confrontos',

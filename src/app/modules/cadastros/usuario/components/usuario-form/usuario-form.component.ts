@@ -8,6 +8,7 @@ import { Select } from 'primeng/select';
 import { Message } from 'primeng/message';
 import { UsuarioService } from '../../service/usuario-service';
 import { MessageService } from 'primeng/api';
+import { UsuarioRequest } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-usuario-form',
@@ -27,6 +28,7 @@ export class UsuarioFormComponent {
 
   @Output() loadUsuarios = new EventEmitter<void>();
   @Output() ativarAbaSolicitadoForms = new EventEmitter<void>();
+    @Output() createSolicitadoForms =  new EventEmitter<UsuarioRequest>();
 
   form: FormGroup;
   submitted = false;
@@ -81,30 +83,12 @@ export class UsuarioFormComponent {
     return;
   }
 
-  const payload = this.form.value; // já no formato do backend (UsuarioResponse)
+  const payload = this.form.value; 
 
   console.log('[UsuarioForm] payload', payload);
 
-  this.usuarioService.criar(payload).subscribe({
-    next: (usuarioCriado) => {
-      console.log('[UsuarioForm] Usuário criado com sucesso', usuarioCriado);
-
-      // Se quiser, pode resetar o form
-      this.form.reset();
-      this.submitted = false;
-      this.loadUsuarios.emit();
-       this.ativarAbaSolicitadoForms.emit();
-
-      // Aqui você pode exibir um toast/alert ou navegar para a listagem:
-       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Usuário criado com sucesso!' });
-      // this.router.navigate(['/usuarios']);
-    },
-    error: (err) => {
-      console.error('[UsuarioForm] Erro ao criar usuário', err);
-      // Aqui você pode exibir mensagem de erro amigável
-       this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Não foi possível criar o usuário.' });
-    }
-  });
+  this.createSolicitadoForms.emit(payload)
+ 
 }
 
 }

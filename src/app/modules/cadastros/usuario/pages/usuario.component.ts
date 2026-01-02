@@ -4,7 +4,7 @@ import { UsuarioHeaderComponent } from "../components/usuario-header/usuario-hea
 import { UsuarioService } from '../service/usuario-service';
 import { ProgressSpinner } from "primeng/progressspinner";
 import { CommonModule } from '@angular/common';
-import { DeleteUsuarioAction, UsuarioResponse } from '../models/usuario.model';
+import { DeleteUsuarioAction, UsuarioRequest, UsuarioResponse } from '../models/usuario.model';
 import { UsuarioTabsComponent } from "../components/usuario-tabs/usuario-tabs.component";
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
@@ -12,11 +12,11 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-usuario',
-  imports: [CommonModule, 
-    UsuarioHeaderComponent, 
+  imports: [CommonModule,
+    UsuarioHeaderComponent,
     UsuarioTabsComponent,
-    
-  
+
+
   ],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.scss'
@@ -26,15 +26,16 @@ export class UsuarioComponent implements OnInit, OnDestroy {
   usuarios: UsuarioResponse[] = [];
   loading = false;
   errorMsg = '';
+  activeTab = '0';
 
   private readonly destroy$: Subject<void> = new Subject();
-  private usuarioService =  inject(UsuarioService);
-  private confirmationService =  inject(ConfirmationService);
-   private messageService =  inject(MessageService);
-   private dialogService= inject(DialogService);
+  private usuarioService = inject(UsuarioService);
+  private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
+  private dialogService = inject(DialogService);
 
 
-  
+
   ngOnInit(): void {
     this.loadUsuarios();
   }
@@ -56,11 +57,9 @@ export class UsuarioComponent implements OnInit, OnDestroy {
     });
   }
 
-onDeleteUsuario(event: DeleteUsuarioAction): void {
-  console.log('Recebi do filho:', event);
-
- 
-   if (event) {
+  onDeleteUsuario(event: DeleteUsuarioAction): void {
+    console.log('Recebi do filho:', event);
+    if (event) {
       this.confirmationService.confirm({
         message: `Confirma a exclusão do usuário? "
          ${event?.nome}`,
@@ -69,47 +68,71 @@ onDeleteUsuario(event: DeleteUsuarioAction): void {
         acceptLabel: 'Sim',
         rejectLabel: 'Não',
         accept: () => this.deleteUsuario(event?.id),
-        })
+      })
     }
+  }
 
-  
-}
-  
 
   deleteUsuario(id: string) {
     if (id) {
       this.usuarioService
-      .deleteUsuario(id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-       next: (response) => {
-       this.loadUsuarios();
+        .deleteUsuario(id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => {
+            this.loadUsuarios();
             this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso',
-            detail: 'Usuário excluído com sucesso!',
-            life: 3000,
-        });
-        },
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Usuário excluído com sucesso!',
+              life: 3000,
+            });
+          },
           error: (err) => {
 
-          this.loadUsuarios();
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: 'Não foi possivel excluir  o Usuário!',
-            life: 3000,
-          });
+            this.loadUsuarios();
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Não foi possivel excluir  o Usuário!',
+              life: 3000,
+            });
           },
         });
       this.loadUsuarios();
     }
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
+  onCreateUsuario(payload: UsuarioRequest) {
+  this.usuarioService.criar(payload).subscribe({
+    next: (usuarioCriado) => {
+      console.log('[UsuarioForm] Usuário criado com sucesso', usuarioCriado);
 
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Usuário criado com sucesso!'
+      });
+      this.loadUsuarios();
+      
+    },
+    error: (err) => {
+       console.error('[UsuarioForm] Erro ao criar usuário', err);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Não foi possível criar o usuário.'
+      });
+    }
+  });
 }
+
+
+    ngOnDestroy(): void {
+      this.destroy$.next();
+      this.destroy$.complete();
+    }
+
+
+  }
