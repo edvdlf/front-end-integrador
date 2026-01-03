@@ -19,7 +19,6 @@ import { UsuarioService } from '../../service/usuario-service';
     ButtonModule,
     TooltipModule,
     TagModule,
-    Card,
     TableModule,
     
 ],

@@ -88,6 +88,7 @@ export class UsuarioFormComponent {
   console.log('[UsuarioForm] payload', payload);
 
   this.createSolicitadoForms.emit(payload)
+  this.form.reset()
  
 }
 

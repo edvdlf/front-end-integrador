@@ -1,176 +1,212 @@
 <div class="vetorit-card">
-        
-  
-    <p-card styleClass="shadow-3  text-orange-500" header="Usuários">
-      
-      <div class="card">
-        <p-table
-          class="vetorit-table"
-          #usuariosTable
-          [value]="usuarios"
-          [rows]="20"
-          [paginator]="true"
-          [globalFilterFields]="['grupo', 'id']"
-          [tableStyle]="{ 'min-width': '50rem' }"
-          styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm"
-          [rowHover]="true"
-          [showCurrentPageReport]="true"
-          dataKey="id"
-          [rowsPerPageOptions]="[5, 10, 20, 50, 100]"
-          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} funcionalidades"
-        >
-          <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
-              Listagem de usuários
-            </div>
-          </ng-template>
-          <ng-template pTemplate="header">
-            <tr>
-             
-              <th pSortableColumn="userName">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Login
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="userName"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="userName"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="firstName" style="width: 20rem">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Nome
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="firstName"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="firstName"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="perfil">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Perfil
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="perfil"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="perfil"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th style="width: 10rem" pSortableColumn="ativoDw">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Ativo
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="ativoDw"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="ativoDw"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th style="width: 12rem" pSortableColumn="ultimoAcesso">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Último acesso
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="ultimoAcesso"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="ultimoAcesso"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
+        <div class="card" data-cy="usuarios-table-card">
+  <p-table
+    class="vetorit-table"
+    #usuariosTable
+    [value]="usuarios"
+    [rows]="20"
+    [paginator]="true"
+    [globalFilterFields]="['grupo', 'id']"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+    dataKey="id"
+    [rowsPerPageOptions]="[5, 10, 20, 50, 100]"
+    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} funcionalidades"
+    data-cy="usuarios-table"
+  >
 
-              <th>
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Excluir
-                  </div>
-                </div>
-              </th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-dados>
-            <tr>
-              
-              <td style="text-align: left">{{ dados.userName }}</td>
-              <td style="text-align: left">
-                {{ dados.nome }}
-              </td>
-              <td style="text-align: left">{{ dados.role }}</td>
-              
-              <td style="text-align: left">
-                <p-tag
-                  [value]="getStatusText(dados.enabled)"
-                  [style]="{
-                    'background-color': getStatusColor(dados.enabled),
-                    color: 'white'
-                  }"
-                ></p-tag>
-              </td>
-              <td style="text-align: left">
-                {{ dados.ultimoAcesso | date : "dd-MM-yyyy HH:mm" }}
-              </td>
-              <td style="text-align: center">
-                <p-button
-                  [disabled]="
-                    dados.userName === 'master@master.com' ||
-                    dados.userName === 'admin@admin.com'
-                  "
-                  icon="pi pi-trash"
-                  styleClass="p-button-rounded p-button-secondary p-button-text"
-                  (onClick)="handleDeleteUsuarioEvent(dados)"
-                >
-                </p-button>
-              </td>
-            </tr>
-          </ng-template>
-          
-        </p-table>
+    <!-- CAPTION -->
+    <ng-template pTemplate="caption">
+      <div
+        class="flex align-items-center justify-content-between"
+        data-cy="usuarios-table-caption"
+      >
+        Listagem de usuários
       </div>
-    </p-card>
+    </ng-template>
+
+    <!-- HEADER -->
+    <ng-template pTemplate="header">
+      <tr>
+
+        <!-- LOGIN -->
+        <th pSortableColumn="userName" data-cy="usuarios-header-login">
+          <div class="flex justify-content-between align-items-center">
+            <span>Login</span>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="userName" data-cy="usuarios-sort-login"></p-sortIcon>
+              <p-columnFilter
+  field="userName"
+  display="menu"
+  matchMode="contains"
+  [showMatchModes]="false"
+  [showOperator]="false"
+  [showAddButton]="false"
+>
+  <ng-template pTemplate="filtericon">
+    <i class="pi pi-filter" data-cy="usuarios-filter-login-btn"></i>
+  </ng-template>
+
+  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+    <input
+      type="text"
+      class="p-inputtext p-component"
+      [value]="value ?? ''"
+      (input)="filter($event.target.value)"
+      data-cy="usuarios-filter-login-input"
+      placeholder="Filtrar login"
+    />
+  </ng-template>
+</p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <!-- NOME -->
+        <th pSortableColumn="firstName" style="width: 20rem" data-cy="usuarios-header-nome">
+          <div class="flex justify-content-between align-items-center">
+            <span>Nome</span>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="firstName" data-cy="usuarios-sort-nome"></p-sortIcon>
+
+              <p-columnFilter
+                type="text"
+                field="firstName"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                data-cy="usuarios-filter-nome"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <!-- PERFIL -->
+        <th pSortableColumn="perfil" data-cy="usuarios-header-perfil">
+          <div class="flex justify-content-between align-items-center">
+            <span>Perfil</span>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="perfil" data-cy="usuarios-sort-perfil"></p-sortIcon>
+
+              <p-columnFilter
+                type="text"
+                field="perfil"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                data-cy="usuarios-filter-perfil"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <!-- ATIVO -->
+        <th pSortableColumn="ativoDw" style="width: 10rem" data-cy="usuarios-header-ativo">
+          <div class="flex justify-content-between align-items-center">
+            <span>Ativo</span>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="ativoDw" data-cy="usuarios-sort-ativo"></p-sortIcon>
+
+              <p-columnFilter
+                type="text"
+                field="ativoDw"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                data-cy="usuarios-filter-ativo"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <!-- ÚLTIMO ACESSO -->
+        <th pSortableColumn="ultimoAcesso" style="width: 12rem" data-cy="usuarios-header-ultimo-acesso">
+          <div class="flex justify-content-between align-items-center">
+            <span>Último acesso</span>
+            <div class="flex align-items-center gap-2">
+              <p-sortIcon field="ultimoAcesso" data-cy="usuarios-sort-ultimo-acesso"></p-sortIcon>
+
+              <p-columnFilter
+                type="text"
+                field="ultimoAcesso"
+                display="menu"
+                matchMode="contains"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                data-cy="usuarios-filter-ultimo-acesso"
+              ></p-columnFilter>
+            </div>
+          </div>
+        </th>
+
+        <!-- EXCLUIR -->
+        <th data-cy="usuarios-header-acoes">
+          Excluir
+        </th>
+      </tr>
+    </ng-template>
+
+    <!-- BODY -->
+    <ng-template pTemplate="body" let-dados>
+      <tr data-cy="usuarios-row">
+
+        <td data-cy="usuarios-cell-login">
+          {{ dados.userName }}
+        </td>
+
+        <td data-cy="usuarios-cell-nome">
+          {{ dados.nome }}
+        </td>
+
+        <td data-cy="usuarios-cell-perfil">
+          {{ dados.role }}
+        </td>
+
+        <td data-cy="usuarios-cell-ativo">
+          <p-tag
+            [value]="getStatusText(dados.enabled)"
+            [style]="{
+              'background-color': getStatusColor(dados.enabled),
+              color: 'white'
+            }"
+            data-cy="usuarios-tag-ativo"
+          ></p-tag>
+        </td>
+
+        <td data-cy="usuarios-cell-ultimo-acesso">
+          {{ dados.ultimoAcesso | date : 'dd-MM-yyyy HH:mm' }}
+        </td>
+
+        <td style="text-align: center" data-cy="usuarios-cell-acoes">
+          <p-button
+            [disabled]="
+              dados.userName === 'master@master.com' ||
+              dados.userName === 'admin@admin.com'
+            "
+            icon="pi pi-trash"
+            styleClass="p-button-rounded p-button-secondary p-button-text"
+            (onClick)="handleDeleteUsuarioEvent(dados)"
+            data-cy="usuarios-btn-delete"
+          >
+          </p-button>
+        </td>
+
+      </tr>
+    </ng-template>
+
+  </p-table>
+</div>
+
+  
   </div>
 
 

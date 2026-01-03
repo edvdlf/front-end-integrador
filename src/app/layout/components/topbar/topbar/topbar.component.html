@@ -2,13 +2,15 @@
   <button type="button" (click)="toggleSidebar.emit()" class="menu-btn">
     <i class="pi pi-bars"></i>
   </button>
-
-  <div class="brand">
-    <img src="img/Logo_Integrador_Taxdocs_Avatax2.png" alt="Integrador Taxdocs Avatax" class="brand-logo" />
-    <strong>Taxdocs <span>Avatax</span></strong>
-  </div>
-
-  <!-- 🧑 Menu do Usuário no canto direito -->
+  
+    <a class="brand" routerLink="/dashboard" title="Ir para o Dashboard">
+      <img
+        src="img/Logo_Integrador_Taxdocs_Avatax2.png"
+        alt="Integrador Taxdocs Avatax"
+        class="brand-logo"
+      />
+      <strong>Taxdocs <span>Avatax</span></strong>
+    </a>
   <div class="user-menu">
     <div class="user-info" (click)="menu.toggle($event)">
       <i class="pi pi-user mr-2"></i>

@@ -1,66 +1,27 @@
 @use "sass:color";
 @use '../core/tokens' as t;
 
-/* styles/components/_topbar.scss */
 .topbar {
-  background: t.$topbar-bg;
   display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
+  justify-content: flex-start; 
+  gap: 0.75rem;
+  background: #ffffff;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #ddd;
   position: relative;
 
-  .brand {
-    display: flex;
-    align-items: center;
-
-    .brand-logo {
-      height: 45px;
-      margin-right: 1rem;
-    }
-  }
-
   .menu-btn {
-    position: absolute;
-    left: 240px; /* ajusta horizontalmente — depende da largura do logo */
-    top: 50%;
-    transform: translateY(-50%);
     background: color.adjust(t.$primary, $lightness: -5%);
     color: #fff;
     border: none;
     border-radius: t.$radius-md;
     padding: 0.4rem 0.6rem;
     cursor: pointer;
-     &:hover { background: color.adjust(t.$primary, $lightness: -10%) }
-  }
-
-  .brand-logo {
-    display: block;
-    height: calc(var(--topbar-h) - 12px);  // deixa uma folga (6px em cima/baixo)
-    max-height: 100%;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .brand strong {
-    font-family: t.$font-family;
-    font-size: 1.1rem;
-    line-height: 1;
-  }
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  padding: 0.8rem 1rem;
-  border-bottom: 1px solid #ddd;
-
-  .menu-btn {
-    background: none;
-    border: none;
-    font-size: 1.4rem;
-    cursor: pointer;
+    z-index: 10; 
+    &:hover {
+      background: color.adjust(t.$primary, $lightness: -10%);
+    }
   }
 
   .brand {
@@ -78,6 +39,7 @@
   }
 
   .user-menu {
+    margin-left: auto;
     cursor: pointer;
 
     .user-info {
@@ -89,16 +51,12 @@
       gap: 0.3rem;
       transition: background 0.2s;
 
-      &:hover {
-        background: #e8e8e8;
-      }
-
-      i {
-        font-size: 1rem;
-      }
+      &:hover { background: #e8e8e8; }
+      i { font-size: 1rem; }
     }
   }
 }
+
 
 
 
